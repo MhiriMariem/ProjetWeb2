@@ -13,19 +13,19 @@ if (isset($_POST['login'])) {
         $res = $us->getUser();         
         $data = $res->fetchAll(PDO::FETCH_ASSOC);            
 
-        if ($data) {
-            $_SESSION["connecte"] = "1";
-            $_SESSION["email"] = $data[0]["email"];
-            $_SESSION["role"] = $data[0]["role"];
+       if ($data) {
+    $_SESSION["connecte"] = "1";
+    $_SESSION["email"] = $data[0]["email"];
+    $_SESSION["role"] = $data[0]["role"];
+    $_SESSION["nom"] = $data[0]["nom"]; // ✅ AJOUT IMPORTANT
 
-            // Redirection selon rôle
-            if ($data[0]["role"] == "admin") {
-                header("location:backoffice/dashboard.php");
-            } else {
-                header("location:index.php");
-            }
-
-            exit();
+    if ($data[0]["role"] == "admin") {
+        header("Location: ../dashboard/src/index.php");
+    } else {
+        header("Location: index.php");
+    }
+    exit();
+}
         } else {
             echo "Aucun utilisateur trouvé";
         }

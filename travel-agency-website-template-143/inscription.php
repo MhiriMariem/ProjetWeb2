@@ -2,14 +2,15 @@
 session_start();
 require_once "pdo.php";
 
-$message = "";
+$cnx = new connexion();
+$conn = $cnx->CNXbase();
 
 if (isset($_POST["register"])) {
 
     $nom = $_POST["nom"];
     $email = $_POST["email"];
     $telephone = $_POST["telephone"];
-    $mot_de_passe = password_hash($_POST["pwd"], PASSWORD_DEFAULT);
+    $mot_de_passe = $_POST["pwd"]; 
     $role = "client";
 
     try {
@@ -19,10 +20,12 @@ if (isset($_POST["register"])) {
         $stmt = $conn->prepare($sql);
         $stmt->execute([$nom, $email, $telephone, $mot_de_passe, $role]);
 
-        $message = "Compte créé avec succès 👍";
+        header("Location: index.php?success=1");
+        exit();
 
     } catch (PDOException $e) {
-        $message = "Erreur : " . $e->getMessage();
+        header("Location: inscription.html?error=1");
+        exit();
     }
 }
 ?>
