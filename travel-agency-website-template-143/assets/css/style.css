@@ -528,8 +528,22 @@ ul.slick-dots {
 .slick-loading .slick-slide{visibility:hidden}
 .slick-vertical .slick-slide{display:block;height:auto;border:1px solid transparent}
 
+.nav-profile-icon {
+  display: flex;
+  align-items: center;
+  margin-left: 15px;   /* 🔥 espace avec le menu */
+  margin-right: 10px;  /* 🔥 espace avec le bord droit */
+}
 
+.nav-profile-icon i {
+  font-size: 28px;
+  color: #fff;
+  transition: 0.3s;
+}
 
+.nav-profile-icon:hover i {
+  color: #f33f3f;
+}
 
 /* Request Form */
 
@@ -567,7 +581,9 @@ ul.slick-dots {
 
 .service-item img {
 	width: 100%;
-	overflow: hidden;
+  height: 250px;       /* même hauteur pour toutes les images */
+  object-fit: cover;   /* garde le bon ratio sans déformation */
+  border-radius: 5px;  /* optionnel (design) */
 }
 
 .service-item .down-content {

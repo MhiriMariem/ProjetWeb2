@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,7 +35,7 @@
     <!-- ***** Preloader End ***** -->
 
     <!-- Header -->
-    <div class="sub-header">
+    <!-- <div class="sub-header">
       <div class="container">
         <div class="row">
           <div class="col-md-8 col-xs-12">
@@ -50,11 +53,12 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <header class="">
       <nav class="navbar navbar-expand-lg">
         <div class="container">
+          
           <a class="navbar-brand" href="index.html"><h2>Camp&Co</h2></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -69,24 +73,32 @@
               <li class="nav-item">
                 <a class="nav-link" href="categorie.html">Produits</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="blog.html">Blog</a>
+             <li class="nav-item">
+                <a class="nav-link" href="login.html">login</a>
               </li>
-              <li class="nav-item dropdown">
-                <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">About</a>
-              
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="about.html">A</a>
-                    <a class="dropdown-item" href="testimonials.html">Testimonials</a>
-                    <a class="dropdown-item" href="terms.html">Terms</a>
-                </div>
+             <li class="nav-item dropdown active">
+                <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">À propos</a>
+
+
+<div class="dropdown-menu">
+<a class="dropdown-item active" href="about.html">À propos</a>
+  <a class="dropdown-item" href="testimonials.html">Avis clients</a>
+  <a class="dropdown-item" href="terms.html">Conditions</a>
+</div>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="contact.html">Contact Us</a>
               </li>
+              <li class="nav-item">
+    <a href="profile.html" class="nav-link nav-profile-icon">
+      <i class="fa fa-user"></i>
+    </a>
+  </li>
             </ul>
+            
           </div>
         </div>
+        
       </nav>
     </header>
 
@@ -101,7 +113,7 @@
                  <h6>Explorez la nature autrement</h6>
                   <h4>Camp&Co <br> Outdoor Equipment</h4>
                     <p>Tout le matériel essentiel pour vos aventures : tentes, sacs de couchage, lampes et équipements outdoor.</p>
-                  <a href="packages.html" class="filled-button">Voir les produits</a>
+                  <a href="categorie.html" class="filled-button">Voir les produits</a>
                 </div>
             </div>
           </div>
@@ -140,40 +152,38 @@
     <!-- Banner Ends Here -->
 
     <div class="request-form">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-8">
-            <h4>Request a call back right now ?</h4>
-            <span>Mauris ut dapibus velit cras interdum nisl ac urna tempor mollis.</span>
-          </div>
-          <div class="col-md-4">
-            <a href="contact.html" class="border-button">À propos</a>
-          </div>
-        </div>
+  <div class="container">
+    <div class="row align-items-center">
+      
+      <div class="col-md-8">
+        <h4>Besoin d’aide pour votre équipement ?</h4>
+        <span>Contactez-nous dès maintenant pour choisir le meilleur matériel de camping adapté à vos besoins.</span>
       </div>
+
+      <div class="col-md-4 text-md-end text-center mt-3 mt-md-0">
+        <a href="contact.html" class="border-button">Contactez-nous</a>
+      </div>
+
     </div>
+  </div>
+</div>
 
     <div class="services">
       <div class="container">
         <div class="row">
           <div class="col-md-12">
             <div class="section-heading">
-              <h2>Featured <em>Produits</em></h2>
-              <span>Aliquam id urna imperdiet libero mollis hendrerit</span>
+             <h2>Nos <em>produits vedettes</em></h2>
+              <span>Découvrez notre sélection d’équipements de camping les plus populaires</span>
             </div>
           </div>
           <div class="col-md-4">
             <div class="service-item">
-              <img src="assets/images/product-1-720x480.jpg" alt="">
+              <img src="assets/images/tente.jpg" alt=""></a>
               <div class="down-content">
-                <h4>Lorem ipsum dolor sit amet</h4>
-                <div style="margin-bottom:10px;">
-                  <span> <sup>$</sup>300.00 - <sup>$</sup>400.00 </span>
-                </div>
-
-                <p>Nullam nibh mi, tincidunt sed sapien ut, rutrum hendrerit velit. Integer auctor a mauris sit amet eleifend.</p>
-
-                <a href="package-details.html" class="filled-button">View More</a>
+                <h4>Tentes & Abri</h4>
+             
+              <a href="tente.html" class="filled-button">Voir plus</a>
               </div>
             </div>
 
@@ -181,16 +191,12 @@
           </div>
           <div class="col-md-4">
             <div class="service-item">
-              <img src="assets/images/product-2-720x480.jpg" alt="">
+              <img src="assets/images/hyg.jpg" alt="">
               <div class="down-content">
-                <h4>Lorem ipsum dolor sit amet</h4>
-                <div style="margin-bottom:10px;">
-                  <span> <sup>$</sup>300.00 - <sup>$</sup>400.00 </span>
-                </div>
+                <h4>Hygiène & Confort</h4>
+                              
 
-                <p>Nullam nibh mi, tincidunt sed sapien ut, rutrum hendrerit velit. Integer auctor a mauris sit amet eleifend.</p>
-
-                <a href="package-details.html" class="filled-button">View More</a>
+                 <a href="hyg.html" class="filled-button">Voir plus</a>
               </div>
             </div>
 
@@ -198,16 +204,10 @@
           </div>
           <div class="col-md-4">
             <div class="service-item">
-              <img src="assets/images/product-3-720x480.jpg" alt="">
-              <div class="down-content">
-                <h4>Lorem ipsum dolor sit amet</h4>
-                <div style="margin-bottom:10px;">
-                  <span> <sup>$</sup>300.00 - <sup>$</sup>400.00 </span>
-                </div>
-
-                <p>Nullam nibh mi, tincidunt sed sapien ut, rutrum hendrerit velit. Integer auctor a mauris sit amet eleifend.</p>
-
-                <a href="package-details.html" class="filled-button">View More</a>
+                <img src="assets/images/couchage.webp" alt="">
+                <div class="down-content">
+                <h4>Couchage</h4>
+                 <a href="couchage.html" class="filled-button">Voir plus</a>
               </div>
             </div>
 
@@ -235,64 +235,15 @@
               Nous proposons des tentes, sacs de couchage, lampes et accessoires pour vos aventures en pleine nature.
               Notre objectif est de vous offrir qualité, confort et sécurité partout où vous allez.
             </p>         
-                   <a href="about.html" class="filled-button">Read More</a>
-              </div>
+              <a href="about.html" class="filled-button">En savoir plus</a>       
+                   </div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="more-info">
-      <div class="container">
-        <div class="section-heading">
-          <h2>Read our <em>Blog</em></h2>
-          <span>Aliquam id urna imperdiet libero mollis hendrerit</span>
-        </div>
-
-        <div class="row" id="tabs">
-          <div class="col-md-4">
-            <ul>
-              <li><a href='#tabs-1'>Lorem ipsum dolor sit amet, consectetur adipisicing <br> <small>John Doe &nbsp;|&nbsp; 27.07.2020 10:10</small></a></li>
-              <li><a href='#tabs-2'>Mauris lobortis quam id dictum dignissim <br> <small>John Doe &nbsp;|&nbsp; 27.07.2020 10:10</small></a></li>
-              <li><a href='#tabs-3'>Class aptent taciti sociosqu ad litora torquent per <br> <small>John Doe &nbsp;|&nbsp; 27.07.2020 10:10</small></a></li>
-            </ul>
-
-            <br>
-
-            <div class="text-center">
-              <a href="blog.html" class="filled-button">Read More</a>
-            </div>
-
-            <br>
-          </div>
-
-          <div class="col-md-8">
-            <section class='tabs-content'>
-              <article id='tabs-1'>
-                <img src="assets/images/blog-image-1-940x460.jpg" alt="">
-                <h4><a href="blog-details.html">Lorem ipsum dolor sit amet, consectetur adipisicing.</a></h4>
-                <p>Sed ut dolor in augue cursus ultrices. Vivamus mauris turpis, auctor vel facilisis in, tincidunt vel diam. Sed vitae scelerisque orci. Nunc non magna orci. Aliquam commodo mauris ante, quis posuere nibh vestibulum sit amet.</p>
-              </article>
-              <article id='tabs-2'>
-                <img src="assets/images/blog-image-2-940x460.jpg" alt="">
-                <h4><a href="blog-details.html">Mauris lobortis quam id dictum dignissim</a></h4>
-                <p>Sed ut dolor in augue cursus ultrices. Vivamus mauris turpis, auctor vel facilisis in, tincidunt vel diam. Sed vitae scelerisque orci. Nunc non magna orci. Aliquam commodo mauris ante, quis posuere nibh vestibulum sit amet</p>
-              </article>
-              <article id='tabs-3'>
-                <img src="assets/images/blog-image-3-940x460.jpg" alt="">
-                <h4><a href="blog-details.html">Class aptent taciti sociosqu ad litora torquent per</a></h4>
-                <p>Mauris lobortis quam id dictum dignissim. Donec pellentesque erat dolor, cursus dapibus turpis hendrerit quis. Suspendisse at suscipit arcu. Nulla sed erat lectus. Nulla facilisi. In sit amet neque sapien. Donec scelerisque mi at gravida efficitur. Nunc lacinia a est eu malesuada. Curabitur eleifend elit sapien, sed pulvinar orci luctus eget. 
-                </p>
-              </article>
-            </section>
-          </div>
-        </div>
-
-        
-      </div>
-    </div>
-
+    
    <div class="testimonials">
   <div class="container">
     <div class="row">
@@ -406,82 +357,79 @@
 
     <!-- Footer Starts Here -->
     <footer>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-3 footer-item">
-            <h4>Camp&Co</h4>
-            <p>Vivamus tellus mi. Nulla ne cursus elit,vulputate. Sed ne cursus augue hasellus lacinia sapien vitae.</p>
-            <ul class="social-icons">
-              <li><a rel="nofollow" href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
-              <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-              <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-            </ul>
-          </div>
-          <div class="col-md-3 footer-item">
-            <h4>Useful Links</h4>
-            <ul class="menu-list">
-              <li><a href="#">Vivamus ut tellus mi</a></li>
-              <li><a href="#">Nulla nec cursus elit</a></li>
-              <li><a href="#">Vulputate sed nec</a></li>
-              <li><a href="#">Cursus augue hasellus</a></li>
-              <li><a href="#">Lacinia ac sapien</a></li>
-            </ul>
-          </div>
-          <div class="col-md-3 footer-item">
-            <h4>Additional Pages</h4>
-            <ul class="menu-list">
-              <li><a href="#">About Us</a></li>
-              <li><a href="#">Blog</a></li>
-              <li><a href="#">Testimonials</a></li>
-              <li><a href="#">Contact Us</a></li>
-              <li><a href="#">Terms</a></li>
-            </ul>
-          </div>
-          <div class="col-md-3 footer-item last-item">
-            <h4>Contact Us</h4>
-            <div class="contact-form">
-              <form id="contact footer-contact" action="" method="post">
-                <div class="row">
-                  <div class="col-lg-12 col-md-12 col-sm-12">
-                    <fieldset>
-                      <input name="name" type="text" class="form-control" id="name" placeholder="Full Name" required="">
-                    </fieldset>
-                  </div>
-                  <div class="col-lg-12 col-md-12 col-sm-12">
-                    <fieldset>
-                      <input name="email" type="text" class="form-control" id="email" pattern="[^ @]*@[^ @]*" placeholder="E-Mail Address" required="">
-                    </fieldset>
-                  </div>
-                  <div class="col-lg-12">
-                    <fieldset>
-                      <textarea name="message" rows="6" class="form-control" id="message" placeholder="Your Message" required=""></textarea>
-                    </fieldset>
-                  </div>
-                  <div class="col-lg-12">
-                    <fieldset>
-                      <button type="submit" id="form-submit" class="filled-button">Send Message</button>
-                    </fieldset>
-                  </div>
-                </div>
-              </form>
+  <div class="container">
+    <div class="row">
+
+      <!-- LOGO + DESCRIPTION -->
+      <div class="col-md-3 footer-item">
+        <h4>Camp&Co</h4>
+        <p>
+          Camp&Co est votre boutique spécialisée en équipements de camping et outdoor.
+          Nous vous accompagnons dans toutes vos aventures en pleine nature.
+        </p>
+        <ul class="social-icons">
+          <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+          <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+          <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+        </ul>
+      </div>
+
+      <!-- LIENS UTILES -->
+      <div class="col-md-3 footer-item">
+        <h4>Liens utiles</h4>
+        <ul class="menu-list">
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="packages.html">Produits</a></li>
+          <li><a href="about.html">À propos</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+
+      <!-- PAGES -->
+      <div class="col-md-3 footer-item">
+        <h4>Pages</h4>
+        <ul class="menu-list">
+          <li><a href="tente.html">Tentes & Abris</a></li>
+          <li><a href="couchage.html">Couchage</a></li>
+          <li><a href="hyg.html">Hygiène & Confort</a></li>
+          <li><a href="#">Conditions d’utilisation</a></li>
+        </ul>
+      </div>
+
+      <!-- CONTACT -->
+      <div class="col-md-3 footer-item last-item">
+        <h4>Contact</h4>
+        <div class="contact-form">
+          <form action="" method="post">
+            <div class="row">
+              
+              <div class="col-lg-12">
+                <input name="name" type="text" class="form-control" placeholder="Nom complet" required>
+              </div>
+
+              <div class="col-lg-12">
+                <input name="email" type="email" class="form-control" placeholder="Email" required>
+              </div>
+
+              <div class="col-lg-12">
+                <textarea name="message" rows="4" class="form-control" placeholder="Votre message" required></textarea>
+              </div>
+
+              <div class="col-lg-12">
+                <button type="submit" class="filled-button">Envoyer</button>
+              </div>
+
             </div>
-          </div>
+          </form>
         </div>
       </div>
-    </footer>
-    
-    <div class="sub-footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <p>
-                Copyright © 2020 Company Name
-                - Template by: <a href="https://www.phpjabbers.com/">PHPJabbers.com</a>
-            </p>
-          </div>
-        </div>
-      </div>
+
     </div>
+  </div>
+</footer>
+    
+  
 
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
