@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -12,7 +13,35 @@
 </head>
 
 <body>
+<?php
+session_start();
+require_once "pdo.php";
 
+if (!isset($_SESSION["connecte"]) || $_SESSION["role"] != "client") {
+    header("Location: ../template/login.php");
+    exit();
+}
+
+$email = $_SESSION["email"]; // IMPORTANT
+
+$cnx = new connexion();
+$conn = $cnx->CNXbase();
+
+$stmt = $conn->prepare("SELECT nom, email, telephone, role FROM utilisateur WHERE email = ?");
+$stmt->execute([$email]);
+
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// sécurité
+if (!$user) {
+    $user = [
+        "nom" => "",
+        "email" => "",
+        "telephone" => "",
+        "role" => ""
+    ];
+}
+?>
 <header class="text-center py-3">
     <h3><a href="index.php" style="text-decoration:none;color:#000;">Camp&Co</a></h3>
 </header>

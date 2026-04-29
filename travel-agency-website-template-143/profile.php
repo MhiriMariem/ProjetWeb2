@@ -1,5 +1,4 @@
 <?php
-// ====================== PHP EN HAUT ======================
 session_start();
 require_once "pdo.php";
 
@@ -15,10 +14,10 @@ $conn = $cnx->CNXbase();
 
 $stmt = $conn->prepare("SELECT nom, email, telephone, role FROM utilisateur WHERE email = ?");
 $stmt->execute([$email]);
+
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$user) {
-    echo "Erreur : Utilisateur introuvable.";
-    exit();
+    die("Utilisateur introuvable");
 }
 ?>

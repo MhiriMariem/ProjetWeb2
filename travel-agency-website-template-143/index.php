@@ -1,5 +1,10 @@
 <?php
 session_start();
+if (!isset($_SESSION["connecte"])) {
+    header("Location: login.html");
+    exit();
+}
+?>
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -90,7 +95,7 @@ session_start();
                 <a class="nav-link" href="contact.html">Contact Us</a>
               </li>
               <li class="nav-item">
-    <a href="profile.html" class="nav-link nav-profile-icon">
+    <a href="profil.php" class="nav-link nav-profile-icon">
       <i class="fa fa-user"></i>
     </a>
   </li>

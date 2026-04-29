@@ -11,14 +11,16 @@ if (isset($_POST["register"])) {
     $email = $_POST["email"];
     $telephone = $_POST["telephone"];
     $mot_de_passe = $_POST["pwd"]; 
+
     $role = "client";
+    $hashedPassword = md5($mot_de_passe);
 
     try {
         $sql = "INSERT INTO utilisateur(nom, email, telephone, mot_de_passe, role)
                 VALUES (?, ?, ?, ?, ?)";
 
         $stmt = $conn->prepare($sql);
-        $stmt->execute([$nom, $email, $telephone, $mot_de_passe, $role]);
+        $stmt->execute([$nom, $email, $telephone, $hashedPassword, $role]);
 
         header("Location: index.php?success=1");
         exit();

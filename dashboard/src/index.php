@@ -100,7 +100,8 @@ if (!isset($_SESSION["connecte"]) || $_SESSION["role"] != "admin") {
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="../travel-agency-website-template-143/logout.php">
+
+              <a class="nav-link" href="../../travel-agency-website-template-143/logout.php">
                 <span class="menu-title">Déconnexion</span>
                 <i class="mdi mdi-logout menu-icon"></i>
               </a>
