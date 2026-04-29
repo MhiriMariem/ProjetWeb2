@@ -5,7 +5,7 @@ if (!isset($_SESSION["connecte"])) {
     exit();
 }
 ?>
-?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -78,9 +78,9 @@ if (!isset($_SESSION["connecte"])) {
               <li class="nav-item">
                 <a class="nav-link" href="categorie.html">Produits</a>
               </li>
-             <li class="nav-item">
+             <!-- <li class="nav-item">
                 <a class="nav-link" href="login.html">login</a>
-              </li>
+              </li> -->
              <li class="nav-item dropdown active">
                 <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">À propos</a>
 
