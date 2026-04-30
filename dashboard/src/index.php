@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION["connecte"]) || $_SESSION["role"] != "admin") {
-    header("Location: ../../template/login.php");
+    header("Location: ../../travel-agency-website-template-143/login.php");
     exit();
 }
 ?>
@@ -98,7 +98,18 @@ if (!isset($_SESSION["connecte"]) || $_SESSION["role"] != "admin") {
                 <i class="mdi mdi-plus-circle menu-icon"></i>
               </a>
             </li>
-
+            <li class="nav-item">
+              <a class="nav-link" href="ajouter_categorie.php">
+                <span class="menu-title">Ajouter une Catégorie</span>
+                <i class="mdi mdi-plus-circle menu-icon"></i>
+              </a>
+            </li>
+ <li class="nav-item">
+              <a class="nav-link" href="liste_categorie.php">
+                <span class="menu-title">Gestion des Catégories</span>
+                <i class="mdi mdi-plus-circle menu-icon"></i>
+              </a>
+            </li>
             <li class="nav-item">
 
               <a class="nav-link" href="../../travel-agency-website-template-143/logout.php">
