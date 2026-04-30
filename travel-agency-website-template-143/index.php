@@ -1,6 +1,11 @@
 <?php
 session_start();
+if (!isset($_SESSION["connecte"])) {
+    header("Location: login.html");
+    exit();
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -73,9 +78,9 @@ session_start();
               <li class="nav-item">
                 <a class="nav-link" href="categorie.html">Produits</a>
               </li>
-             <li class="nav-item">
+             <!-- <li class="nav-item">
                 <a class="nav-link" href="login.html">login</a>
-              </li>
+              </li> -->
              <li class="nav-item dropdown active">
                 <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">À propos</a>
 
@@ -90,7 +95,7 @@ session_start();
                 <a class="nav-link" href="contact.html">Contact Us</a>
               </li>
               <li class="nav-item">
-    <a href="profile.html" class="nav-link nav-profile-icon">
+    <a href="profil.php" class="nav-link nav-profile-icon">
       <i class="fa fa-user"></i>
     </a>
   </li>
