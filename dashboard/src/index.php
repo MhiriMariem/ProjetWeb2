@@ -5,6 +5,24 @@ if (!isset($_SESSION["connecte"]) || $_SESSION["role"] != "admin") {
     header("Location: ../../travel-agency-website-template-143/login.php");
     exit();
 }
+
+/* CONNEXION DB */
+require_once('../../travel-agency-website-template-143/pdo.php');
+
+$cnx = new connexion();
+$pdo = $cnx->CNXbase();
+
+/* =========================
+   STATISTIQUES
+========================= */
+
+// PRODUITS
+$stmt = $pdo->query("SELECT COUNT(*) AS total_produits FROM produit");
+$totalProduits = $stmt->fetch(PDO::FETCH_ASSOC)['total_produits'];
+
+// CLIENTS (table utilisateur)
+$stmt2 = $pdo->query("SELECT COUNT(*) AS total_clients FROM utilisateur");
+$totalClients = $stmt2->fetch(PDO::FETCH_ASSOC)['total_clients'];
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -134,40 +152,63 @@ if (!isset($_SESSION["connecte"]) || $_SESSION["role"] != "admin") {
             </div>
 
             <!-- Statistiques - Tu peux les modifier plus tard -->
-            <div class="row">
-              <div class="col-md-4 stretch-card grid-margin">
-                <div class="card bg-gradient-danger card-img-holder text-white">
-                  <div class="card-body">
-                    <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-                    <h4 class="font-weight-normal mb-3">Produits Total <i class="mdi mdi-chart-line mdi-24px float-end"></i></h4>
-                    <h2 class="mb-5">24</h2>
-                    <h6 class="card-text">+12 ce mois</h6>
-                  </div>
-                </div>
-              </div>
+           <div class="row">
 
-              <div class="col-md-4 stretch-card grid-margin">
-                <div class="card bg-gradient-info card-img-holder text-white">
-                  <div class="card-body">
-                    <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-                    <h4 class="font-weight-normal mb-3">Commandes <i class="mdi mdi-bookmark-outline mdi-24px float-end"></i></h4>
-                    <h2 class="mb-5">18</h2>
-                    <h6 class="card-text">-3 cette semaine</h6>
-                  </div>
-                </div>
-              </div>
+  <!-- PRODUITS -->
+  <div class="col-md-4 stretch-card grid-margin">
+    <div class="card bg-gradient-danger card-img-holder text-white">
+      <div class="card-body">
+        <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
 
-              <div class="col-md-4 stretch-card grid-margin">
-                <div class="card bg-gradient-success card-img-holder text-white">
-                  <div class="card-body">
-                    <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-                    <h4 class="font-weight-normal mb-3">Clients <i class="mdi mdi-diamond mdi-24px float-end"></i></h4>
-                    <h2 class="mb-5">142</h2>
-                    <h6 class="card-text">+8 cette semaine</h6>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <h4 class="font-weight-normal mb-3">
+          Produits Total
+        </h4>
+
+        <h2 class="mb-5">
+          <?= $totalProduits ?>
+        </h2>
+
+        <h6 class="card-text">Données en temps réel</h6>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMMANDES (statique ou futur) -->
+  <div class="col-md-4 stretch-card grid-margin">
+    <div class="card bg-gradient-info card-img-holder text-white">
+      <div class="card-body">
+        <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+
+        <h4 class="font-weight-normal mb-3">
+          Commandes
+        </h4>
+
+        <h2 class="mb-5">18</h2>
+        <h6 class="card-text">Statique</h6>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLIENTS -->
+  <div class="col-md-4 stretch-card grid-margin">
+    <div class="card bg-gradient-success card-img-holder text-white">
+      <div class="card-body">
+        <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+
+        <h4 class="font-weight-normal mb-3">
+          Clients
+        </h4>
+
+        <h2 class="mb-5">
+          <?= $totalClients ?>
+        </h2>
+
+        <h6 class="card-text">Inscription système</h6>
+      </div>
+    </div>
+  </div>
+
+</div>
 
             <!-- Graphiques et tableau (tu peux les laisser ou modifier plus tard) -->
             <div class="row">

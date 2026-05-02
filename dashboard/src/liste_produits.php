@@ -6,7 +6,6 @@ if (!isset($_SESSION["connecte"]) || $_SESSION["role"] != "admin") {
     exit();
 }
 
-/* CONNEXION */
 require_once('../../travel-agency-website-template-143/pdo.php');
 
 $cnx = new connexion();
@@ -16,7 +15,7 @@ $pdo = $cnx->CNXbase();
 if (isset($_GET['delete'])) {
     $id = $_GET['delete'];
 
-    $stmt = $pdo->prepare("DELETE FROM produit WHERE id=?");
+    $stmt = $pdo->prepare("DELETE FROM produit WHERE id_produit=?");
     $stmt->execute([$id]);
 
     header("Location: liste_produits.php");
@@ -31,12 +30,16 @@ if (isset($_POST['update'])) {
     $description = $_POST['description'];
     $prix = $_POST['prix'];
     $stock = $_POST['stock'];
+    $image = $_POST['image'];
 
-    $stmt = $pdo->prepare("UPDATE produit 
-        SET nom=?, description=?, prix=?, stock=? 
-        WHERE id=?");
 
-    $stmt->execute([$nom, $description, $prix, $stock, $id]);
+    $stmt = $pdo->prepare("
+        UPDATE produit 
+        SET nom=?, description=?, prix=?, stock=?, image=? 
+        WHERE id_produit=?
+    ");
+
+    $stmt->execute([$nom, $description, $prix, $stock, $image, $id]);
 
     header("Location: liste_produits.php");
     exit();
@@ -48,15 +51,18 @@ $editProd = null;
 if (isset($_GET['edit'])) {
     $id = $_GET['edit'];
 
-    $stmt = $pdo->prepare("SELECT * FROM produit WHERE id=?");
+    $stmt = $pdo->prepare("SELECT * FROM produit WHERE id_produit=?");
     $stmt->execute([$id]);
-    $editProd = $stmt->fetch();
+    $editProd = $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
 /* LISTE PRODUITS */
-$sql = "SELECT produit.*, categorie.nom AS cat_nom
+$sql = "SELECT produit.id_produit, produit.nom, produit.description, produit.prix,
+               produit.stock, produit.image,
+               categorie.nom AS cat_nom
         FROM produit
         LEFT JOIN categorie ON produit.categorie_id = categorie.id";
+
 $res = $pdo->query($sql);
 ?>
 
@@ -66,7 +72,8 @@ $res = $pdo->query($sql);
 <meta charset="utf-8">
 <title>Gestion Produits</title>
 
-<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
+<link rel="stylesheet" href="assets/css/style.css">
 
 <style>
 .prod-img{
@@ -84,72 +91,67 @@ $res = $pdo->query($sql);
 
 <body>
 
-<div class="col-md-10 col-xs-12">
+<div class="container-scroller">
+<div class="container-fluid page-body-wrapper">
+<div class="main-panel">
+<div class="content-wrapper">
 
-<div class="panel panel-info">
+<h3>Gestion des Produits</h3>
 
-<h1 class="panel-heading">Gestion des Produits</h1>
+<table class="table table-striped">
 
-<div class="panel-body">
-
-<br><br>
-
-<table border="1" class="table table-striped">
-
+<thead>
 <tr>
+    <th>Image</th>
     <th>Nom</th>
     <th>Description</th>
     <th>Prix</th>
-    <th>Quantité</th>
+    <th>Stock</th>
     <th>Catégorie</th>
-    <th>Image</th>
     <th>Actions</th>
 </tr>
+</thead>
+
+<tbody>
 
 <?php while ($row = $res->fetch()) { ?>
 
 <tr>
 
-    <td><?= $row['nom'] ?></td>
+<td>
+<img class="prod-img"
+     src="/ProjetWeb/travel-agency-website-template-143/assets/images/<?= htmlspecialchars($row['image']) ?>">
+</td>
 
-    <td><?= $row['description'] ?></td>
+    <td><?= htmlspecialchars($row['nom']) ?></td>
+    <td><?= htmlspecialchars($row['description']) ?></td>
+    <td><?= htmlspecialchars($row['prix']) ?> TND</td>
+    <td><?= htmlspecialchars($row['stock']) ?></td>
+    <td><?= htmlspecialchars($row['cat_nom']) ?></td>
 
-    <td><?= $row['prix'] ?> TND</td>
+    <td class="btns">
 
-    <td><?= $row['stock'] ?></td>
+        <a href="?edit=<?= $row['id_produit'] ?>"
+           class="btn btn-warning btn-sm">
+            Modifier
+        </a>
 
-    <td><?= $row['cat_nom'] ?></td>
-
-    <td>
-        <img src="../../uploads/<?= $row['image'] ?>" width="50" height="50">
-    </td>
-
-    <td>
-
-    <?php
-    $id = $row['id'];
-    ?>
-
-    <a href="?delete=<?= $id ?>" 
-       onclick="return confirm('Supprimer ce produit ?')" 
-       class="btn btn-danger btn-sm">
-        Supprimer
-    </a>
-
-    <a href="?edit=<?= $id ?>" 
-       class="btn btn-warning btn-sm">
-        Modifier
-    </a>
+        <a href="?delete=<?= $row['id_produit'] ?>"
+           class="btn btn-danger btn-sm"
+           onclick="return confirm('Supprimer ce produit ?')">
+            Supprimer
+        </a>
 
     </td>
-    
 
 </tr>
 
 <?php } ?>
+
+</tbody>
 </table>
 
-<!-- FORM MODIF -->
+<!-- FORMULAIRE MODIFICATION -->
 <?php if ($editProd) { ?>
 
 <hr>
@@ -158,19 +160,27 @@ $res = $pdo->query($sql);
 
 <form method="POST">
 
-    <input type="hidden" name="id" value="<?= $editProd['id'] ?>">
+    <input type="hidden" name="id" value="<?= $editProd['id_produit'] ?>">
 
-    <input type="text" name="nom" value="<?= $editProd['nom'] ?>"><br><br>
+    <input class="form-control mb-2" type="text" name="nom"
+           value="<?= htmlspecialchars($editProd['nom']) ?>">
 
-    <textarea name="description"><?= $editProd['description'] ?></textarea><br><br>
+    <textarea class="form-control mb-2"
+              name="description"><?= htmlspecialchars($editProd['description']) ?></textarea>
 
-    <input type="number" name="prix" value="<?= $editProd['prix'] ?>"><br><br>
+    <input class="form-control mb-2" type="number" name="prix"
+           value="<?= htmlspecialchars($editProd['prix']) ?>">
 
-    <input type="number" name="stock" value="<?= $editProd['stock'] ?>"><br><br>
+    <input class="form-control mb-2" type="number" name="stock"
+           value="<?= htmlspecialchars($editProd['stock']) ?>">
 
     <button type="submit" name="update" class="btn btn-success">
         Enregistrer
     </button>
+
+    <a href="liste_produits.php" class="btn btn-secondary">
+        Annuler
+    </a>
 
 </form>
 
@@ -178,7 +188,7 @@ $res = $pdo->query($sql);
 
 </div>
 </div>
-
+</div>
 </div>
 
 </body>
