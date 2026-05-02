@@ -1425,3 +1425,15 @@ footer .contact-form button.filled-button:hover {
 
 h5 a { color:var(--military-green); } 
 h5 a:hover { color: inherit; } 
+
+
+
+.btns a {
+    border-radius: 20px;
+    font-size: 12px;
+    transition: 0.3s;
+}
+
+.btns a:hover {
+    transform: scale(1.05);
+}

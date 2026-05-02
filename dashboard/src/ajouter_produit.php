@@ -8,6 +8,11 @@ if (!isset($_SESSION["connecte"]) || $_SESSION["role"] != "admin") {
     header("Location: ../../travel-agency-website-template-143/login.php");
     exit();
 }
+require_once('../../travel-agency-website-template-143/pdo.php');
+
+$cnx = new connexion();
+$pdo = $cnx->CNXbase();
+$cats = $pdo->query("SELECT * FROM categorie");
 
 // Traitement formulaire
 if (isset($_POST['ajouter'])) {
@@ -16,7 +21,7 @@ if (isset($_POST['ajouter'])) {
     $description = htmlspecialchars($_POST['description']);
     $prix = $_POST['prix'];
     $stock = $_POST['stock'];
-    $categorie = htmlspecialchars($_POST['categorie']);
+    $categorie_id = $_POST['categorie_id'];
 
     // Gestion image
     $image = $_FILES['image']['name'];
@@ -30,8 +35,8 @@ if (isset($_POST['ajouter'])) {
     }
 
     // Insertion sécurisée
-    $sql = "INSERT INTO produit (nom, description, prix, stock, categorie, image)
-            VALUES (:nom, :description, :prix, :stock, :categorie, :image)";
+    $sql = "INSERT INTO produit (nom, description, prix, stock, categorie_id, image)
+            VALUES (:nom, :description, :prix, :stock, :categorie_id, :image)";
 
     $stmt = $pdo->prepare($sql);
     $stmt->execute([
@@ -39,11 +44,12 @@ if (isset($_POST['ajouter'])) {
         ':description' => $description,
         ':prix' => $prix,
         ':stock' => $stock,
-        ':categorie' => $categorie,
+        ':categorie_id' => $categorie_id,
         ':image' => $image
     ]);
 
-    $message = "<div class='alert alert-success'>Produit ajouté avec succès ✅</div>";
+    header("Location: liste_produits.php?success=1");
+    exit();
 }
 ?>
 
@@ -110,7 +116,19 @@ if (isset($_POST['ajouter'])) {
 
                                     <div class="form-group">
                                         <label>Catégorie</label>
-                                        <input type="text" name="categorie" class="form-control">
+                                    
+
+                                        <select name="categorie_id" class="form-control" required>
+                                            <option value="">-- Choisir une catégorie --</option>
+
+                                            <?php while($c = $cats->fetch()) { ?>
+                                                <option value="<?= $c['id'] ?>">
+                                                    <?= $c['nom'] ?>
+                                                </option>
+                                            <?php } ?>
+
+                                        </select>
+                            
                                     </div>
 
                                     <div class="form-group">

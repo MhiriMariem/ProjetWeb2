@@ -44,7 +44,8 @@ if (isset($_POST['ajouter'])) {
         ':image' => $image
     ]);
 
-    $message = "<div class='alert alert-success'>Catégorie ajoutée avec succès ✅</div>";
+    header("Location: liste_categorie.php?success=1");
+    exit();
 }
 ?>
 

@@ -86,7 +86,7 @@ if (!isset($_SESSION["connecte"]) || $_SESSION["role"] != "admin") {
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="produits/liste.php">
+              <a class="nav-link" href="liste_produits.php">
                 <span class="menu-title">Gestion des Produits</span>
                 <i class="mdi mdi-package-variant menu-icon"></i>
               </a>
