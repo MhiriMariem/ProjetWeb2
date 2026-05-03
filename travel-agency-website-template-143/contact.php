@@ -1,3 +1,6 @@
+<?php
+session_start()
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -67,22 +70,33 @@
                   <span class="sr-only">(current)</span>
                 </a>
               </li>
-              <li class="nav-item active">
+              <li class="nav-item">
                 <a class="nav-link" href="categorie.php">Produits</a>
               </li>
-            
               <li class="nav-item dropdown">
-                <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">About</a>
+                <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">À propos</a>
               
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="about.html">About Us</a>
-                    <a class="dropdown-item" href="testimonials.html">Testimonials</a>
-                    <a class="dropdown-item" href="terms.html">Terms</a>
+                    <a class="dropdown-item" href="about.php">À propos</a>
+                    <a class="dropdown-item" href="testimonials.php">Avis clients</a>
                 </div>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contactez-nous</a>
+              <li class="nav-item active">
+                <a class="nav-link" href="contact.php">Contactez-nous</a>
               </li>
+              <li class="nav-item">
+              <a href="panier.php" class="nav-link nav-profile-icon">
+                <i class="fa fa-shopping-cart"></i>
+                <span class="badge">
+                  <?= count($_SESSION['panier'] ?? []) ?>
+                </span>
+              </a>
+            </li>
+              <li class="nav-item">
+              <a href="profil.php" class="nav-link nav-profile-icon">
+                <i class="fa fa-user"></i>
+              </a>
+            </li>
             </ul>
           </div>
         </div>
@@ -94,152 +108,70 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <h1>Tentes & Abri</h1>
-            <span>Choisissez la tente idéale pour vos aventures</span>
+            <h1>Contactez-nous</h1>
+            <span>feel free to send us a message now!</span>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="services">
+    <div class="contact-information">
       <div class="container">
         <div class="row">
           <div class="col-md-4">
-            <div class="service-item">
-              <img src="assets/images/t1.webp" alt="">
-              <div class="down-content">
-                <h4>Tente 2 personnes</h4>
-                <div style="margin-bottom:10px;">
-                  <span> 450 DT </span>
-                </div>
-
-                <p>Tentes conçues pour accueillir 2 à plusieurs personnes, idéales pour les sorties en couple, entre amis ou en famille. Elles offrent un bon compromis entre confort et praticité avec un espace suffisant pour dormir et ranger les affaires.
-                Elles sont généralement légères, faciles à transporter et résistantes à la pluie et au vent</p>
-
-                <a href="package-details.html" class="filled-button">Ajouter au panier</a>
-              </div>
+            <div class="contact-item">
+              <i class="fa fa-phone"></i>
+              <h4>Phone</h4>
+              <p>Vivamus ut tellus mi. Nulla nec cursus elit, id vulputate nec cursus augue.</p>
+              <a href="#">+1 333 4040 5566</a>
             </div>
-
-            <br>
           </div>
-
           <div class="col-md-4">
-            <div class="service-item">
-              <img src="assets/images/t2.webp" alt="">
-              <div class="down-content">
-                <h4>Tente familiales</h4>
-                <div style="margin-bottom:10px;">
-                  <span> 900 DT </span>
-                </div>
-
-                <p>Tentes modernes avec système d’ouverture rapide (2 secondes).
-Montage sans effort, parfait pour les débutants ou les campeurs occasionnels
-Structure autoportante et pliage guidé pour plus de facilité Integer auctor a mauris sit amet eleifend.</p>
-
-                <a href="package-details.html" class="filled-button">Ajouter au panier</a>
-              </div>
+            <div class="contact-item">
+              <i class="fa fa-envelope"></i>
+              <h4>Email</h4>
+              <p>Vivamus ut tellus mi. Nulla nec cursus elit, id vulputate nec cursus augue.</p>
+              <a href="#">contact@company.com</a>
             </div>
-
-            <br>
           </div>
-
           <div class="col-md-4">
-            <div class="service-item">
-              <img src="assets/images/bache.jpg" alt="">
-              <div class="down-content">
-                <h4>Bâche</h4>
-                <div style="margin-bottom:10px;">
-                  <span> 200 DT </span>
-                </div>
-
-                <p>Toiles imperméables utilisées comme abri léger contre la pluie ou le soleil.
-Installation flexible (avec cordes ou arbres)
-Très légères et économiques
-Utilisées seules ou avec une tente</p>
-
-                <a href="package-details.html" class="filled-button">Ajouter au panier</a>
-              </div>
+            <div class="contact-item">
+              <i class="fa fa-map-marker"></i>
+              <h4>Location</h4>
+              <p>212 Barrington Court New York str <br> USA</p>
+              <a href="#">View on Google Maps</a>
             </div>
-
-            <br>
           </div>
-
-
-        <br>
-        <br>
-
-        <nav>
-          <ul class="pagination pagination-lg justify-content-center">
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">«</span>
-                <span class="sr-only">Previous</span>
-              </a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">»</span>
-                <span class="sr-only">Next</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-
-        <br>
-        <br>
-        <br>
-        <br>
+        </div>
       </div>
     </div>
 
-    <!-- Footer Starts Here -->
-    <footer>
+    <div class="callback-form contact-us">
       <div class="container">
         <div class="row">
-          <div class="col-md-3 footer-item">
-            <h4>Travel Agency</h4>
-            <p>Vivamus tellus mi. Nulla ne cursus elit,vulputate. Sed ne cursus augue hasellus lacinia sapien vitae.</p>
-            <ul class="social-icons">
-              <li><a rel="nofollow" href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
-              <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-              <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-            </ul>
+          <div class="col-md-12">
+            <div class="section-heading">
+              <h2>Send us a <em>message</em></h2>
+              <span>Suspendisse a ante in neque iaculis lacinia</span>
+            </div>
           </div>
-          <div class="col-md-3 footer-item">
-            <h4>Useful Links</h4>
-            <ul class="menu-list">
-              <li><a href="#">Vivamus ut tellus mi</a></li>
-              <li><a href="#">Nulla nec cursus elit</a></li>
-              <li><a href="#">Vulputate sed nec</a></li>
-              <li><a href="#">Cursus augue hasellus</a></li>
-              <li><a href="#">Lacinia ac sapien</a></li>
-            </ul>
-          </div>
-          <div class="col-md-3 footer-item">
-            <h4>Additional Pages</h4>
-            <ul class="menu-list">
-              <li><a href="#">About Us</a></li>
-              <li><a href="#">Testimonials</a></li>
-              <li><a href="#">Contactez-nous</a></li>
-              <li><a href="#">Terms</a></li>
-            </ul>
-          </div>
-          <div class="col-md-3 footer-item last-item">
-            <h4>Contactez-nous</h4>
+          <div class="col-md-12">
             <div class="contact-form">
-              <form id="contact footer-contact" action="" method="post">
+              <form id="contact" action="" method="get">
                 <div class="row">
-                  <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-4 col-md-12 col-sm-12">
                     <fieldset>
                       <input name="name" type="text" class="form-control" id="name" placeholder="Full Name" required="">
                     </fieldset>
                   </div>
-                  <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="col-lg-4 col-md-12 col-sm-12">
                     <fieldset>
                       <input name="email" type="text" class="form-control" id="email" pattern="[^ @]*@[^ @]*" placeholder="E-Mail Address" required="">
+                    </fieldset>
+                  </div>
+                  <div class="col-lg-4 col-md-12 col-sm-12">
+                    <fieldset>
+                      <input name="subject" type="text" class="form-control" id="subject" placeholder="Subject" required="">
                     </fieldset>
                   </div>
                   <div class="col-lg-12">
@@ -250,6 +182,78 @@ Utilisées seules ou avec une tente</p>
                   <div class="col-lg-12">
                     <fieldset>
                       <button type="submit" id="form-submit" class="filled-button">Send Message</button>
+                    </fieldset>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="map">
+<!-- How to change your own map point
+	1. Go to Google Maps
+	2. Click on your location point
+	3. Click "Share" and choose "Embed map" tab
+	4. Copy only URL and paste it within the src="" field below
+-->
+      <iframe src="https://maps.google.com/maps?q=Av.+Lúcio+Costa,+Rio+de+Janeiro+-+RJ,+Brazil&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height="500px" frameborder="0" style="border:0" allowfullscreen></iframe>
+    </div>
+
+    <!-- Footer Starts Here -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3 footer-item">
+            <h4>Camp&Co</h4>
+            <p>Camp&Co est une boutique en ligne spécialisée dans le matériel de camping : tentes, sacs, lampes et équipements outdoor.</p>
+            <ul class="social-icons">
+              <li><a rel="nofollow" href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
+              <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+              <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+            </ul>
+          </div>
+          <div class="col-md-3 footer-item">
+            <h4>Liens utiles</h4>
+            <ul class="menu-list">
+              <li><a href="index.php">Accueil</a></li>
+              <li><a href="categorie.php">Produits</a></li>
+              <li><a href="contact.php">Contactez-nous</a></li>
+              <li><a href="profil.php">Mon profil</a></li>
+            </ul>
+          </div>
+          <div class="col-md-3 footer-item">
+            <h4>Pages</h4>
+            <ul class="menu-list">
+              <li><a href="about.php">À propos</a></li>
+              <li><a href="testimonials.php">Avis clients</a></li>
+            </ul>
+          </div>
+          <div class="col-md-3 footer-item last-item">
+            <h4>Contactez-nous</h4>
+            <div class="contact-form">
+              <form id="contact footer-contact" action="" method="post">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <fieldset>
+                      <input name="name" type="text" class="form-control" id="name" placeholder="Nom complet" required="">
+                    </fieldset>
+                  </div>
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <fieldset>
+                      <input name="email" type="text" class="form-control" id="email" pattern="[^ @]*@[^ @]*" placeholder="Adresse e-mail" required="">
+                    </fieldset>
+                  </div>
+                  <div class="col-lg-12">
+                    <fieldset>
+                      <textarea name="message" rows="6" class="form-control" id="message" placeholder="Votre message" required=""></textarea>
+                    </fieldset>
+                  </div>
+                  <div class="col-lg-12">
+                    <fieldset>
+                      <button type="submit" id="form-submit" class="filled-button">Envoyer</button>
                     </fieldset>
                   </div>
                 </div>

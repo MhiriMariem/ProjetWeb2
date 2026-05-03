@@ -1,6 +1,6 @@
 <?php
 require_once('pdo.php'); // adapte le chemin
-
+session_start();
 $cnx = new connexion();
 $pdo = $cnx->CNXbase();
 
@@ -85,13 +85,21 @@ $res = $pdo->query($sql);
                <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button">À propos</a>
 
 <div class="dropdown-menu">
-<a class="dropdown-item active" href="about.html">À propos</a>
-  <a class="dropdown-item" href="testimonials.html">Avis clients</a>
+<a class="dropdown-item active" href="about.php">À propos</a>
+  <a class="dropdown-item" href="testimonials.php">Avis clients</a>
 </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contactez-nous</a>
+                <a class="nav-link" href="contact.php">Contactez-nous</a>
               </li>
+              <li class="nav-item">
+              <a href="panier.php" class="nav-link nav-profile-icon">
+                <i class="fa fa-shopping-cart"></i>
+                <span class="badge">
+                  <?= count($_SESSION['panier'] ?? []) ?>
+                </span>
+              </a>
+            </li>
               <li class="nav-item">
               <a href="profil.php" class="nav-link nav-profile-icon">
                 <i class="fa fa-user"></i>
@@ -172,8 +180,8 @@ $res = $pdo->query($sql);
       <div class="container">
         <div class="row">
           <div class="col-md-3 footer-item">
-            <h4>Travel Agency</h4>
-            <p>Vivamus tellus mi. Nulla ne cursus elit,vulputate. Sed ne cursus augue hasellus lacinia sapien vitae.</p>
+            <h4>Camp&Co</h4>
+            <p>Camp&Co est une boutique en ligne spécialisée dans le matériel de camping : tentes, sacs, lampes et équipements outdoor.</p>
             <ul class="social-icons">
               <li><a rel="nofollow" href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
               <li><a href="#"><i class="fa fa-twitter"></i></a></li>
@@ -181,22 +189,19 @@ $res = $pdo->query($sql);
             </ul>
           </div>
           <div class="col-md-3 footer-item">
-            <h4>Useful Links</h4>
+            <h4>Liens utiles</h4>
             <ul class="menu-list">
-              <li><a href="#">Vivamus ut tellus mi</a></li>
-              <li><a href="#">Nulla nec cursus elit</a></li>
-              <li><a href="#">Vulputate sed nec</a></li>
-              <li><a href="#">Cursus augue hasellus</a></li>
-              <li><a href="#">Lacinia ac sapien</a></li>
+              <li><a href="index.php">Accueil</a></li>
+              <li><a href="categorie.php">Produits</a></li>
+              <li><a href="contact.php">Contactez-nous</a></li>
+              <li><a href="profil.php">Mon profil</a></li>
             </ul>
           </div>
           <div class="col-md-3 footer-item">
-            <h4>Additional Pages</h4>
+            <h4>Pages</h4>
             <ul class="menu-list">
-              <li><a href="#">About Us</a></li>
-              <li><a href="#">Testimonials</a></li>
-              <li><a href="#">Contactez-nous</a></li>
-              <li><a href="#">Terms</a></li>
+              <li><a href="about.php">À propos</a></li>
+              <li><a href="testimonials.php">Avis clients</a></li>
             </ul>
           </div>
           <div class="col-md-3 footer-item last-item">
@@ -206,22 +211,22 @@ $res = $pdo->query($sql);
                 <div class="row">
                   <div class="col-lg-12 col-md-12 col-sm-12">
                     <fieldset>
-                      <input name="name" type="text" class="form-control" id="name" placeholder="Full Name" required="">
+                      <input name="name" type="text" class="form-control" id="name" placeholder="Nom complet" required="">
                     </fieldset>
                   </div>
                   <div class="col-lg-12 col-md-12 col-sm-12">
                     <fieldset>
-                      <input name="email" type="text" class="form-control" id="email" pattern="[^ @]*@[^ @]*" placeholder="E-Mail Address" required="">
+                      <input name="email" type="text" class="form-control" id="email" pattern="[^ @]*@[^ @]*" placeholder="Adresse e-mail" required="">
                     </fieldset>
                   </div>
                   <div class="col-lg-12">
                     <fieldset>
-                      <textarea name="message" rows="6" class="form-control" id="message" placeholder="Your Message" required=""></textarea>
+                      <textarea name="message" rows="6" class="form-control" id="message" placeholder="Votre message" required=""></textarea>
                     </fieldset>
                   </div>
                   <div class="col-lg-12">
                     <fieldset>
-                      <button type="submit" id="form-submit" class="filled-button">Send Message</button>
+                      <button type="submit" id="form-submit" class="filled-button">Envoyer</button>
                     </fieldset>
                   </div>
                 </div>

@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once('pdo.php');
 
 $cnx = new connexion();
@@ -13,7 +14,50 @@ $categorie = $stmt->fetch();
 $stmt = $pdo->prepare("SELECT * FROM produit WHERE categorie_id=?");
 $stmt->execute([$id]);
 $produits = $stmt->fetchAll();
+
+if (isset($_GET['add'])) {
+    $idProduit = $_GET['add'];
+
+    // chercher le produit en base
+    $stmt = $pdo->prepare("SELECT * FROM produit WHERE id_produit=?");
+    $stmt->execute([$idProduit]);
+    $produit = $stmt->fetch();
+
+    if ($produit) {
+        // initialiser panier
+        if (!isset($_SESSION['panier'])) {
+            $_SESSION['panier'] = [];
+        }
+
+        // vérifier si produit existe déjà
+        $found = false;
+
+        foreach ($_SESSION['panier'] as &$item) {
+            if ($item['id'] == $idProduit) {
+                $item['quantite']++;
+                $found = true;
+                break;
+            }
+        }
+
+        // sinon ajouter
+        if (!$found) {
+            $_SESSION['panier'][] = [
+                'id' => $produit['id'],
+                'nom' => $produit['nom'],
+                'prix' => $produit['prix'],
+                'quantite' => 1
+            ];
+        }
+    }
+
+    // éviter rechargement double
+    header("Location: produits.php?categorie_id=" . $id);
+    exit();
+}
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -88,17 +132,29 @@ $produits = $stmt->fetchAll();
               </li>
              
               <li class="nav-item dropdown">
-                <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">About</a>
+                <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">À propos</a>
               
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="about.html">About Us</a>
-                    <a class="dropdown-item" href="testimonials.html">Testimonials</a>
-                    <a class="dropdown-item" href="terms.html">Terms</a>
+                    <a class="dropdown-item" href="about.php">À propos</a>
+                    <a class="dropdown-item" href="testimonials.php">Avis clients</a>
                 </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contactez-nous</a>
+                <a class="nav-link" href="contact.php">Contactez-nous</a>
               </li>
+              <li class="nav-item">
+              <a href="panier.php" class="nav-link nav-profile-icon">
+                <i class="fa fa-shopping-cart"></i>
+                <span class="badge">
+                  <?= count($_SESSION['panier'] ?? []) ?>
+                </span>
+              </a>
+            </li>
+              <li class="nav-item">
+              <a href="profil.php" class="nav-link nav-profile-icon">
+                <i class="fa fa-user"></i>
+              </a>
+            </li>
             </ul>
           </div>
         </div>
@@ -134,9 +190,9 @@ $produits = $stmt->fetchAll();
                 <h4><?= $p['nom']; ?></h4>
                 <p><?= $p['prix']; ?> DT</p>
 
-                <a href="#" class="btn btn-primary">
-    Ajouter au panier
-</a>
+                <a href="produits.php?categorie_id=<?= $id ?>&add=<?= $p['id_produit'] ?>" class="btn btn-primary">
+                Ajouter au panier
+                </a>
             </div>
 
             </div>
@@ -185,8 +241,8 @@ $produits = $stmt->fetchAll();
       <div class="container">
         <div class="row">
           <div class="col-md-3 footer-item">
-            <h4>Travel Agency</h4>
-            <p>Vivamus tellus mi. Nulla ne cursus elit,vulputate. Sed ne cursus augue hasellus lacinia sapien vitae.</p>
+            <h4>Camp&Co</h4>
+            <p>Camp&Co est une boutique en ligne spécialisée dans le matériel de camping : tentes, sacs, lampes et équipements outdoor.</p>
             <ul class="social-icons">
               <li><a rel="nofollow" href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
               <li><a href="#"><i class="fa fa-twitter"></i></a></li>
@@ -194,22 +250,19 @@ $produits = $stmt->fetchAll();
             </ul>
           </div>
           <div class="col-md-3 footer-item">
-            <h4>Useful Links</h4>
+            <h4>Liens utiles</h4>
             <ul class="menu-list">
-              <li><a href="#">Vivamus ut tellus mi</a></li>
-              <li><a href="#">Nulla nec cursus elit</a></li>
-              <li><a href="#">Vulputate sed nec</a></li>
-              <li><a href="#">Cursus augue hasellus</a></li>
-              <li><a href="#">Lacinia ac sapien</a></li>
+              <li><a href="index.php">Accueil</a></li>
+              <li><a href="categorie.php">Produits</a></li>
+              <li><a href="contact.php">Contactez-nous</a></li>
+              <li><a href="profil.php">Mon profil</a></li>
             </ul>
           </div>
           <div class="col-md-3 footer-item">
-            <h4>Additional Pages</h4>
+            <h4>Pages</h4>
             <ul class="menu-list">
-              <li><a href="#">About Us</a></li>
-              <li><a href="#">Testimonials</a></li>
-              <li><a href="#">Contactez-nous</a></li>
-              <li><a href="#">Terms</a></li>
+              <li><a href="about.php">À propos</a></li>
+              <li><a href="testimonials.php">Avis clients</a></li>
             </ul>
           </div>
           <div class="col-md-3 footer-item last-item">
@@ -219,22 +272,22 @@ $produits = $stmt->fetchAll();
                 <div class="row">
                   <div class="col-lg-12 col-md-12 col-sm-12">
                     <fieldset>
-                      <input name="name" type="text" class="form-control" id="name" placeholder="Full Name" required="">
+                      <input name="name" type="text" class="form-control" id="name" placeholder="Nom complet" required="">
                     </fieldset>
                   </div>
                   <div class="col-lg-12 col-md-12 col-sm-12">
                     <fieldset>
-                      <input name="email" type="text" class="form-control" id="email" pattern="[^ @]*@[^ @]*" placeholder="E-Mail Address" required="">
+                      <input name="email" type="text" class="form-control" id="email" pattern="[^ @]*@[^ @]*" placeholder="Adresse e-mail" required="">
                     </fieldset>
                   </div>
                   <div class="col-lg-12">
                     <fieldset>
-                      <textarea name="message" rows="6" class="form-control" id="message" placeholder="Your Message" required=""></textarea>
+                      <textarea name="message" rows="6" class="form-control" id="message" placeholder="Votre message" required=""></textarea>
                     </fieldset>
                   </div>
                   <div class="col-lg-12">
                     <fieldset>
-                      <button type="submit" id="form-submit" class="filled-button">Send Message</button>
+                      <button type="submit" id="form-submit" class="filled-button">Envoyer</button>
                     </fieldset>
                   </div>
                 </div>

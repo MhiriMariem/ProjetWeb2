@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -67,22 +70,34 @@
                   <span class="sr-only">(current)</span>
                 </a>
               </li>
-              <li class="nav-item active">
+              <li class="nav-item">
                 <a class="nav-link" href="categorie.php">Produits</a>
               </li>
-            
-              <li class="nav-item dropdown">
-                <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">About</a>
               
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="about.html">About Us</a>
-                    <a class="dropdown-item" href="testimonials.html">Testimonials</a>
-                    <a class="dropdown-item" href="terms.html">Terms</a>
-                </div>
+              <li class="nav-item dropdown active">
+               <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button">À propos</a>
+
+            <div class="dropdown-menu">
+            <a class="dropdown-item active" href="about.php">À propos</a>
+              <a class="dropdown-item" href="testimonials.php">Avis clients</a>
+            </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contactez-nous</a>
+                <a class="nav-link" href="contact.php">Contactez-nous</a>
               </li>
+              <li class="nav-item">
+              <a href="panier.php" class="nav-link nav-profile-icon">
+                <i class="fa fa-shopping-cart"></i>
+                <span class="badge">
+                  <?= count($_SESSION['panier'] ?? []) ?>
+                </span>
+              </a>
+            </li>
+              <li class="nav-item">
+              <a href="profil.php" class="nav-link nav-profile-icon">
+                <i class="fa fa-user"></i>
+              </a>
+            </li>
             </ul>
           </div>
         </div>
@@ -94,98 +109,83 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <h1>Vêtements & Accessoires</h1>
-            <span>Préparez-vous avec confort et style pour vos aventures en plein air</span>
+            <h1>À propos de nous</h1>
+            <span>Spécialistes en équipements de camping</span>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="services">
+    <div class="more-info about-info">
       <div class="container">
         <div class="row">
-          <div class="col-md-4">
-            <div class="service-item">
-              <img src="assets/images/casquette.webp" alt="">
-              <div class="down-content">
-                <h4>Casquette</h4>
-                <div style="margin-bottom:10px;">
-                  <span> 200 DT </span>
+          <div class="col-md-12">
+            <div class="more-info-content">
+              <div class="row">
+                <div class="col-md-6 align-self-center">
+                  <div class="right-content">
+                    <span>Spécialistes en équipements de camping</span>
+                     <h2>Découvrez <em>Camp&Co</em></h2>
+                    <p>
+                        Camp&Co est une boutique spécialisée dans les équipements de camping et d’outdoor.
+                        Nous proposons des tentes, sacs de couchage, lampes et accessoires pour vos aventures en pleine nature.
+                        <br><br>
+                          Notre objectif est de vous offrir qualité, confort et sécurité pour toutes vos sorties.
+                    </p>
+                 </div>
                 </div>
-
-                <p>Accessoires légers conçus pour protéger du soleil et améliorer le confort lors des activités extérieures. Faciles à porter et adaptés à tous.</p>
-
-                <a href="package-details.html" class="filled-button">Ajouter au panier</a>
+                <div class="col-md-6">
+                  <div class="left-image">
+                    <img src="assets/imagesindex/imagetente.png" alt="">
+                  </div>
+                </div>
               </div>
             </div>
-
-            <br>
           </div>
+        </div>
+      </div>
+    </div>
 
-          <div class="col-md-4">
-            <div class="service-item">
-              <img src="assets/images/gant.webp" alt="">
-              <div class="down-content">
-                <h4>Gants</h4>
-                <div style="margin-bottom:10px;">
-                  <span> 40 DT </span>
+    <div class="fun-facts">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="left-content">
+              <span>Lorem ipsum dolor sit amet</span>
+              <h2>Modi esse sapiente tenetur <em>impedit laudantium laborum</em></h2>
+              <p>Pellentesque ultrices at turpis in vestibulum. Aenean pretium elit nec congue elementum. Nulla luctus laoreet porta. Maecenas at nisi tempus, porta metus vitae, faucibus augue. 
+              <br><br>Fusce et venenatis ex. Quisque varius, velit quis dictum sagittis, odio velit molestie nunc, ut posuere ante tortor ut neque.</p>
+            </div>
+          </div>
+          <div class="col-md-6 align-self-center">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="count-area-content">
+                  <div class="count-digit">1234</div>
+                  <div class="count-title">Destinations</div>
                 </div>
-
-                <p>Gants pratiques pour protéger les mains du froid, du vent ou des petites blessures lors des activités de camping, randonnée ou montage de matériel.</p>
-
-                <a href="package-details.html" class="filled-button">Ajouter au panier</a>
+              </div>
+              <div class="col-md-6">
+                <div class="count-area-content">
+                  <div class="count-digit">6280</div>
+                  <div class="count-title">Happy clients</div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="count-area-content">
+                  <div class="count-digit">115</div>
+                  <div class="count-title">Cities</div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="count-area-content">
+                  <div class="count-digit">26</div>
+                  <div class="count-title">Packages</div>
+                </div>
               </div>
             </div>
-
-            <br>
           </div>
-
-          <div class="col-md-4">
-            <div class="service-item">
-              <img src="assets/images/veste.webp" alt="">
-              <div class="down-content">
-                <h4>Veste imperméable</h4>
-                <div style="margin-bottom:10px;">
-                  <span> 119 DT </span>
-                </div>
-
-                <p>Veste légère et résistante à l’eau, conçue pour protéger contre la pluie et le vent pendant les activités de camping et de randonnée. Adaptée à toutes les saisons</p>
-
-                <a href="package-details.html" class="filled-button">Ajouter au panier</a>
-              </div>
-            </div>
-
-            <br>
-          </div>
-
-
-        <br>
-        <br>
-
-        <nav>
-          <ul class="pagination pagination-lg justify-content-center">
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">«</span>
-                <span class="sr-only">Previous</span>
-              </a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">»</span>
-                <span class="sr-only">Next</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-
-        <br>
-        <br>
-        <br>
-        <br>
+        </div>
       </div>
     </div>
 
@@ -194,8 +194,8 @@
       <div class="container">
         <div class="row">
           <div class="col-md-3 footer-item">
-            <h4>Travel Agency</h4>
-            <p>Vivamus tellus mi. Nulla ne cursus elit,vulputate. Sed ne cursus augue hasellus lacinia sapien vitae.</p>
+            <h4>Camp&Co</h4>
+            <p>Camp&Co est une boutique en ligne spécialisée dans le matériel de camping : tentes, sacs, lampes et équipements outdoor.</p>
             <ul class="social-icons">
               <li><a rel="nofollow" href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
               <li><a href="#"><i class="fa fa-twitter"></i></a></li>
@@ -203,22 +203,19 @@
             </ul>
           </div>
           <div class="col-md-3 footer-item">
-            <h4>Useful Links</h4>
+            <h4>Liens utiles</h4>
             <ul class="menu-list">
-              <li><a href="#">Vivamus ut tellus mi</a></li>
-              <li><a href="#">Nulla nec cursus elit</a></li>
-              <li><a href="#">Vulputate sed nec</a></li>
-              <li><a href="#">Cursus augue hasellus</a></li>
-              <li><a href="#">Lacinia ac sapien</a></li>
+              <li><a href="index.php">Accueil</a></li>
+              <li><a href="categorie.php">Produits</a></li>
+              <li><a href="contact.php">Contactez-nous</a></li>
+              <li><a href="profil.php">Mon profil</a></li>
             </ul>
           </div>
           <div class="col-md-3 footer-item">
-            <h4>Additional Pages</h4>
+            <h4>Pages</h4>
             <ul class="menu-list">
-              <li><a href="#">About Us</a></li>
-              <li><a href="#">Testimonials</a></li>
-              <li><a href="#">Contactez-nous</a></li>
-              <li><a href="#">Terms</a></li>
+              <li><a href="about.php">À propos</a></li>
+              <li><a href="testimonials.php">Avis clients</a></li>
             </ul>
           </div>
           <div class="col-md-3 footer-item last-item">
@@ -228,22 +225,22 @@
                 <div class="row">
                   <div class="col-lg-12 col-md-12 col-sm-12">
                     <fieldset>
-                      <input name="name" type="text" class="form-control" id="name" placeholder="Full Name" required="">
+                      <input name="name" type="text" class="form-control" id="name" placeholder="Nom complet" required="">
                     </fieldset>
                   </div>
                   <div class="col-lg-12 col-md-12 col-sm-12">
                     <fieldset>
-                      <input name="email" type="text" class="form-control" id="email" pattern="[^ @]*@[^ @]*" placeholder="E-Mail Address" required="">
+                      <input name="email" type="text" class="form-control" id="email" pattern="[^ @]*@[^ @]*" placeholder="Adresse e-mail" required="">
                     </fieldset>
                   </div>
                   <div class="col-lg-12">
                     <fieldset>
-                      <textarea name="message" rows="6" class="form-control" id="message" placeholder="Your Message" required=""></textarea>
+                      <textarea name="message" rows="6" class="form-control" id="message" placeholder="Votre message" required=""></textarea>
                     </fieldset>
                   </div>
                   <div class="col-lg-12">
                     <fieldset>
-                      <button type="submit" id="form-submit" class="filled-button">Send Message</button>
+                      <button type="submit" id="form-submit" class="filled-button">Envoyer</button>
                     </fieldset>
                   </div>
                 </div>
@@ -253,7 +250,6 @@
         </div>
       </div>
     </footer>
-    
     <div class="sub-footer">
       <div class="container">
         <div class="row">

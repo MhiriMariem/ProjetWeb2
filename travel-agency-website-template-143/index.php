@@ -86,18 +86,29 @@ if (!isset($_SESSION["connecte"])) {
 
 
 <div class="dropdown-menu">
-<a class="dropdown-item active" href="about.html">À propos</a>
-  <a class="dropdown-item" href="testimonials.html">Avis clients</a>
+<a class="dropdown-item active" href="about.php">À propos</a>
+  <a class="dropdown-item" href="testimonials.php">Avis clients</a>
 </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contactez-nous</a>
+                <a class="nav-link" href="contact.php">Contactez-nous</a>
               </li>
+
+              <li class="nav-item">
+              <a href="panier.php" class="nav-link nav-profile-icon">
+                <i class="fa fa-shopping-cart"></i>
+                <span class="badge">
+                  <?= count($_SESSION['panier'] ?? []) ?>
+                </span>
+              </a>
+            </li>
+
               <li class="nav-item">
               <a href="profil.php" class="nav-link nav-profile-icon">
                 <i class="fa fa-user"></i>
               </a>
             </li>
+            
             </ul>
             
           </div>
@@ -132,7 +143,7 @@ if (!isset($_SESSION["connecte"])) {
                    Découvrez notre sélection de tentes, sacs de couchage, lampes et équipements outdoor conçus pour toutes vos aventures en pleine nature.
                    </p>
 
-                  <a href="about.html" class="filled-button">À propos</a>
+                  <a href="about.php" class="filled-button">À propos</a>
                 </div>
             </div>
           </div>
@@ -146,7 +157,7 @@ if (!isset($_SESSION["connecte"])) {
                  <p>
                     Notre équipe est disponible pour vous conseiller sur le meilleur équipement de camping :
                     tentes, sacs de couchage, lampes et accessoires outdoor.
-                   </p>                  <a href="contact.html" class="filled-button">Contactez-nous</a>
+                   </p>                  <a href="contact.php" class="filled-button">Contactez-nous</a>
                 </div>
             </div>
           </div>
@@ -165,7 +176,7 @@ if (!isset($_SESSION["connecte"])) {
       </div>
 
       <div class="col-md-4 text-md-end text-center mt-3 mt-md-0">
-        <a href="contact.html" class="border-button">Contactez-nous</a>
+        <a href="contact.php" class="border-button">Contactez-nous</a>
       </div>
 
     </div>
@@ -187,7 +198,7 @@ if (!isset($_SESSION["connecte"])) {
               <div class="down-content">
                 <h4>Tentes & Abri</h4>
              
-              <a href="tente.html" class="filled-button">Voir plus</a>
+              <a href="produits.php" class="filled-button">Voir plus</a>
               </div>
             </div>
 
@@ -200,7 +211,7 @@ if (!isset($_SESSION["connecte"])) {
                 <h4>Hygiène & Confort</h4>
                               
 
-                 <a href="hyg.html" class="filled-button">Voir plus</a>
+                 <a href="produits.php" class="filled-button">Voir plus</a>
               </div>
             </div>
 
@@ -211,7 +222,7 @@ if (!isset($_SESSION["connecte"])) {
                 <img src="assets/images/couchage.webp" alt="">
                 <div class="down-content">
                 <h4>Couchage</h4>
-                 <a href="couchage.html" class="filled-button">Voir plus</a>
+                 <a href="produits.php" class="filled-button">Voir plus</a>
               </div>
             </div>
 
@@ -239,7 +250,7 @@ if (!isset($_SESSION["connecte"])) {
               Nous proposons des tentes, sacs de couchage, lampes et accessoires pour vos aventures en pleine nature.
               Notre objectif est de vous offrir qualité, confort et sécurité partout où vous allez.
             </p>         
-              <a href="about.html" class="filled-button">En savoir plus</a>       
+              <a href="about.php" class="filled-button">En savoir plus</a>       
                    </div>
             </div>
           </div>
@@ -361,77 +372,65 @@ if (!isset($_SESSION["connecte"])) {
 
     <!-- Footer Starts Here -->
     <footer>
-  <div class="container">
-    <div class="row">
-
-      <!-- LOGO + DESCRIPTION -->
-      <div class="col-md-3 footer-item">
-        <h4>Camp&Co</h4>
-        <p>
-          Camp&Co est votre boutique spécialisée en équipements de camping et outdoor.
-          Nous vous accompagnons dans toutes vos aventures en pleine nature.
-        </p>
-        <ul class="social-icons">
-          <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-          <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-          <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-        </ul>
-      </div>
-
-      <!-- LIENS UTILES -->
-      <div class="col-md-3 footer-item">
-        <h4>Liens utiles</h4>
-        <ul class="menu-list">
-          <li><a href="index.php">Accueil</a></li>
-          <li><a href="packages.html">Produits</a></li>
-          <li><a href="about.html">À propos</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="#">FAQ</a></li>
-        </ul>
-      </div>
-
-      <!-- PAGES -->
-      <div class="col-md-3 footer-item">
-        <h4>Pages</h4>
-        <ul class="menu-list">
-          <li><a href="tente.html">Tentes & Abris</a></li>
-          <li><a href="couchage.html">Couchage</a></li>
-          <li><a href="hyg.html">Hygiène & Confort</a></li>
-          <li><a href="#">Conditions d’utilisation</a></li>
-        </ul>
-      </div>
-
-      <!-- CONTACT -->
-      <div class="col-md-3 footer-item last-item">
-        <h4>Contact</h4>
-        <div class="contact-form">
-          <form action="" method="post">
-            <div class="row">
-              
-              <div class="col-lg-12">
-                <input name="name" type="text" class="form-control" placeholder="Nom complet" required>
-              </div>
-
-              <div class="col-lg-12">
-                <input name="email" type="email" class="form-control" placeholder="Email" required>
-              </div>
-
-              <div class="col-lg-12">
-                <textarea name="message" rows="4" class="form-control" placeholder="Votre message" required></textarea>
-              </div>
-
-              <div class="col-lg-12">
-                <button type="submit" class="filled-button">Envoyer</button>
-              </div>
-
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3 footer-item">
+            <h4>Camp&Co</h4>
+            <p>Camp&Co est une boutique en ligne spécialisée dans le matériel de camping : tentes, sacs, lampes et équipements outdoor.</p>
+            <ul class="social-icons">
+              <li><a rel="nofollow" href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
+              <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+              <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+            </ul>
+          </div>
+          <div class="col-md-3 footer-item">
+            <h4>Liens utiles</h4>
+            <ul class="menu-list">
+              <li><a href="index.php">Accueil</a></li>
+              <li><a href="categorie.php">Produits</a></li>
+              <li><a href="contact.php">Contactez-nous</a></li>
+              <li><a href="profil.php">Mon profil</a></li>
+            </ul>
+          </div>
+          <div class="col-md-3 footer-item">
+            <h4>Pages</h4>
+            <ul class="menu-list">
+              <li><a href="about.php">À propos</a></li>
+              <li><a href="testimonials.php">Avis clients</a></li>
+            </ul>
+          </div>
+          <div class="col-md-3 footer-item last-item">
+            <h4>Contactez-nous</h4>
+            <div class="contact-form">
+              <form id="contact footer-contact" action="" method="post">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <fieldset>
+                      <input name="name" type="text" class="form-control" id="name" placeholder="Nom complet" required="">
+                    </fieldset>
+                  </div>
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <fieldset>
+                      <input name="email" type="text" class="form-control" id="email" pattern="[^ @]*@[^ @]*" placeholder="Adresse e-mail" required="">
+                    </fieldset>
+                  </div>
+                  <div class="col-lg-12">
+                    <fieldset>
+                      <textarea name="message" rows="6" class="form-control" id="message" placeholder="Votre message" required=""></textarea>
+                    </fieldset>
+                  </div>
+                  <div class="col-lg-12">
+                    <fieldset>
+                      <button type="submit" id="form-submit" class="filled-button">Envoyer</button>
+                    </fieldset>
+                  </div>
+                </div>
+              </form>
             </div>
-          </form>
+          </div>
         </div>
       </div>
-
-    </div>
-  </div>
-</footer>
+    </footer>
     
   
 
