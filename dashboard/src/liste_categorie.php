@@ -15,11 +15,21 @@ $pdo = $cnx->CNXbase();
 if (isset($_GET['delete'])) {
     $id = $_GET['delete'];
 
+    // Vérifier si des produits existent
+    $stmt = $pdo->prepare("SELECT COUNT(*) FROM produit WHERE categorie_id=?");
+    $stmt->execute([$id]);
+    $count = $stmt->fetchColumn();
+
+    if ($count > 0) {
+    $_SESSION['error'] = "Impossible de supprimer cette catégorie";
+} else {
     $stmt = $pdo->prepare("DELETE FROM categorie WHERE id=?");
     $stmt->execute([$id]);
+    $_SESSION['success'] = "Catégorie supprimée avec succès";
+}
 
-    header("Location: liste_categorie.php");
-    exit();
+header("Location: liste_categorie.php");
+exit();
 }
 
 /* UPDATE */
@@ -80,6 +90,20 @@ $res = $pdo->query($sql);
 <div class="content-wrapper">
 
 <h3>Gestion des Catégories</h3>
+
+<?php if (isset($_SESSION['error'])) { ?>
+    <div class="alert alert-danger">
+        <?= $_SESSION['error']; ?>
+    </div>
+    <?php unset($_SESSION['error']); ?>
+<?php } ?>
+
+<?php if (isset($_SESSION['success'])) { ?>
+    <div class="alert alert-success">
+        <?= $_SESSION['success']; ?>
+    </div>
+    <?php unset($_SESSION['success']); ?>
+<?php } ?>
 
 <table class="table table-striped">
 

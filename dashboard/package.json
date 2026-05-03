@@ -2,7 +2,7 @@
   "name": "purple_admin",
   "version": "3.0.0",
   "description": "",
-  "main": "index.html",
+  "main": "index.php",
   "dependencies": {
     "@mdi/font": "^7.3.67",
     "bootstrap": "^5.3.2",

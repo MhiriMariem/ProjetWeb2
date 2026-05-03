@@ -64,19 +64,19 @@ if (!isset($_SESSION["connecte"])) {
       <nav class="navbar navbar-expand-lg">
         <div class="container">
           
-          <a class="navbar-brand" href="index.html"><h2>Camp&Co</h2></a>
+          <a class="navbar-brand" href="index.php"><h2>Camp&Co</h2></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item active">
-                <a class="nav-link" href="index.html">Accueil 
+                <a class="nav-link" href="index.php">Accueil 
                   <span class="sr-only">(current)</span>
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="categorie.html">Produits</a>
+                <a class="nav-link" href="categorie.php">Produits</a>
               </li>
              <!-- <li class="nav-item">
                 <a class="nav-link" href="login.html">login</a>
@@ -88,17 +88,16 @@ if (!isset($_SESSION["connecte"])) {
 <div class="dropdown-menu">
 <a class="dropdown-item active" href="about.html">À propos</a>
   <a class="dropdown-item" href="testimonials.html">Avis clients</a>
-  <a class="dropdown-item" href="terms.html">Conditions</a>
 </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contact Us</a>
+                <a class="nav-link" href="contact.html">Contactez-nous</a>
               </li>
               <li class="nav-item">
-    <a href="profil.php" class="nav-link nav-profile-icon">
-      <i class="fa fa-user"></i>
-    </a>
-  </li>
+              <a href="profil.php" class="nav-link nav-profile-icon">
+                <i class="fa fa-user"></i>
+              </a>
+            </li>
             </ul>
             
           </div>
@@ -118,7 +117,7 @@ if (!isset($_SESSION["connecte"])) {
                  <h6>Explorez la nature autrement</h6>
                   <h4>Camp&Co <br> Outdoor Equipment</h4>
                     <p>Tout le matériel essentiel pour vos aventures : tentes, sacs de couchage, lampes et équipements outdoor.</p>
-                  <a href="categorie.html" class="filled-button">Voir les produits</a>
+                  <a href="categorie.php" class="filled-button">Voir les produits</a>
                 </div>
             </div>
           </div>
@@ -383,7 +382,7 @@ if (!isset($_SESSION["connecte"])) {
       <div class="col-md-3 footer-item">
         <h4>Liens utiles</h4>
         <ul class="menu-list">
-          <li><a href="index.html">Accueil</a></li>
+          <li><a href="index.php">Accueil</a></li>
           <li><a href="packages.html">Produits</a></li>
           <li><a href="about.html">À propos</a></li>
           <li><a href="contact.html">Contact</a></li>

@@ -1,3 +1,13 @@
+<?php
+require_once('pdo.php'); // adapte le chemin
+
+$cnx = new connexion();
+$pdo = $cnx->CNXbase();
+
+$sql = "SELECT * FROM categorie";
+$res = $pdo->query($sql);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -56,19 +66,19 @@
     <header class="">
       <nav class="navbar navbar-expand-lg">
         <div class="container">
-          <a class="navbar-brand" href="index.html"><h2>Camp&Co</h2></a>
+          <a class="navbar-brand" href="index.php"><h2>Camp&Co</h2></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
               <li class="nav-item">
-                <a class="nav-link" href="index.html">Acceuil
+                <a class="nav-link" href="index.php">Acceuil
                   <span class="sr-only">(current)</span>
                 </a>
               </li>
               <li class="nav-item active">
-                <a class="nav-link" href="categorie.html">Produits</a>
+                <a class="nav-link" href="categorie.php">Produits</a>
               </li>
              
              <li class="nav-item dropdown active">
@@ -77,12 +87,16 @@
 <div class="dropdown-menu">
 <a class="dropdown-item active" href="about.html">À propos</a>
   <a class="dropdown-item" href="testimonials.html">Avis clients</a>
-  <a class="dropdown-item" href="terms.html">Conditions</a>
 </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contact Us</a>
+                <a class="nav-link" href="contact.html">Contactez-nous</a>
               </li>
+              <li class="nav-item">
+              <a href="profil.php" class="nav-link nav-profile-icon">
+                <i class="fa fa-user"></i>
+              </a>
+            </li>
             </ul>
           </div>
         </div>
@@ -105,107 +119,23 @@
       <div class="container">
         <div class="row">
 
+          <?php while ($row = $res->fetch()) { ?>
+
           <div class="col-md-4">
             <div class="service-item">
-                <a href="tente.html">
-              <img src="assets/images/tente.jpg" alt=""></a>
+              <a href="produits.php?categorie_id=<?= $row['id']; ?>">
+                <img src="assets/images/<?= $row['image']; ?>" alt="<?= $row['nom']; ?>">
+              </a>
               <div class="down-content">
-                <h4>Tentes & Abri</h4>
+                <h4><?= $row['nom']; ?></h4>
               </div>
             </div>
             <br>
           </div>
 
-          <div class="col-md-4">
-            <div class="service-item">
-                <a href="light.html">
-                <img src="assets/images/light.png" alt=""></a>
-                <div class="down-content">
-                <h4>Éclairage & Énergie</h4>
-              </div>
-            </div>
-            <br>
-          </div>
-
-          <div class="col-md-4">
-            <div class="service-item">
-                <a href="acces.html">
-                <img src="assets/images/vet.webp" alt=""></a>
-                <div div class="down-content">
-                <h4>Vêtements & Accessoires</h4>
-              </div>
-            </div>
-            <br>
-          </div>
-
-          <div class="col-md-4">
-            <div class="service-item">
-                <a href="couchage.html">
-                <img src="assets/images/couchage.webp" alt=""></a>
-                <div class="down-content">
-                <h4>Couchage</h4>
-              </div>
-            </div>
-            <br>
-          </div>
-
-          <div class="col-md-4">
-            <div class="service-item">
-                <a href="cuisine.html">
-                <img src="assets/images/cuisine.jpg" alt=""></a>
-                <div class="down-content">
-                <h4>Cuisine & Alimentation</h4>
-              </div>
-            </div>
-            <br>
-          </div>
-
-          <div class="col-md-4">
-            <div class="service-item">
-                <a href="sac.html">
-                <img src="assets/images/sac.webp" alt=""></a>
-                <div class="down-content">
-                <h4>Sacs & Transport</h4>
-              </div>
-            </div>
-            <br>
-          </div>
+          <?php } ?>
 
           
-        
-
-        <div class="col-md-4">
-            <div class="service-item">
-                <a href="navigation.html">
-                <img src="assets/images/navigation.avif" alt=""></a>
-                <div class="down-content">
-                <h4>Navigation & Sécurité</h4>
-              </div>
-            </div>
-            <br>
-          </div>
-
-          <div class="col-md-4">
-            <div class="service-item">
-                <a href="mobilier.html">
-                <img src="assets/images/chaise.webp" alt=""></a>
-                <div class="down-content">
-                <h4>Mobilier de camping</h4>
-              </div>
-            </div>
-            <br>
-          </div>
-
-          <div class="col-md-4">
-            <div class="service-item">
-                <a href="hyg.html">
-                <img src="assets/images/hyg.jpg"  alt=""></a>
-                <div class="down-content">
-                <h4>Hygiène & Confort</h4>
-                </div>
-            </div>
-            <br>
-          </div>
 
         <br>
         <br>
@@ -265,12 +195,12 @@
             <ul class="menu-list">
               <li><a href="#">About Us</a></li>
               <li><a href="#">Testimonials</a></li>
-              <li><a href="#">Contact Us</a></li>
+              <li><a href="#">Contactez-nous</a></li>
               <li><a href="#">Terms</a></li>
             </ul>
           </div>
           <div class="col-md-3 footer-item last-item">
-            <h4>Contact Us</h4>
+            <h4>Contactez-nous</h4>
             <div class="contact-form">
               <form id="contact footer-contact" action="" method="post">
                 <div class="row">

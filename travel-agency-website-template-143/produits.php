@@ -1,3 +1,19 @@
+<?php
+require_once('pdo.php');
+
+$cnx = new connexion();
+$pdo = $cnx->CNXbase();
+
+$id = $_GET['categorie_id'] ?? 0;
+
+$stmt = $pdo->prepare("SELECT * FROM categorie WHERE id=?");
+$stmt->execute([$id]);
+$categorie = $stmt->fetch();
+
+$stmt = $pdo->prepare("SELECT * FROM produit WHERE categorie_id=?");
+$stmt->execute([$id]);
+$produits = $stmt->fetchAll();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -67,25 +83,22 @@
                   <span class="sr-only">(current)</span>
                 </a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item active">
                 <a class="nav-link" href="categorie.php">Produits</a>
               </li>
+             
               <li class="nav-item dropdown">
-                <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">À propos</a>
+                <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">About</a>
               
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="about.html">À propos</a>
-                    <a class="dropdown-item" href="testimonials.html">Avis clients</a>
+                    <a class="dropdown-item" href="about.html">About Us</a>
+                    <a class="dropdown-item" href="testimonials.html">Testimonials</a>
+                    <a class="dropdown-item" href="terms.html">Terms</a>
                 </div>
               </li>
-              <li class="nav-item active">
+              <li class="nav-item">
                 <a class="nav-link" href="contact.html">Contactez-nous</a>
               </li>
-              <li class="nav-item">
-              <a href="profil.php" class="nav-link nav-profile-icon">
-                <i class="fa fa-user"></i>
-              </a>
-            </li>
             </ul>
           </div>
         </div>
@@ -97,98 +110,74 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <h1>Contactez-nous</h1>
-            <span>feel free to send us a message now!</span>
+            <h1><?= $categorie['nom']; ?></h1>
+            <span>
+                Découvrez les produits de la catégorie <?= $categorie['nom']; ?> et équipez-vous pour vos aventures en plein air.
+            </span>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="contact-information">
-      <div class="container">
+    <div class="services">
+    <div class="container">
         <div class="row">
-          <div class="col-md-4">
-            <div class="contact-item">
-              <i class="fa fa-phone"></i>
-              <h4>Phone</h4>
-              <p>Vivamus ut tellus mi. Nulla nec cursus elit, id vulputate nec cursus augue.</p>
-              <a href="#">+1 333 4040 5566</a>
+
+        <?php foreach ($produits as $p) { ?>
+
+        <div class="col-md-4">
+            <div class="service-item">
+
+            <img src="assets/images/<?= $p['image']; ?>" alt="">
+
+            <div class="down-content">
+                <h4><?= $p['nom']; ?></h4>
+                <p><?= $p['prix']; ?> DT</p>
+
+                <a href="#" class="btn btn-primary">
+    Ajouter au panier
+</a>
             </div>
-          </div>
-          <div class="col-md-4">
-            <div class="contact-item">
-              <i class="fa fa-envelope"></i>
-              <h4>Email</h4>
-              <p>Vivamus ut tellus mi. Nulla nec cursus elit, id vulputate nec cursus augue.</p>
-              <a href="#">contact@company.com</a>
+
             </div>
-          </div>
-          <div class="col-md-4">
-            <div class="contact-item">
-              <i class="fa fa-map-marker"></i>
-              <h4>Location</h4>
-              <p>212 Barrington Court New York str <br> USA</p>
-              <a href="#">View on Google Maps</a>
-            </div>
-          </div>
         </div>
-      </div>
+
+        <?php } ?>
+
+        </div>
+    </div>
     </div>
 
-    <div class="callback-form contact-us">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="section-heading">
-              <h2>Send us a <em>message</em></h2>
-              <span>Suspendisse a ante in neque iaculis lacinia</span>
-            </div>
-          </div>
-          <div class="col-md-12">
-            <div class="contact-form">
-              <form id="contact" action="" method="get">
-                <div class="row">
-                  <div class="col-lg-4 col-md-12 col-sm-12">
-                    <fieldset>
-                      <input name="name" type="text" class="form-control" id="name" placeholder="Full Name" required="">
-                    </fieldset>
-                  </div>
-                  <div class="col-lg-4 col-md-12 col-sm-12">
-                    <fieldset>
-                      <input name="email" type="text" class="form-control" id="email" pattern="[^ @]*@[^ @]*" placeholder="E-Mail Address" required="">
-                    </fieldset>
-                  </div>
-                  <div class="col-lg-4 col-md-12 col-sm-12">
-                    <fieldset>
-                      <input name="subject" type="text" class="form-control" id="subject" placeholder="Subject" required="">
-                    </fieldset>
-                  </div>
-                  <div class="col-lg-12">
-                    <fieldset>
-                      <textarea name="message" rows="6" class="form-control" id="message" placeholder="Your Message" required=""></textarea>
-                    </fieldset>
-                  </div>
-                  <div class="col-lg-12">
-                    <fieldset>
-                      <button type="submit" id="form-submit" class="filled-button">Send Message</button>
-                    </fieldset>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <div id="map">
-<!-- How to change your own map point
-	1. Go to Google Maps
-	2. Click on your location point
-	3. Click "Share" and choose "Embed map" tab
-	4. Copy only URL and paste it within the src="" field below
--->
-      <iframe src="https://maps.google.com/maps?q=Av.+Lúcio+Costa,+Rio+de+Janeiro+-+RJ,+Brazil&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height="500px" frameborder="0" style="border:0" allowfullscreen></iframe>
+
+        <br>
+        <br>
+
+        <nav>
+          <ul class="pagination pagination-lg justify-content-center">
+            <li class="page-item">
+              <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">«</span>
+                <span class="sr-only">Previous</span>
+              </a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+              <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">»</span>
+                <span class="sr-only">Next</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <br>
+        <br>
+        <br>
+        <br>
+      </div>
     </div>
 
     <!-- Footer Starts Here -->
@@ -217,9 +206,10 @@
           <div class="col-md-3 footer-item">
             <h4>Additional Pages</h4>
             <ul class="menu-list">
-              <li><a href="#">À propos</a></li>
-              <li><a href="#">Avis clients</a></li>
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Testimonials</a></li>
               <li><a href="#">Contactez-nous</a></li>
+              <li><a href="#">Terms</a></li>
             </ul>
           </div>
           <div class="col-md-3 footer-item last-item">
