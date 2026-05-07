@@ -224,7 +224,7 @@ if (isset($_POST['ajouter'])) {
                                             <option value="">-- Choisir une catégorie --</option>
 
                                             <?php while($c = $cats->fetch()) { ?>
-                                                <option value="<?= $c['id'] ?>">
+                                                <option value="<?= $c['categorie_id'] ?>">
                                                     <?= $c['nom'] ?>
                                                 </option>
                                             <?php } ?>
