@@ -13,7 +13,7 @@ $pdo = $cnx->CNXbase();
 
 /* DELETE PRODUIT */
 if (isset($_GET['delete'])) {
-    $id = intval($_GET['delete']);
+    $id = $_GET['delete'];
 
     $stmt = $pdo->prepare("DELETE FROM produit WHERE id_produit=?");
     $stmt->execute([$id]);
@@ -21,11 +21,9 @@ if (isset($_GET['delete'])) {
     header("Location: liste_produits.php");
     exit();
 }
-
-/* UPDATE PRODUIT */
 if (isset($_POST['update'])) {
 
-    $id = intval($_POST['id']);
+    $id = $_POST['id_produit'];
     $nom = $_POST['nom'];
     $description = $_POST['description'];
     $prix = $_POST['prix'];
@@ -42,57 +40,40 @@ if (isset($_POST['update'])) {
     header("Location: liste_produits.php");
     exit();
 }
-
-/* PRODUIT A MODIFIER */
+/* UPDATE PRODUIT */
 $editProd = null;
 
 if (isset($_GET['edit'])) {
-    $id = intval($_GET['edit']);
+    $id = $_GET['edit'];
 
     $stmt = $pdo->prepare("SELECT * FROM produit WHERE id_produit=?");
     $stmt->execute([$id]);
-    $editProd = $stmt->fetch(PDO::FETCH_ASSOC);
+    $editProd = $stmt->fetch();
 }
-
-/* LISTE PRODUITS */
-$sql = "SELECT produit.id_produit, produit.nom, produit.description, produit.prix,
-               produit.stock, produit.image,
-               categorie.nom AS cat_nom
-        FROM produit
-        LEFT JOIN categorie ON produit.categorie_id = categorie.id";
-
+$sql = "SELECT * FROM produit p LEFT JOIN categorie c ON p.categorie_id = c.id";
 $res = $pdo->query($sql);
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-<meta charset="utf-8">
-<title>Gestion Produits</title>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Dashboard Admin - Camp&Co</title>
 
-<link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
-<link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
-<link rel="stylesheet" href="assets/css/style.css">
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="assets/vendors/ti-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="assets/vendors/font-awesome/css/font-awesome.min.css">
 
-<style>
-.prod-img{
-    width:60px;
-    height:60px;
-    border-radius:10px;
-    object-fit:cover;
-}
-.btns{
-    display:flex;
-    gap:10px;
-}
-</style>
-</head>
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="shortcut icon" href="assets/images/favicon.png" />
+  </head>
+  <body>
+    <div class="container-scroller">
 
-<body>
-
-<div class="container-scroller">
-          <!-- Navbar -->
-  <!-- Navbar -->
+      <!-- Navbar -->
       <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
           <a class="navbar-brand brand-logo" href="dashboard.php"><strong>Camp&Co</strong></a>
@@ -222,8 +203,8 @@ $res = $pdo->query($sql);
 
 <td>
 <img class="prod-img"
-     src="/ProjetWeb/travel-agency-website-template-143/assets/images/<?= htmlspecialchars($row['image']) ?>">
-</td>
+     src="../../travel-agency-website-template-143/assets/images/<?= htmlspecialchars($row['image']) ?>">
+  </td>
 
 <td><?= htmlspecialchars($row['nom']) ?></td>
 <td><?= htmlspecialchars($row['description']) ?></td>

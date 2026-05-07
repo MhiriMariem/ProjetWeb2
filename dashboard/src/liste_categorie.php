@@ -61,34 +61,25 @@ $res = $pdo->query($sql);
 
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-<meta charset="utf-8">
-<title>Gestion Catégories</title>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Dashboard Admin - Camp&Co</title>
 
-<link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
-<link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
-<link rel="stylesheet" href="assets/css/style.css">
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="assets/vendors/ti-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="assets/vendors/font-awesome/css/font-awesome.min.css">
 
-<style>
-.cat-img{
-    width:60px;
-    height:60px;
-    border-radius:10px;
-    object-fit:cover;
-}
-.btns{
-    display:flex;
-    gap:10px;
-}
-</style>
-</head>
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="shortcut icon" href="assets/images/favicon.png" />
+  </head>
+  <body>
+    <div class="container-scroller">
 
-<body>
-
-<div class="container-scroller">
-
-  <!-- NAVBAR -->
-  <!-- Navbar -->
+      <!-- Navbar -->
       <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
           <a class="navbar-brand brand-logo" href="dashboard.php"><strong>Camp&Co</strong></a>
