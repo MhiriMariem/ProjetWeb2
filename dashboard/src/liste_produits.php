@@ -50,7 +50,7 @@ if (isset($_GET['edit'])) {
     $stmt->execute([$id]);
     $editProd = $stmt->fetch();
 }
-$sql = "SELECT * FROM produit p LEFT JOIN categorie c ON p.categorie_id = c.id";
+$sql = "SELECT * FROM produit p LEFT JOIN categorie c ON p.categorie_id = c.categorie_id";
 $res = $pdo->query($sql);
 ?>
 <!DOCTYPE html>

@@ -23,7 +23,7 @@ if (isset($_GET['delete'])) {
     if ($count > 0) {
     $_SESSION['error'] = "Impossible de supprimer cette catégorie";
 } else {
-    $stmt = $pdo->prepare("DELETE FROM categorie WHERE id=?");
+    $stmt = $pdo->prepare("DELETE FROM categorie WHERE categorie_id=?");
     $stmt->execute([$id]);
     $_SESSION['success'] = "Catégorie supprimée avec succès";
 }
@@ -37,7 +37,7 @@ if (isset($_POST['update'])) {
     $id = $_POST['id'];
     $nom = $_POST['nom'];
 
-    $stmt = $pdo->prepare("UPDATE categorie SET nom=? WHERE id=?");
+    $stmt = $pdo->prepare("UPDATE categorie SET nom=? WHERE categorie_id=?");
     $stmt->execute([$nom, $id]);
 
     header("Location: liste_categorie.php");
@@ -50,7 +50,7 @@ $editCat = null;
 if (isset($_GET['edit'])) {
     $id = $_GET['edit'];
 
-    $stmt = $pdo->prepare("SELECT * FROM categorie WHERE id=?");
+    $stmt = $pdo->prepare("SELECT * FROM categorie WHERE categorie_id=?");
     $stmt->execute([$id]);
     $editCat = $stmt->fetch();
 }
@@ -224,12 +224,12 @@ $res = $pdo->query($sql);
 <td class="btns">
 
 <!-- MODIFIER -->
-<a href="?edit=<?= $row['id']; ?>" class="btn btn-warning btn-sm">
+<a href="?edit=<?= $row['categorie_id']; ?>" class="btn btn-warning btn-sm">
     Modifier
 </a>
 
 <!-- SUPPRIMER -->
-<a href="?delete=<?= $row['id']; ?>"
+<a href="?delete=<?= $row['categorie_id']; ?>"
    class="btn btn-danger btn-sm"
    onclick="return confirm('Supprimer cette catégorie ?')">
    Supprimer
@@ -254,7 +254,7 @@ $res = $pdo->query($sql);
 
 <form method="POST">
 
-    <input type="hidden" name="id" value="<?= $editCat['id']; ?>">
+    <input type="hidden" name="id" value="<?= $editCat['categorie_id']; ?>">
 
     <input type="text" name="nom" value="<?= $editCat['nom']; ?>" required>
 
