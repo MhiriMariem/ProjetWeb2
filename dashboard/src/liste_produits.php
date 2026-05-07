@@ -243,7 +243,7 @@ $res = $pdo->query($sql);
 
 <form method="POST">
 
-<input type="hidden" name="id" value="<?= $editProd['id_produit'] ?>">
+<input type="hidden" name="id_produit" value="<?= $editProd['id_produit'] ?>">
 
 <input class="form-control mb-2" type="text" name="nom"
        value="<?= htmlspecialchars($editProd['nom']) ?>" required>
