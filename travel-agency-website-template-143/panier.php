@@ -80,7 +80,7 @@ foreach ($panier as $p) {
     <h2>🛒 Mon panier</h2>
 
     <?php if (empty($panier)): ?>
-        <p class="empty">Votre panier est vide 😢</p>
+        <p class="empty">Votre panier est vide</p>
     <?php else: ?>
 
         <table>

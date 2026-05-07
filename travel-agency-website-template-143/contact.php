@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
          VALUES (?, ?, ?, ?, NOW())"
     );
     $stmt->execute([
-        $_POST['nom'],
+        $_POST['name'],
         $_POST['email'],
         $_POST['sujet'],
         $_POST['message']

@@ -217,7 +217,7 @@ $avis = $pdo->query($sqlAvis);
         <h4><?php echo htmlspecialchars($p['nom']); ?></h4>
 
         <!-- ✅ lien corrigé -->
-        <a href="produits.php?categorie_id=<?php echo $p['id']; ?>" class="filled-button">
+        <a href="produits.php?categorie_id=<?php echo $p['categorie_id']; ?>" class="filled-button">
           Voir plus
         </a>
 

@@ -112,7 +112,7 @@ $res = $pdo->query($sql);
 
           <div class="col-md-4">
             <div class="service-item">
-              <a href="produits.php?categorie_id=<?= $row['id']; ?>">
+              <a href="produits.php?categorie_id=<?= $row['categorie_id']; ?>">
                 <img src="assets/images/<?= $row['image']; ?>" alt="<?= $row['nom']; ?>">
               </a>
               <div class="down-content">
@@ -129,7 +129,7 @@ $res = $pdo->query($sql);
         <br>
         <br>
 
-        <nav>
+        <!-- <nav>
           <ul class="pagination pagination-lg justify-content-center">
             <li class="page-item">
               <a class="page-link" href="#" aria-label="Previous">
@@ -147,7 +147,7 @@ $res = $pdo->query($sql);
               </a>
             </li>
           </ul>
-        </nav>
+        </nav> -->
 
         <br>
         <br>

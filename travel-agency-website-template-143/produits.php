@@ -7,7 +7,7 @@ $pdo = $cnx->CNXbase();
 
 $id = $_GET['categorie_id'] ?? 0;
 
-$stmt = $pdo->prepare("SELECT * FROM categorie WHERE id=?");
+$stmt = $pdo->prepare("SELECT * FROM categorie WHERE categorie_id=?");
 $stmt->execute([$id]);
 $categorie = $stmt->fetch();
 
@@ -203,7 +203,7 @@ if (isset($_GET['add'])) {
         <br>
         <br>
 
-        <nav>
+        <!-- <nav>
           <ul class="pagination pagination-lg justify-content-center">
             <li class="page-item">
               <a class="page-link" href="#" aria-label="Previous">
@@ -221,7 +221,7 @@ if (isset($_GET['add'])) {
               </a>
             </li>
           </ul>
-        </nav>
+        </nav> -->
 
         <br>
         <br>
