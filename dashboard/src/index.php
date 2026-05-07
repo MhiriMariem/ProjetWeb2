@@ -216,54 +216,69 @@ $totalClients = $stmt2->fetch(PDO::FETCH_ASSOC)['total_clients'];
 
 </div>
 
-            <!-- Graphiques et tableau (tu peux les laisser ou modifier plus tard) -->
-            <div class="row">
-              <div class="col-md-7 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <h4 class="card-title">Statistiques des Ventes</h4>
-                    <canvas id="visit-sale-chart" class="mt-4"></canvas>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-5 grid-margin stretch-card">
-                <div class="card">
-                  <div class="card-body">
-                    <h4 class="card-title">Sources de Trafic</h4>
-                    <canvas id="traffic-chart"></canvas>
-                  </div>
-                </div>
-              </div>
-            </div>
+    
 
-            <!-- Tableau exemple -->
-            <div class="row">
-              <div class="col-12 grid-margin">
-                <div class="card">
-                  <div class="card-body">
-                    <h4 class="card-title">Dernières Activités</h4>
-                    <div class="table-responsive">
-                      <table class="table">
-                        <thead>
-                          <tr>
-                            <th>Produit</th>
-                            <th>Action</th>
-                            <th>Date</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <!-- Tu pourras remplir dynamiquement plus tard -->
-                          <tr><td>Tente de camping 4 places</td><td>Ajouté</td><td>28/04/2026</td></tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <!-- Tableau des dernières activités -->
+<div class="row">
+  <div class="col-12 grid-margin">
+    <div class="card">
+      <div class="card-body">
 
-          </div>
+        <h4 class="card-title">Dernières Activités</h4>
 
+        <div class="table-responsive">
+          <table class="table">
+
+            <thead>
+              <tr>
+                <th>Produit</th>
+                <th>Action</th>
+                <th>ID Produit</th>
+              </tr>
+            </thead>
+
+            <tbody>
+
+            <?php
+            $req = $pdo->query("
+                SELECT id_produit, nom
+                FROM produit
+                ORDER BY id_produit DESC
+                LIMIT 5
+            ");
+
+            while($row = $req->fetch(PDO::FETCH_ASSOC)) {
+            ?>
+
+              <tr>
+
+                <td>
+                  <?= htmlspecialchars($row['nom']) ?>
+                </td>
+
+                <td>
+                  <label class="badge badge-success">
+                    Ajouté
+                  </label>
+                </td>
+
+                <td>
+                  Produit #<?= $row['id_produit'] ?>
+                </td>
+
+              </tr>
+
+            <?php } ?>
+
+            </tbody>
+
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
           <!-- Footer -->
           <footer class="footer">
             <div class="d-sm-flex justify-content-center justify-content-sm-between">
