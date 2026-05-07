@@ -19,7 +19,8 @@ $pdo = $cnx->CNXbase();
 // PRODUITS
 $stmt = $pdo->query("SELECT COUNT(*) AS total_produits FROM produit");
 $totalProduits = $stmt->fetch(PDO::FETCH_ASSOC)['total_produits'];
-
+$stmt = $pdo->query("SELECT COUNT(*) AS totalCommandes FROM commande");
+$totalCommandes = $stmt->fetch(PDO::FETCH_ASSOC)['totalCommandes'];
 // CLIENTS (table utilisateur)
 $stmt2 = $pdo->query("SELECT COUNT(*) AS total_clients FROM utilisateur");
 $totalClients = $stmt2->fetch(PDO::FETCH_ASSOC)['total_clients'];
@@ -68,14 +69,10 @@ $totalClients = $stmt2->fetch(PDO::FETCH_ASSOC)['total_clients'];
                 </div>
               </a>
               <div class="dropdown-menu navbar-dropdown">
-                <a class="dropdown-item" href="../profil.php">
-                  <i class="mdi mdi-account me-2"></i> Mon Profil
+<a class="dropdown-item" href="profil.php">               
+     <i class="mdi mdi-account me-2"></i> Mon Profil
                 </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="../logout.php">
-                  <i class="mdi mdi-logout me-2 text-primary"></i> Déconnexion
-                </a>
-              </div>
+               
             </li>
           </ul>
         </div>
@@ -134,6 +131,12 @@ $totalClients = $stmt2->fetch(PDO::FETCH_ASSOC)['total_clients'];
                 <i class="mdi mdi-package-variant menu-icon"></i>
               </a>
             </li>
+              <li class="nav-item">
+              <a class="nav-link" href="notification.php">
+                <span class="menu-title">Notifications</span>
+                <i class="mdi mdi-package-variant menu-icon"></i>
+              </a>
+            </li>
             <li class="nav-item">
 
               <a class="nav-link" href="../../travel-agency-website-template-143/logout.php">
@@ -174,26 +177,27 @@ $totalClients = $stmt2->fetch(PDO::FETCH_ASSOC)['total_clients'];
           <?= $totalProduits ?>
         </h2>
 
-        <h6 class="card-text">Données en temps réel</h6>
-      </div>
+        </div>
     </div>
   </div>
 
   <!-- COMMANDES (statique ou futur) -->
-  <div class="col-md-4 stretch-card grid-margin">
-    <div class="card bg-gradient-info card-img-holder text-white">
-      <div class="card-body">
-        <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+<div class="col-md-4 stretch-card grid-margin">
+  <div class="card bg-gradient-info card-img-holder text-white">
+    <div class="card-body">
+      <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
 
-        <h4 class="font-weight-normal mb-3">
-          Commandes
-        </h4>
+      <h4 class="font-weight-normal mb-3">
+        Commandes
+      </h4>
 
-        <h2 class="mb-5">18</h2>
-        <h6 class="card-text">Statique</h6>
-      </div>
+      <h2 class="mb-5">
+        <?= $totalCommandes ?>
+      </h2>
+
     </div>
   </div>
+</div>
 
   <!-- CLIENTS -->
   <div class="col-md-4 stretch-card grid-margin">
@@ -209,7 +213,6 @@ $totalClients = $stmt2->fetch(PDO::FETCH_ASSOC)['total_clients'];
           <?= $totalClients ?>
         </h2>
 
-        <h6 class="card-text">Inscription système</h6>
       </div>
     </div>
   </div>
@@ -233,7 +236,7 @@ $totalClients = $stmt2->fetch(PDO::FETCH_ASSOC)['total_clients'];
               <tr>
                 <th>Produit</th>
                 <th>Action</th>
-                <th>ID Produit</th>
+                <th>Reference</th>
               </tr>
             </thead>
 
@@ -241,9 +244,9 @@ $totalClients = $stmt2->fetch(PDO::FETCH_ASSOC)['total_clients'];
 
             <?php
             $req = $pdo->query("
-                SELECT id_produit, nom
+                SELECT nom,reference
                 FROM produit
-                ORDER BY id_produit DESC
+                ORDER BY reference DESC
                 LIMIT 5
             ");
 
@@ -263,7 +266,7 @@ $totalClients = $stmt2->fetch(PDO::FETCH_ASSOC)['total_clients'];
                 </td>
 
                 <td>
-                  Produit #<?= $row['id_produit'] ?>
+                <?= $row['reference'] ?>
                 </td>
 
               </tr>

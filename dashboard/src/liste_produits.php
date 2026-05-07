@@ -50,8 +50,11 @@ if (isset($_GET['edit'])) {
     $stmt->execute([$id]);
     $editProd = $stmt->fetch();
 }
-$sql = "SELECT * FROM produit p LEFT JOIN categorie c ON p.categorie_id = c.categorie_id";
-$res = $pdo->query($sql);
+$sql = "SELECT p.*, c.nom AS categorie_nom
+        FROM produit p
+        LEFT JOIN categorie c 
+        ON p.categorie_id = c.categorie_id";
+        $res = $pdo->query($sql);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -97,14 +100,10 @@ $res = $pdo->query($sql);
                 </div>
               </a>
               <div class="dropdown-menu navbar-dropdown">
-                <a class="dropdown-item" href="../profil.php">
-                  <i class="mdi mdi-account me-2"></i> Mon Profil
+<a class="dropdown-item" href="profil.php">               
+     <i class="mdi mdi-account me-2"></i> Mon Profil
                 </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="../logout.php">
-                  <i class="mdi mdi-logout me-2 text-primary"></i> Déconnexion
-                </a>
-              </div>
+               
             </li>
           </ul>
         </div>
@@ -163,6 +162,12 @@ $res = $pdo->query($sql);
                 <i class="mdi mdi-package-variant menu-icon"></i>
               </a>
             </li>
+              <li class="nav-item">
+              <a class="nav-link" href="notification.php">
+                <span class="menu-title">Notifications</span>
+                <i class="mdi mdi-package-variant menu-icon"></i>
+              </a>
+            </li>
             <li class="nav-item">
 
               <a class="nav-link" href="../../travel-agency-website-template-143/logout.php">
@@ -173,7 +178,6 @@ $res = $pdo->query($sql);
           </ul>
         </nav>
 
-<div class="container-fluid page-body-wrapper">
 <div class="main-panel">
 <div class="content-wrapper">
 
@@ -210,8 +214,7 @@ $res = $pdo->query($sql);
 <td><?= htmlspecialchars($row['description']) ?></td>
 <td><?= htmlspecialchars($row['prix']) ?> TND</td>
 <td><?= htmlspecialchars($row['stock']) ?></td>
-<td><?= htmlspecialchars($row['cat_nom'] ?? 'Sans catégorie') ?></td>
-
+<td><?= htmlspecialchars($row['categorie_nom'] ?? 'Sans catégorie') ?></td>
 <td class="btns">
 
     <a href="?edit=<?= $row['id_produit'] ?>"

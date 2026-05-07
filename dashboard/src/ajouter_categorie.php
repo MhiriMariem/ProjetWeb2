@@ -93,14 +93,10 @@ if (isset($_POST['ajouter'])) {
                 </div>
               </a>
               <div class="dropdown-menu navbar-dropdown">
-                <a class="dropdown-item" href="../profil.php">
-                  <i class="mdi mdi-account me-2"></i> Mon Profil
+<a class="dropdown-item" href="profil.php">               
+     <i class="mdi mdi-account me-2"></i> Mon Profil
                 </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="../logout.php">
-                  <i class="mdi mdi-logout me-2 text-primary"></i> Déconnexion
-                </a>
-              </div>
+               
             </li>
           </ul>
         </div>
@@ -159,6 +155,12 @@ if (isset($_POST['ajouter'])) {
                 <i class="mdi mdi-package-variant menu-icon"></i>
               </a>
             </li>
+              <li class="nav-item">
+              <a class="nav-link" href="notification.php">
+                <span class="menu-title">Notifications</span>
+                <i class="mdi mdi-package-variant menu-icon"></i>
+              </a>
+            </li>
             <li class="nav-item">
 
               <a class="nav-link" href="../../travel-agency-website-template-143/logout.php">
@@ -168,8 +170,6 @@ if (isset($_POST['ajouter'])) {
             </li>
           </ul>
         </nav>
-    <div class="container-fluid page-body-wrapper">
-
         <div class="main-panel">
             <div class="content-wrapper">
 
