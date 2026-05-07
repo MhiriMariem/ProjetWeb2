@@ -12,8 +12,7 @@ session_start();
     <meta name="author" content="">
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 
-    <title>PHPJabbers.com | Free Travel Agency Website Template</title>
-
+<title>À propos | Camp&Co</title>
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -36,25 +35,6 @@ session_start();
     <!-- ***** Preloader End ***** -->
 
     <!-- Header -->
-    <div class="sub-header">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-8 col-xs-12">
-            <ul class="left-info">
-              <li><a href="#"><i class="fa fa-envelope"></i>contact@company.com</a></li>
-              <li><a href="#"><i class="fa fa-phone"></i>123-456-7890</a></li>
-            </ul>
-          </div>
-          <div class="col-md-4">
-            <ul class="right-icons">
-              <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-              <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-              <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
     
     <header class="">
       <nav class="navbar navbar-expand-lg">
@@ -146,48 +126,7 @@ session_start();
       </div>
     </div>
 
-    <div class="fun-facts">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="left-content">
-              <span>Lorem ipsum dolor sit amet</span>
-              <h2>Modi esse sapiente tenetur <em>impedit laudantium laborum</em></h2>
-              <p>Pellentesque ultrices at turpis in vestibulum. Aenean pretium elit nec congue elementum. Nulla luctus laoreet porta. Maecenas at nisi tempus, porta metus vitae, faucibus augue. 
-              <br><br>Fusce et venenatis ex. Quisque varius, velit quis dictum sagittis, odio velit molestie nunc, ut posuere ante tortor ut neque.</p>
-            </div>
-          </div>
-          <div class="col-md-6 align-self-center">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="count-area-content">
-                  <div class="count-digit">1234</div>
-                  <div class="count-title">Destinations</div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="count-area-content">
-                  <div class="count-digit">6280</div>
-                  <div class="count-title">Happy clients</div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="count-area-content">
-                  <div class="count-digit">115</div>
-                  <div class="count-title">Cities</div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="count-area-content">
-                  <div class="count-digit">26</div>
-                  <div class="count-title">Packages</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+   
 
     <!-- Footer Starts Here -->
     <footer>
@@ -250,19 +189,7 @@ session_start();
         </div>
       </div>
     </footer>
-    <div class="sub-footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <p>
-                Copyright © 2020 Company Name
-                - Template by: <a href="https://www.phpjabbers.com/">PHPJabbers.com</a>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-
+    
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

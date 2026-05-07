@@ -128,6 +128,12 @@ $totalClients = $stmt2->fetch(PDO::FETCH_ASSOC)['total_clients'];
                 <i class="mdi mdi-plus-circle menu-icon"></i>
               </a>
             </li>
+               <li class="nav-item">
+              <a class="nav-link" href="gestion_utilisateur.php">
+                <span class="menu-title">Gestion des Utilisateurs</span>
+                <i class="mdi mdi-package-variant menu-icon"></i>
+              </a>
+            </li>
             <li class="nav-item">
 
               <a class="nav-link" href="../../travel-agency-website-template-143/logout.php">

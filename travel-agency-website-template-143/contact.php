@@ -1,6 +1,28 @@
 <?php
-session_start()
+session_start();
+require_once("pdo.php");
+
+$cnx = new connexion();
+$pdo = $cnx->CNXbase();
+
+$success = false;
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $stmt = $pdo->prepare(
+        "INSERT INTO contact (nom, email, sujet, message, date_envoi)
+         VALUES (?, ?, ?, ?, NOW())"
+    );
+    $stmt->execute([
+        $_POST['nom'],
+        $_POST['email'],
+        $_POST['sujet'],
+        $_POST['message']
+    ]);
+
+    $success = true;
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,26 +58,8 @@ session_start()
     <!-- ***** Preloader End ***** -->
 
     <!-- Header -->
-    <div class="sub-header">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-8 col-xs-12">
-            <ul class="left-info">
-              <li><a href="#"><i class="fa fa-envelope"></i>contact@company.com</a></li>
-              <li><a href="#"><i class="fa fa-phone"></i>123-456-7890</a></li>
-            </ul>
-          </div>
-          <div class="col-md-4">
-            <ul class="right-icons">
-              <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-              <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-              <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
     
+  
     <header class="">
       <nav class="navbar navbar-expand-lg">
         <div class="container">
@@ -108,9 +112,8 @@ session_start()
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <h1>Contactez-nous</h1>
-            <span>feel free to send us a message now!</span>
-          </div>
+           <h1>Contactez‑nous</h1>
+          <span>N’hésitez pas à nous envoyer un message</span>          </div>
         </div>
       </div>
     </div>
@@ -121,25 +124,28 @@ session_start()
           <div class="col-md-4">
             <div class="contact-item">
               <i class="fa fa-phone"></i>
-              <h4>Phone</h4>
-              <p>Vivamus ut tellus mi. Nulla nec cursus elit, id vulputate nec cursus augue.</p>
-              <a href="#">+1 333 4040 5566</a>
+              <h4>Téléphone</h4>
+              <p>Service client disponible 7j/7</p>
+              <a href="#">25 123 456</a>
             </div>
           </div>
           <div class="col-md-4">
-            <div class="contact-item">
-              <i class="fa fa-envelope"></i>
-              <h4>Email</h4>
-              <p>Vivamus ut tellus mi. Nulla nec cursus elit, id vulputate nec cursus augue.</p>
-              <a href="#">contact@company.com</a>
-            </div>
-          </div>
+  <div class="contact-item">
+    <i class="fa fa-envelope"></i>
+    <h4>Adresse e‑mail</h4>
+    <p>
+      Vous pouvez nous contacter par e‑mail pour toute question ou demande
+      d’information. Notre équipe vous répondra dans les plus brefs délais.
+    </p>
+    <a href="mailto:campco@gmail.com">campco@gmail.com</a>
+  </div>
+</div>
           <div class="col-md-4">
             <div class="contact-item">
               <i class="fa fa-map-marker"></i>
-              <h4>Location</h4>
-              <p>212 Barrington Court New York str <br> USA</p>
-              <a href="#">View on Google Maps</a>
+              <h4>Localisation</h4>
+              <p>Sfax – Tunisie</p>
+              <a href="#">Voir sur Google Maps</a>
             </div>
           </div>
         </div>
@@ -150,47 +156,83 @@ session_start()
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <div class="section-heading">
-              <h2>Send us a <em>message</em></h2>
-              <span>Suspendisse a ante in neque iaculis lacinia</span>
-            </div>
-          </div>
-          <div class="col-md-12">
-            <div class="contact-form">
-              <form id="contact" action="" method="get">
-                <div class="row">
-                  <div class="col-lg-4 col-md-12 col-sm-12">
-                    <fieldset>
-                      <input name="name" type="text" class="form-control" id="name" placeholder="Full Name" required="">
-                    </fieldset>
-                  </div>
-                  <div class="col-lg-4 col-md-12 col-sm-12">
-                    <fieldset>
-                      <input name="email" type="text" class="form-control" id="email" pattern="[^ @]*@[^ @]*" placeholder="E-Mail Address" required="">
-                    </fieldset>
-                  </div>
-                  <div class="col-lg-4 col-md-12 col-sm-12">
-                    <fieldset>
-                      <input name="subject" type="text" class="form-control" id="subject" placeholder="Subject" required="">
-                    </fieldset>
-                  </div>
-                  <div class="col-lg-12">
-                    <fieldset>
-                      <textarea name="message" rows="6" class="form-control" id="message" placeholder="Your Message" required=""></textarea>
-                    </fieldset>
-                  </div>
-                  <div class="col-lg-12">
-                    <fieldset>
-                      <button type="submit" id="form-submit" class="filled-button">Send Message</button>
-                    </fieldset>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
+  <div class="section-heading">
+    <h2>Envoyer un <em>message</em></h2>
+    <span>N’hésitez pas à nous écrire pour toute question ou demande d’information.</span>
+  </div>
+</div>  
+         <div class="col-md-12">
+  <div class="contact-form">
+
+    <form method="post">
+      <div class="row">
+
+        <!-- Nom -->
+        <div class="col-lg-4 col-md-12 col-sm-12">
+          <fieldset>
+            <input type="text"
+                   name="nom"
+                   class="form-control"
+                   placeholder="Nom complet"
+                   required>
+          </fieldset>
+        </div>
+
+        <!-- Email -->
+        <div class="col-lg-4 col-md-12 col-sm-12">
+          <fieldset>
+            <input type="email"
+                   name="email"
+                   class="form-control"
+                   placeholder="Adresse e-mail"
+                   required>
+          </fieldset>
+        </div>
+
+        <!-- Sujet -->
+        <div class="col-lg-4 col-md-12 col-sm-12">
+          <fieldset>
+            <input type="text"
+                   name="sujet"
+                   class="form-control"
+                   placeholder="Sujet"
+                   required>
+          </fieldset>
+        </div>
+
+        <!-- Message -->
+        <div class="col-lg-12">
+          <fieldset>
+            <textarea name="message"
+                      rows="6"
+                      class="form-control"
+                      placeholder="Votre message"
+                      required></textarea>
+          </fieldset>
+        </div>
+
+        <!-- Bouton -->
+        <div class="col-lg-12 text-center">
+          <fieldset>
+            <button type="submit" class="filled-button">
+              Envoyer
+            </button>
+          </fieldset>
+        </div>
+
+      </div>
+    </form>
+
+    <?php if ($success) { ?>
+      <p style="color:green; margin-top:15px; text-align:center;">
+        ✅ Message envoyé avec succès
+      </p>
+    <?php } ?>
+
+  </div>
+</div>
         </div>
       </div>
-    </div>
 
     <div id="map">
 <!-- How to change your own map point

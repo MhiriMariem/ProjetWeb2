@@ -66,6 +66,7 @@ $res = $pdo->query($sql);
 <title>Gestion Catégories</title>
 
 <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
+<link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
 <link rel="stylesheet" href="assets/css/style.css">
 
 <style>
@@ -85,6 +86,107 @@ $res = $pdo->query($sql);
 <body>
 
 <div class="container-scroller">
+
+  <!-- NAVBAR -->
+  <!-- Navbar -->
+      <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
+          <a class="navbar-brand brand-logo" href="dashboard.php"><strong>Camp&Co</strong></a>
+          <a class="navbar-brand brand-logo-mini" href="dashboard.php"><strong>C&C</strong></a>
+        </div>
+
+        <div class="navbar-menu-wrapper d-flex align-items-stretch">
+          <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+            <span class="mdi mdi-menu"></span>
+          </button>
+
+          <ul class="navbar-nav navbar-nav-right">
+            <li class="nav-item nav-profile dropdown">
+              <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                <div class="nav-profile-img">
+                  <img src="assets/images/faces/face1.jpg" alt="image">
+                  <span class="availability-status online"></span>
+                </div>
+                <div class="nav-profile-text">
+                  <p class="mb-1 text-black"><?= htmlspecialchars($_SESSION["nom"] ?? 'Administrateur') ?></p>
+                </div>
+              </a>
+              <div class="dropdown-menu navbar-dropdown">
+                <a class="dropdown-item" href="../profil.php">
+                  <i class="mdi mdi-account me-2"></i> Mon Profil
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="../logout.php">
+                  <i class="mdi mdi-logout me-2 text-primary"></i> Déconnexion
+                </a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <!-- Sidebar -->
+      <div class="container-fluid page-body-wrapper">
+        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+          <ul class="nav">
+            <li class="nav-item nav-profile">
+              <a href="#" class="nav-link">
+                <div class="nav-profile-image">
+                  <img src="assets/images/faces/face1.jpg" alt="profile" />
+                  <span class="login-status online"></span>
+                </div>
+                <div class="welcome-box">
+                  <h3>Bonjour, <?= htmlspecialchars($_SESSION["nom"] ?? 'Admin') ?></h3>
+                </div>
+              </a>
+            </li>
+
+           <li class="nav-item">
+              <a class="nav-link" href="index.php">
+                <span class="menu-title">Dashboard</span>
+                <i class="mdi mdi-home menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="liste_produits.php">
+                <span class="menu-title">Gestion des Produits</span>
+                <i class="mdi mdi-package-variant menu-icon"></i>
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="ajouter_produit.php">
+                <span class="menu-title">Ajouter un Produit</span>
+                <i class="mdi mdi-plus-circle menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="ajouter_categorie.php">
+                <span class="menu-title">Ajouter une Catégorie</span>
+                <i class="mdi mdi-plus-circle menu-icon"></i>
+              </a>
+            </li>
+ <li class="nav-item">
+              <a class="nav-link" href="liste_categorie.php">
+                <span class="menu-title">Gestion des Catégories</span>
+                <i class="mdi mdi-plus-circle menu-icon"></i>
+              </a>
+            </li>
+               <li class="nav-item">
+              <a class="nav-link" href="gestion_utilisateur.php">
+                <span class="menu-title">Gestion des Utilisateurs</span>
+                <i class="mdi mdi-package-variant menu-icon"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+
+              <a class="nav-link" href="../../travel-agency-website-template-143/logout.php">
+                <span class="menu-title">Déconnexion</span>
+                <i class="mdi mdi-logout menu-icon"></i>
+              </a>
+            </li>
+          </ul>
+        </nav>
 <div class="container-fluid page-body-wrapper">
 <div class="main-panel">
 <div class="content-wrapper">

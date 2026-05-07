@@ -1,97 +1,51 @@
 <?php
 session_start();
 
-if (!isset($_SESSION["connecte"]) || $_SESSION["role"] != "admin") {
+if (!isset($_SESSION["connecte"]) || $_SESSION["role"] !== "admin") {
     header("Location: ../../travel-agency-website-template-143/login.php");
     exit();
 }
 
 require_once('../../travel-agency-website-template-143/pdo.php');
-
 $cnx = new connexion();
 $pdo = $cnx->CNXbase();
 
-/* DELETE PRODUIT */
+/* Suppression utilisateur (sauf admin) */
 if (isset($_GET['delete'])) {
-    $id = intval($_GET['delete']);
+    $id = (int)$_GET['delete'];
 
-    $stmt = $pdo->prepare("DELETE FROM produit WHERE id_produit=?");
-    $stmt->execute([$id]);
+    $check = $pdo->prepare("SELECT role FROM utilisateur WHERE id_utilisateur = ?");
+    $check->execute([$id]);
+    $user = $check->fetch();
 
-    header("Location: liste_produits.php");
+    if ($user && $user['role'] !== 'admin') {
+        $stmt = $pdo->prepare("DELETE FROM utilisateur WHERE id_utilisateur = ?");
+        $stmt->execute([$id]);
+    }
+
+    header("Location: gestion_utilisateur.php");
     exit();
 }
 
-/* UPDATE PRODUIT */
-if (isset($_POST['update'])) {
-
-    $id = intval($_POST['id']);
-    $nom = $_POST['nom'];
-    $description = $_POST['description'];
-    $prix = $_POST['prix'];
-    $stock = $_POST['stock'];
-
-    $stmt = $pdo->prepare("
-        UPDATE produit 
-        SET nom=?, description=?, prix=?, stock=? 
-        WHERE id_produit=?
-    ");
-
-    $stmt->execute([$nom, $description, $prix, $stock, $id]);
-
-    header("Location: liste_produits.php");
-    exit();
-}
-
-/* PRODUIT A MODIFIER */
-$editProd = null;
-
-if (isset($_GET['edit'])) {
-    $id = intval($_GET['edit']);
-
-    $stmt = $pdo->prepare("SELECT * FROM produit WHERE id_produit=?");
-    $stmt->execute([$id]);
-    $editProd = $stmt->fetch(PDO::FETCH_ASSOC);
-}
-
-/* LISTE PRODUITS */
-$sql = "SELECT produit.id_produit, produit.nom, produit.description, produit.prix,
-               produit.stock, produit.image,
-               categorie.nom AS cat_nom
-        FROM produit
-        LEFT JOIN categorie ON produit.categorie_id = categorie.id";
-
-$res = $pdo->query($sql);
+/* Liste utilisateurs */
+$users = $pdo->query("SELECT * FROM utilisateur ORDER BY id_utilisateur DESC");
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="utf-8">
-<title>Gestion Produits</title>
+  <meta charset="utf-8">
+  <title>Gestion des utilisateurs | Admin Camp&Co</title>
 
-<link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
-<link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
-<link rel="stylesheet" href="assets/css/style.css">
-
-<style>
-.prod-img{
-    width:60px;
-    height:60px;
-    border-radius:10px;
-    object-fit:cover;
-}
-.btns{
-    display:flex;
-    gap:10px;
-}
-</style>
+  <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="assets/vendors/ti-icons/css/themify-icons.css">
+  <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="assets/vendors/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
-
 <div class="container-scroller">
-          <!-- Navbar -->
+
   <!-- Navbar -->
       <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
         <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
@@ -192,102 +146,81 @@ $res = $pdo->query($sql);
           </ul>
         </nav>
 
-<div class="container-fluid page-body-wrapper">
-<div class="main-panel">
-<div class="content-wrapper">
+    <!-- MAIN PANEL -->
+    <div class="main-panel">
+      <div class="content-wrapper">
 
-<h3>Gestion des Produits</h3>
+        <div class="page-header">
+          <h3 class="page-title">
+            <i class="mdi mdi-account-multiple text-primary"></i>
+            Gestion des utilisateurs
+          </h3>
+        </div>
 
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Liste des utilisateurs</h4>
 
+            <div class="table-responsive">
+              <table class="table table-bordered table-hover">
+                <thead class="thead-dark">
+                  <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Email</th>
+                    <th>Téléphone</th>
+                    <th>Rôle</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <?php while ($u = $users->fetch(PDO::FETCH_ASSOC)) { ?>
+                  <tr>
+                    <td><?= $u['id_utilisateur']; ?></td>
+                    <td><?= htmlspecialchars($u['nom']); ?></td>
+                    <td><?= htmlspecialchars($u['email']); ?></td>
+                    <td><?= htmlspecialchars($u['telephone']); ?></td>
+                    <td>
+                      <?php if ($u['role'] === 'admin') { ?>
+                        <span class="badge bg-gradient-danger">Admin</span>
+                      <?php } else { ?>
+                        <span class="badge bg-gradient-success">Client</span>
+                      <?php } ?>
+                    </td>
+                    <td>
+                      <?php if ($u['role'] !== 'admin') { ?>
+                        <a href="supprimer_utilisateur.php?id=<?= $u['id_utilisateur'] ?>" 
+                           class="btn btn-danger btn-sm"
+                           onclick="return confirm('Supprimer cet utilisateur ?');">
+                          Supprimer
+                        </a>
+                      <?php } else { ?>
+                        —
+                      <?php } ?>
+                    </td>
+                  </tr>
+                <?php } ?>
+                </tbody>
+              </table>
+            </div>
 
-<table class="table table-striped">
+           
 
-<thead>
-<tr>
-    <th>Image</th>
-    <th>Nom</th>
-    <th>Description</th>
-    <th>Prix</th>
-    <th>Stock</th>
-    <th>Catégorie</th>
-    <th>Actions</th>
-</tr>
-</thead>
+          </div>
+        </div>
 
-<tbody>
+      </div>
 
-<?php while ($row = $res->fetch()) { ?>
+      <footer class="footer">
+        <span class="text-muted">© 2026 Camp&Co – Administration</span>
+      </footer>
 
-<tr>
-
-<td>
-<img class="prod-img"
-     src="/ProjetWeb/travel-agency-website-template-143/assets/images/<?= htmlspecialchars($row['image']) ?>">
-</td>
-
-<td><?= htmlspecialchars($row['nom']) ?></td>
-<td><?= htmlspecialchars($row['description']) ?></td>
-<td><?= htmlspecialchars($row['prix']) ?> TND</td>
-<td><?= htmlspecialchars($row['stock']) ?></td>
-<td><?= htmlspecialchars($row['cat_nom'] ?? 'Sans catégorie') ?></td>
-
-<td class="btns">
-
-    <a href="?edit=<?= $row['id_produit'] ?>"
-       class="btn btn-warning btn-sm">
-        Modifier
-    </a>
-
-    <a href="?delete=<?= $row['id_produit'] ?>"
-       class="btn btn-danger btn-sm"
-       onclick="return confirm('Supprimer ce produit ?')">
-        Supprimer
-    </a>
-
-</td>
-
-</tr>
-
-<?php } ?>
-
-</tbody>
-</table>
-
-<!-- FORMULAIRE MODIFICATION -->
-<?php if ($editProd !== false && $editProd !== null) { ?>
-
-<hr>
-
-<h4>Modifier Produit</h4>
-
-<form method="POST">
-
-<input type="hidden" name="id" value="<?= $editProd['id_produit'] ?>">
-
-<input class="form-control mb-2" type="text" name="nom"
-       value="<?= htmlspecialchars($editProd['nom']) ?>" required>
-
-<textarea class="form-control mb-2"
-          name="description" required><?= htmlspecialchars($editProd['description']) ?></textarea>
-
-<input class="form-control mb-2" type="number" step="0.01" name="prix"
-       value="<?= htmlspecialchars($editProd['prix']) ?>" required>
-
-<input class="form-control mb-2" type="number" name="stock"
-       value="<?= htmlspecialchars($editProd['stock']) ?>" required>
-
-<button type="submit" name="update" class="btn btn-success">
-    Enregistrer
-</button>
-
-</form>
-
-<?php } ?>
-
-</div>
-</div>
-</div>
+    </div>
+  </div>
 </div>
 
+<script src="assets/vendors/js/vendor.bundle.base.js"></script>
+<script src="assets/js/off-canvas.js"></script>
+<script src="assets/js/misc.js"></script>
 </body>
 </html>

@@ -1,9 +1,27 @@
 <?php
 session_start();
+
 if (!isset($_SESSION["connecte"])) {
     header("Location: login.html");
     exit();
 }
+
+if (!isset($_SESSION['panier'])) {
+    $_SESSION['panier'] = [];
+}
+
+/* Connexion à la base */
+require_once("pdo.php");
+$cnx = new connexion();
+$pdo = $cnx->CNXbase();
+
+/* Récupération des catégories */
+$sql = "SELECT * FROM categorie LIMIT 6";
+$categorie = $pdo->query($sql);
+
+/* Récupération des avis clients */
+$sqlAvis = "SELECT * FROM avis ORDER BY date_avis DESC LIMIT 4";
+$avis = $pdo->query($sqlAvis);
 ?>
 
 <!DOCTYPE html>
@@ -96,7 +114,7 @@ if (!isset($_SESSION["connecte"])) {
 
               <li class="nav-item">
               <a href="panier.php" class="nav-link nav-profile-icon">
-                <i class="fa fa-shopping-cart"></i>
+<i class="fa fa-shopping-cart" style="color:white;"></i>
                 <span class="badge">
                   <?= count($_SESSION['panier'] ?? []) ?>
                 </span>
@@ -105,8 +123,7 @@ if (!isset($_SESSION["connecte"])) {
 
               <li class="nav-item">
               <a href="profil.php" class="nav-link nav-profile-icon">
-                <i class="fa fa-user"></i>
-              </a>
+<i class="fa fa-user" style="color:white;"></i>              </a>
             </li>
             
             </ul>
@@ -187,51 +204,29 @@ if (!isset($_SESSION["connecte"])) {
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <div class="section-heading">
-             <h2>Nos <em>produits vedettes</em></h2>
-              <span>Découvrez notre sélection d’équipements de camping les plus populaires</span>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="service-item">
-              <img src="assets/images/tente.jpg" alt=""></a>
-              <div class="down-content">
-                <h4>Tentes & Abri</h4>
-             
-              <a href="produits.php" class="filled-button">Voir plus</a>
-              </div>
-            </div>
+  <div class="section-heading">
+    <h2>Nos <em>produits vedettes</em></h2>
+    <span>Découvrez notre sélection d’équipements de camping les plus populaires</span>
+  </div>
+</div>
+<?php while ($p = $categorie->fetch(PDO::FETCH_ASSOC)) { ?>
+  <div class="col-md-4">
+    <div class="service-item">
+      <img src="assets/images/<?php echo htmlspecialchars($p['image']); ?>" alt="">
+      <div class="down-content">
+        <h4><?php echo htmlspecialchars($p['nom']); ?></h4>
 
-            <br>
-          </div>
-          <div class="col-md-4">
-            <div class="service-item">
-              <img src="assets/images/hyg.jpg" alt="">
-              <div class="down-content">
-                <h4>Hygiène & Confort</h4>
-                              
+        <!-- ✅ lien corrigé -->
+        <a href="produits.php?categorie_id=<?php echo $p['id']; ?>" class="filled-button">
+          Voir plus
+        </a>
 
-                 <a href="produits.php" class="filled-button">Voir plus</a>
-              </div>
-            </div>
-
-            <br>
-          </div>
-          <div class="col-md-4">
-            <div class="service-item">
-                <img src="assets/images/couchage.webp" alt="">
-                <div class="down-content">
-                <h4>Couchage</h4>
-                 <a href="produits.php" class="filled-button">Voir plus</a>
-              </div>
-            </div>
-
-            <br>
-          </div>
-        </div>
       </div>
     </div>
-
+    <br>
+  </div>
+<?php } ?>
+          
     <div class="fun-facts">
       <div class="container">
         <div class="more-info-content">
@@ -273,45 +268,17 @@ if (!isset($_SESSION["connecte"])) {
       <div class="col-md-12">
         <div class="owl-testimonials owl-carousel">
 
-          <div class="testimonial-item">
-            <div class="inner-content">
-              <h4>Ahmed Ben Ali</h4>
-              <span>Aventurier</span>
-              <p>
-                "Très satisfait de ma tente achetée chez Camp&Co. Résistante au vent et facile à installer. Parfait pour le camping en montagne."
-              </p>
-            </div>
-          </div>
-
-          <div class="testimonial-item">
-            <div class="inner-content">
-              <h4>Sofia Trabelsi</h4>
-              <span>Amatrice de camping</span>
-              <p>
-                "J’ai acheté un sac de couchage très confortable. Même par temps froid, je dors parfaitement. Je recommande vivement !"
-              </p>
-            </div>
-          </div>
-
-          <div class="testimonial-item">
-            <div class="inner-content">
-              <h4>Yassine Karoui</h4>
-              <span>Randonneur</span>
-              <p>
-                "Les équipements sont de très bonne qualité et le service client est rapide. Très bonne expérience avec Camp&Co."
-              </p>
-            </div>
-          </div>
-
-          <div class="testimonial-item">
-            <div class="inner-content">
-              <h4>Amira Jabeur</h4>
-              <span>Voyageuse</span>
-              <p>
-                "J’ai acheté une lampe de camping, très puissante et durable. Idéale pour les sorties nocturnes en nature."
-              </p>
-            </div>
-          </div>
+         <?php while ($a = $avis->fetch(PDO::FETCH_ASSOC)) { ?>
+  <div class="testimonial-item">
+    <div class="inner-content">
+      <h4><?php echo htmlspecialchars($a['nom']); ?></h4>
+      <span><?php echo htmlspecialchars($a['role']); ?></span>
+      <p>
+        "<?php echo htmlspecialchars($a['message']); ?>"
+      </p>
+    </div>
+  </div>
+<?php } ?>
 
         </div>
       </div>
@@ -319,57 +286,7 @@ if (!isset($_SESSION["connecte"])) {
     </div>
   </div>
 </div>
-    <div class="callback-form">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="section-heading">
-              <h2>Request a <em>call back</em></h2>
-              <span>Etiam suscipit ante a odio consequat</span>
-            </div>
-          </div>
-          <div class="col-md-12">
-            <div class="contact-form">
-              <form id="contact" action="" method="post">
-                <div class="row">
-                  <div class="col-lg-4 col-md-12 col-sm-12">
-                    <fieldset>
-                      <input name="name" type="text" class="form-control" id="name" placeholder="Full Name" required="">
-                    </fieldset>
-                  </div>
-                  <div class="col-lg-4 col-md-12 col-sm-12">
-                    <fieldset>
-                      <input name="email" type="text" class="form-control" id="email" pattern="[^ @]*@[^ @]*" placeholder="E-Mail Address" required="">
-                    </fieldset>
-                  </div>
-                  <div class="col-lg-4 col-md-12 col-sm-12">
-                    <fieldset>
-                      <input name="subject" type="text" class="form-control" id="subject" placeholder="Subject" required="">
-                    </fieldset>
-                  </div>
-                  <div class="col-lg-12">
-                    <fieldset>
-                      <textarea name="message" rows="6" class="form-control" id="message" placeholder="Your Message" required=""></textarea>
-                    </fieldset>
-                  </div>
-                  <div class="col-lg-12">
-                    <fieldset>
-                      <button type="submit" id="form-submit" class="border-button">Send Message</button>
-                    </fieldset>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-
-        <br>
-        <br>
-        <br>
-        <br>
-      </div>
-    </div>
-
+   
     <!-- Footer Starts Here -->
     <footer>
       <div class="container">

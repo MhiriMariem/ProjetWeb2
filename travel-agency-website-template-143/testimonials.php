@@ -1,6 +1,15 @@
+
 <?php
 session_start();
+require_once("pdo.php");
+
+$cnx = new connexion();
+$pdo = $cnx->CNXbase();
+
+$sql = "SELECT * FROM avis ORDER BY date_avis DESC";
+$avis = $pdo->query($sql);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,25 +45,6 @@ session_start();
     <!-- ***** Preloader End ***** -->
 
     <!-- Header -->
-    <div class="sub-header">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-8 col-xs-12">
-            <ul class="left-info">
-              <li><a href="#"><i class="fa fa-envelope"></i>contact@company.com</a></li>
-              <li><a href="#"><i class="fa fa-phone"></i>123-456-7890</a></li>
-            </ul>
-          </div>
-          <div class="col-md-4">
-            <ul class="right-icons">
-              <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-              <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-              <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
     
     <header class="">
       <nav class="navbar navbar-expand-lg">
@@ -109,61 +99,36 @@ session_start();
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <h1>Testimonials</h1>
-            <span>testimonials from our greatest clients</span>
+           
+          <h1>Avis de nos clients</h1>
+          <span>Découvrez les témoignages de nos clients</span>
+
           </div>
         </div>
       </div>
     </div>
 
-    <div class="testimonials" style="margin: 0">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="owl-testimonials owl-carousel">
-              
-              <div class="testimonial-item">
-                <div class="inner-content">
-                  <h4>George Walker</h4>
-                  <span>Chief Financial Analyst</span>
-                  <p>"Nulla ullamcorper, ipsum vel condimentum congue, mi odio vehicula tellus, sit amet malesuada justo sem sit amet quam. Pellentesque in sagittis lacus."</p>
-                </div>
-                <img src="http://placehold.it/60x60" alt="">
-              </div>
-              
-              <div class="testimonial-item">
-                <div class="inner-content">
-                  <h4>John Smith</h4>
-                  <span>Market Specialist</span>
-                  <p>"In eget leo ante. Sed nibh leo, laoreet accumsan euismod quis, scelerisque a nunc. Mauris accumsan, arcu id ornare malesuada, est nulla luctus nisi."</p>
-                </div>
-                <img src="http://placehold.it/60x60" alt="">
-              </div>
-              
-              <div class="testimonial-item">
-                <div class="inner-content">
-                  <h4>David Wood</h4>
-                  <span>Chief Accountant</span>
-                  <p>"Ut ultricies maximus turpis, in sollicitudin ligula posuere vel. Donec finibus maximus neque, vitae egestas quam imperdiet nec. Proin nec mauris eu tortor consectetur tristique."</p>
-                </div>
-                <img src="http://placehold.it/60x60" alt="">
-              </div>
-              
-              <div class="testimonial-item">
-                <div class="inner-content">
-                  <h4>Andrew Boom</h4>
-                  <span>Marketing Head</span>
-                  <p>"Curabitur sollicitudin, tortor at suscipit volutpat, nisi arcu aliquet dui, vitae semper sem turpis quis libero. Quisque vulputate lacinia nisl ac lobortis."</p>
-                </div>
-                <img src="http://placehold.it/60x60" alt="">
-              </div>
-              
+    <div class="testimonials" style="margin:0">
+  <div class="container">
+    <div class="row">
+
+      <?php while ($a = $avis->fetch(PDO::FETCH_ASSOC)) { ?>
+        <div class="col-md-4">
+          <div class="testimonial-item">
+            <div class="inner-content">
+              <h4><?= htmlspecialchars($a['nom']); ?></h4>
+              <span><?= htmlspecialchars($a['role']); ?></span>
+              <p>
+                "<?= htmlspecialchars($a['message']); ?>"
+              </p>
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      <?php } ?>
 
+    </div>
+  </div>
+</div>
     <!-- Footer Starts Here -->
     <footer>
       <div class="container">
@@ -226,19 +191,7 @@ session_start();
       </div>
     </footer>
     
-    <div class="sub-footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <p>
-                Copyright © 2020 Company Name
-                - Template by: <a href="https://www.phpjabbers.com/">PHPJabbers.com</a>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-
+   
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
