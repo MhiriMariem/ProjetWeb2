@@ -123,7 +123,7 @@ if (!$user) {
                 <div class="info-row">
                     <span class="info-label">Téléphone :</span>
                     <span id="displayTel" class="info-value"><?= htmlspecialchars($user["telephone"] ?: 'Non renseigné') ?></span>
-                    <button class="btn-edit" type="button" onclick="openModal()"><i class="fas fa-pen"></i></button>
+                    <button class="btn-edit" type="button"><i class="fas fa-pen"></i></button>
                 </div>
                 <div class="info-row">
                     <span class="info-label">Rôle :</span>
