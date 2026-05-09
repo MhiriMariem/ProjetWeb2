@@ -72,6 +72,22 @@ foreach ($panier as $p) {
             text-align: center;
             margin-top: 50px;
         }
+        .btn-commander {
+            padding: 10px 20px;
+            background: #2c5a36;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .btn-commander:hover {
+            background: #1f4227;
+        }
+        .commande {
+            text-align: right;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -108,6 +124,14 @@ foreach ($panier as $p) {
         <div class="total">
             <strong>Total : <?= $total ?> DT</strong>
         </div>
+
+        
+        <div class="commande">
+            <a href="commande.php" class="btn-commander">
+                Commander
+            </a>
+        </div>
+
 
     <?php endif; ?>
 
