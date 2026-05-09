@@ -1,34 +1,46 @@
 <?php
 session_start();
 
-if (!isset($_SESSION["connecte"]) || $_SESSION["role"] !== "admin") {
+if (!isset($_SESSION["connecte"]) || $_SESSION["role"] != "admin") {
     header("Location: ../../travel-agency-website-template-143/login.php");
     exit();
 }
 
 require_once('../../travel-agency-website-template-143/pdo.php');
+
+$email = $_SESSION["email"];
 $cnx = new connexion();
-$pdo = $cnx->CNXbase();
+$conn = $cnx->CNXbase();
 
-/* Suppression utilisateur (sauf admin) */
-if (isset($_GET['delete'])) {
-    $id = $_GET['delete'];
+/* =========================
+   UPDATE PROFIL
+========================= */
+$message = "";
+$edit = isset($_GET['edit']);
+if (isset($_POST['update'])) {
 
-    $check = $pdo->prepare("SELECT role FROM utilisateur WHERE id_utilisateur = ?");
-    $check->execute([$id]);
-    $user = $check->fetch();
+    $nom = $_POST['nom'];
+    $telephone = $_POST['telephone'];
 
-    if ($user && $user['role'] !== 'admin') {
-        $stmt = $pdo->prepare("DELETE FROM utilisateur WHERE id_utilisateur = ?");
-        $stmt->execute([$id]);
-    }
+    $stmt = $conn->prepare("
+        UPDATE utilisateur 
+        SET nom = ?, telephone = ? 
+        WHERE email = ?
+    ");
 
-    header("Location: gestion_utilisateur.php");
-    exit();
+    $stmt->execute([$nom, $telephone, $email]);
+
+    $_SESSION["nom"] = $nom; // update session
+
+    $message = "Profil mis à jour avec succès ✔";
 }
 
-/* Liste utilisateurs */
-$users = $pdo->query("SELECT * FROM utilisateur ORDER BY id_utilisateur DESC");
+/* =========================
+   GET USER
+========================= */
+$stmt = $conn->prepare("SELECT nom, email, telephone, role FROM utilisateur WHERE email = ?");
+$stmt->execute([$email]);
+$user = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -151,79 +163,121 @@ $users = $pdo->query("SELECT * FROM utilisateur ORDER BY id_utilisateur DESC");
             </li>
           </ul>
         </nav>
-    <!-- MAIN PANEL -->
-    <div class="main-panel">
-      <div class="content-wrapper">
 
-        <div class="page-header">
-          <h3 class="page-title">
-            <i class="mdi mdi-account-multiple text-primary"></i>
-            Gestion des utilisateurs
-          </h3>
-        </div>
+
+<!-- MAIN -->
+<!-- MAIN PANEL -->
+<div class="main-panel">
+  <div class="content-wrapper">
+
+    <div class="page-header">
+      <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white me-2">
+          <i class="mdi mdi-account"></i>
+        </span>
+        Mon Profil
+      </h3>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 grid-margin stretch-card">
 
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title">Liste des utilisateurs</h4>
 
-            <div class="table-responsive">
-              <table class="table table-bordered table-hover">
-                <thead class="thead-dark">
-                  <tr>
-                    <th>Nom</th>
-                    <th>Email</th>
-                    <th>Téléphone</th>
-                    <th>Rôle</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                <?php while ($u = $users->fetch(PDO::FETCH_ASSOC)) { ?>
-                  <tr>
-                    <td><?= htmlspecialchars($u['nom']); ?></td>
-                    <td><?= htmlspecialchars($u['email']); ?></td>
-                    <td><?= htmlspecialchars($u['telephone']); ?></td>
-                    <td>
-                      <?php if ($u['role'] === 'admin') { ?>
-                        <span class="badge bg-gradient-danger">Admin</span>
-                      <?php } else { ?>
-                        <span class="badge bg-gradient-success">Client</span>
-                      <?php } ?>
-                    </td>
-                    <td>
-                      <?php if ($u['role'] !== 'admin') { ?>
-               <a href="?delete=<?= $u['id_utilisateur'] ?>" 
-   class="btn btn-danger btn-sm"
-   onclick="return confirm('Supprimer cet utilisateur ?')">
-   Supprimer
+            <h4 class="card-title">Informations utilisateur</h4>
+            <p class="text-muted">Vos données personnelles</p>
+
+            <hr>
+
+<div class="mb-3">
+  <label class="form-label">Nom</label>
+  <input class="form-control" value="<?= htmlspecialchars($user['nom']) ?>" readonly>
+</div>
+
+<div class="mb-3">
+  <label class="form-label">Email</label>
+  <input class="form-control" value="<?= htmlspecialchars($user['email']) ?>" readonly>
+</div>
+
+<div class="mb-3">
+  <label class="form-label">Téléphone</label>
+  <input class="form-control" value="<?= htmlspecialchars($user['telephone']) ?>" readonly>
+</div>
+
+<div class="mb-3">
+  <label class="form-label">Rôle</label>
+  <input class="form-control" value="<?= htmlspecialchars($user['role']) ?>" readonly>
+</div>
+
+<a href="profil.php?edit=1" class="btn btn-primary">
+  Modifier mes informations
 </a>
-                      <?php } else { ?>
-                        —
-                      <?php } ?>
-                    </td>
-                  </tr>
-                <?php } ?>
-                </tbody>
-              </table>
-            </div>
+<?php if ($edit): ?>
 
-           
+<div class="card mt-4">
+<div class="card-body">
+
+<h4 class="card-title">Modifier mes informations</h4>
+
+<?php if ($message): ?>
+  <div class="alert alert-success"><?= $message ?></div>
+<?php endif; ?>
+
+<form method="POST">
+
+  <div class="form-group">
+    <label>Nom</label>
+    <input type="text" name="nom" class="form-control"
+           value="<?= htmlspecialchars($user['nom']) ?>">
+  </div>
+
+  <div class="form-group mt-2">
+    <label>Téléphone</label>
+    <input type="text" name="telephone" class="form-control"
+           value="<?= htmlspecialchars($user['telephone']) ?>">
+  </div>
+
+  <button type="submit" name="update"
+          class="btn btn-gradient-primary mt-3">
+    Sauvegarder
+  </button>
+
+  <a href="profil.php" class="btn btn-light mt-3">
+    Annuler
+  </a>
+
+</form>
+
+</div>
+</div>
+
+<?php endif; ?>
+            <div class="d-flex gap-2 mt-4">
+
+              <a href="index.php" class="btn btn-light">
+                Retour Dashboard
+              </a>
+
+              <a href="../../travel-agency-website-template-143/logout.php" class="btn btn-danger">
+                Déconnexion
+              </a>
+
+            </div>
 
           </div>
         </div>
 
       </div>
 
-      <footer class="footer">
-        <span class="text-muted">© 2026 Camp&Co – Administration</span>
-      </footer>
 
     </div>
+
   </div>
 </div>
 
-<script src="assets/vendors/js/vendor.bundle.base.js"></script>
-<script src="assets/js/off-canvas.js"></script>
-<script src="assets/js/misc.js"></script>
+</div>
+</div>
+
 </body>
 </html>

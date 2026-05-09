@@ -1,34 +1,22 @@
 <?php
 session_start();
 
-if (!isset($_SESSION["connecte"]) || $_SESSION["role"] !== "admin") {
+if (!isset($_SESSION["connecte"]) || $_SESSION["role"] != "admin") {
     header("Location: ../../travel-agency-website-template-143/login.php");
     exit();
 }
 
 require_once('../../travel-agency-website-template-143/pdo.php');
+
 $cnx = new connexion();
 $pdo = $cnx->CNXbase();
 
-/* Suppression utilisateur (sauf admin) */
-if (isset($_GET['delete'])) {
-    $id = $_GET['delete'];
+/* =========================
+   MESSAGES CONTACT
+========================= */
 
-    $check = $pdo->prepare("SELECT role FROM utilisateur WHERE id_utilisateur = ?");
-    $check->execute([$id]);
-    $user = $check->fetch();
-
-    if ($user && $user['role'] !== 'admin') {
-        $stmt = $pdo->prepare("DELETE FROM utilisateur WHERE id_utilisateur = ?");
-        $stmt->execute([$id]);
-    }
-
-    header("Location: gestion_utilisateur.php");
-    exit();
-}
-
-/* Liste utilisateurs */
-$users = $pdo->query("SELECT * FROM utilisateur ORDER BY id_utilisateur DESC");
+$stmt = $pdo->query("SELECT * FROM contact ORDER BY date_envoi DESC");
+$messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -151,79 +139,91 @@ $users = $pdo->query("SELECT * FROM utilisateur ORDER BY id_utilisateur DESC");
             </li>
           </ul>
         </nav>
-    <!-- MAIN PANEL -->
-    <div class="main-panel">
-      <div class="content-wrapper">
 
-        <div class="page-header">
-          <h3 class="page-title">
-            <i class="mdi mdi-account-multiple text-primary"></i>
-            Gestion des utilisateurs
-          </h3>
-        </div>
+<!-- MAIN -->
+<div class="main-panel">
+<div class="content-wrapper">
 
-        <div class="card">
-          <div class="card-body">
-            <h4 class="card-title">Liste des utilisateurs</h4>
-
-            <div class="table-responsive">
-              <table class="table table-bordered table-hover">
-                <thead class="thead-dark">
-                  <tr>
-                    <th>Nom</th>
-                    <th>Email</th>
-                    <th>Téléphone</th>
-                    <th>Rôle</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                <?php while ($u = $users->fetch(PDO::FETCH_ASSOC)) { ?>
-                  <tr>
-                    <td><?= htmlspecialchars($u['nom']); ?></td>
-                    <td><?= htmlspecialchars($u['email']); ?></td>
-                    <td><?= htmlspecialchars($u['telephone']); ?></td>
-                    <td>
-                      <?php if ($u['role'] === 'admin') { ?>
-                        <span class="badge bg-gradient-danger">Admin</span>
-                      <?php } else { ?>
-                        <span class="badge bg-gradient-success">Client</span>
-                      <?php } ?>
-                    </td>
-                    <td>
-                      <?php if ($u['role'] !== 'admin') { ?>
-               <a href="?delete=<?= $u['id_utilisateur'] ?>" 
-   class="btn btn-danger btn-sm"
-   onclick="return confirm('Supprimer cet utilisateur ?')">
-   Supprimer
-</a>
-                      <?php } else { ?>
-                        —
-                      <?php } ?>
-                    </td>
-                  </tr>
-                <?php } ?>
-                </tbody>
-              </table>
-            </div>
-
-           
-
-          </div>
-        </div>
-
-      </div>
-
-      <footer class="footer">
-        <span class="text-muted">© 2026 Camp&Co – Administration</span>
-      </footer>
-
-    </div>
-  </div>
+<div class="page-header">
+  <h3 class="page-title">
+    <span class="page-title-icon bg-gradient-primary text-white me-2">
+      <i class="mdi mdi-email"></i>
+    </span>
+    Messages de contact
+  </h3>
 </div>
 
-<script src="assets/vendors/js/vendor.bundle.base.js"></script>
-<script src="assets/js/off-canvas.js"></script>
-<script src="assets/js/misc.js"></script>
+<div class="row">
+<div class="col-12 grid-margin">
+
+<div class="card">
+<div class="card-body">
+
+<h4 class="card-title">Boîte de réception</h4>
+<p class="text-muted">Messages envoyés depuis le site client</p>
+
+<div class="table-responsive">
+<table class="table table-striped">
+
+<thead>
+<tr>
+  <th>Nom</th>
+  <th>Email</th>
+  <th>Sujet</th>
+  <th>Message</th>
+  <th>Date</th>
+</tr>
+</thead>
+
+<tbody>
+
+<?php foreach ($messages as $m): ?>
+<tr>
+
+  <td><?= htmlspecialchars($m['nom']) ?></td>
+
+  <td><?= htmlspecialchars($m['email']) ?></td>
+
+  <td>
+    <span class="badge badge-info">
+      <?= htmlspecialchars($m['sujet']) ?>
+    </span>
+  </td>
+
+  <td style="max-width:300px;">
+    <?= nl2br(htmlspecialchars($m['message'])) ?>
+  </td>
+
+  <td>
+    <?= htmlspecialchars($m['date_envoi']) ?>
+  </td>
+
+</tr>
+<?php endforeach; ?>
+
+</tbody>
+
+</table>
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="d-sm-flex justify-content-center">
+    <span class="text-muted">© 2025 Camp&Co</span>
+  </div>
+</footer>
+
+</div>
+</div>
+
+</div>
 </body>
 </html>

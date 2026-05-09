@@ -18,10 +18,11 @@ $cats = $pdo->query("SELECT * FROM categorie");
 if (isset($_POST['ajouter'])) {
 
     $nom = htmlspecialchars($_POST['nom']);
-    $description = htmlspecialchars($_POST['description']);
-    $prix = $_POST['prix'];
-    $stock = $_POST['stock'];
-    $categorie_id = $_POST['categorie_id'];
+$description = htmlspecialchars($_POST['description']);
+$prix = $_POST['prix'];
+$stock = $_POST['stock'];
+$categorie_id = $_POST['categorie_id'];
+$reference = $_POST['reference'];
 
     // Gestion image
     $image = $_FILES['image']['name'];
@@ -29,28 +30,47 @@ if (isset($_POST['ajouter'])) {
 
     if (!empty($image)) {
         $image = time() . "_" . $image;
-        move_uploaded_file($tmp, "../../uploads/" . $image);
+        move_uploaded_file($tmp, "../../travel-agency-website-template-143/assets/images/" . $image);
     } else {
         $image = "default.png";
     }
 
     // Insertion sécurisée
-    $sql = "INSERT INTO produit (nom, description, prix, stock, categorie_id, image)
-            VALUES (:nom, :description, :prix, :stock, :categorie_id, :image)";
+// Vérifier si la référence existe déjà
+$check = $pdo->prepare("SELECT * FROM produit WHERE reference = ?");
+$check->execute([$reference]);
+
+if ($check->rowCount() > 0) {
+
+    $message = "
+    <div class='alert alert-danger'>
+        Cette référence existe déjà !
+    </div>
+    ";
+
+} else {
+
+    // Insertion produit
+    $sql = "INSERT INTO produit 
+    (nom, description, prix, stock, categorie_id, reference, image)
+    VALUES 
+    (:nom, :description, :prix, :stock, :categorie_id, :reference, :image)";
 
     $stmt = $pdo->prepare($sql);
+
     $stmt->execute([
         ':nom' => $nom,
         ':description' => $description,
         ':prix' => $prix,
         ':stock' => $stock,
         ':categorie_id' => $categorie_id,
+        ':reference' => $reference,
         ':image' => $image
     ]);
 
     header("Location: liste_produits.php?success=1");
     exit();
-}
+}}
 ?>
 
 <!DOCTYPE html>
@@ -97,14 +117,10 @@ if (isset($_POST['ajouter'])) {
                 </div>
               </a>
               <div class="dropdown-menu navbar-dropdown">
-                <a class="dropdown-item" href="../profil.php">
-                  <i class="mdi mdi-account me-2"></i> Mon Profil
+<a class="dropdown-item" href="profil.php">               
+     <i class="mdi mdi-account me-2"></i> Mon Profil
                 </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="../logout.php">
-                  <i class="mdi mdi-logout me-2 text-primary"></i> Déconnexion
-                </a>
-              </div>
+               
             </li>
           </ul>
         </div>
@@ -163,6 +179,12 @@ if (isset($_POST['ajouter'])) {
                 <i class="mdi mdi-package-variant menu-icon"></i>
               </a>
             </li>
+              <li class="nav-item">
+              <a class="nav-link" href="notification.php">
+                <span class="menu-title">Notifications</span>
+                <i class="mdi mdi-package-variant menu-icon"></i>
+              </a>
+            </li>
             <li class="nav-item">
 
               <a class="nav-link" href="../../travel-agency-website-template-143/logout.php">
@@ -172,7 +194,6 @@ if (isset($_POST['ajouter'])) {
             </li>
           </ul>
         </nav>
-    <div class="container-fluid page-body-wrapper">
 
         <div class="main-panel">
             <div class="content-wrapper">
@@ -189,7 +210,10 @@ if (isset($_POST['ajouter'])) {
                                 <?= $message; ?>
 
                                 <form action="" method="POST" enctype="multipart/form-data">
-
+                                    <div class="form-group">
+                                       <label>Référence</label>
+                                       <input type="text" name="reference" class="form-control" required>
+                                    </div>
                                     <div class="form-group">
                                         <label>Nom du Produit</label>
                                         <input type="text" name="nom" class="form-control" required>
