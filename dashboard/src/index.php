@@ -59,22 +59,31 @@ $totalClients = $stmt2->fetch(PDO::FETCH_ASSOC)['total_clients'];
 
           <ul class="navbar-nav navbar-nav-right">
             <li class="nav-item nav-profile dropdown">
-              <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                <div class="nav-profile-img">
-                  <img src="assets/images/faces/face1.jpg" alt="image">
-                  <span class="availability-status online"></span>
-                </div>
-                <div class="nav-profile-text">
-                  <p class="mb-1 text-black"><?= htmlspecialchars($_SESSION["nom"] ?? 'Administrateur') ?></p>
-                </div>
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+              <div class="nav-profile-img">
+                <img src="assets/images/faces/face1.jpg" alt="image">
+                <span class="availability-status online"></span>
+              </div>
+              <div class="nav-profile-text">
+                <p class="mb-1 text-black"><?= htmlspecialchars($_SESSION["nom"] ?? 'Administrateur') ?></p>
+              </div>
+            </a>
+
+            <div class="dropdown-menu navbar-dropdown">
+              
+              <a class="dropdown-item" href="profil.php">
+                <i class="mdi mdi-account me-2"></i> Mon Profil
               </a>
-              <div class="dropdown-menu navbar-dropdown">
-<a class="dropdown-item" href="profil.php">               
-     <i class="mdi mdi-account me-2"></i> Mon Profil
-                </a>
-               
-            </li>
-          </ul>
+
+              <div class="dropdown-divider"></div>
+
+              <a class="dropdown-item" href="../../travel-agency-website-template-143/logout.php">
+                <i class="mdi mdi-logout me-2"></i> Déconnexion
+              </a>
+
+            </div>
+          </li>
+        </ul>
         </div>
       </nav>
 

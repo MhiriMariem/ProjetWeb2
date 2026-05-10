@@ -93,7 +93,7 @@ foreach ($panier as $p) {
 <body>
 
 <div class="container">
-    <h2>🛒 Mon panier</h2>
+    <h2>Mon panier</h2>
 
     <?php if (empty($panier)): ?>
         <p class="empty">Votre panier est vide</p>
@@ -136,7 +136,7 @@ foreach ($panier as $p) {
     <?php endif; ?>
 
     <br>
-    <a href="categorie.php">⬅ Continuer mes achats</a>
+    <a href="categorie.php">Continuer mes achats</a>
 </div>
 
 </body>

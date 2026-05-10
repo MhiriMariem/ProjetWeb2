@@ -75,6 +75,48 @@ $res = $pdo->query($sql);
     <!-- Layout styles -->
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="shortcut icon" href="assets/images/favicon.png" />
+    <style>
+/* Conteneur des boutons */
+.btn-group-custom{
+    display: flex;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+/* 🔴 ANNULER */
+.btn-annuler{
+    background-color: #ffc1cc;   /* rose clair */
+    color: red;                 /* texte rouge */
+    padding: 10px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    border: none;
+    display: inline-block;
+    transition: 0.3s;
+}
+
+.btn-annuler:hover{
+    background-color: #ff9fb0;
+}
+
+/* 🟢 ENREGISTRER */
+.btn-enregistrer{
+    background-color: #b7e4c7;   /* vert clair */
+    color: #0b3d0b;             /* vert foncé */
+    padding: 10px 18px;
+    border-radius: 8px;
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-enregistrer:hover{
+    background-color: #95d5b2;
+}
+
+</style>
   </head>
   <body>
     <div class="container-scroller">
@@ -93,22 +135,31 @@ $res = $pdo->query($sql);
 
           <ul class="navbar-nav navbar-nav-right">
             <li class="nav-item nav-profile dropdown">
-              <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                <div class="nav-profile-img">
-                  <img src="assets/images/faces/face1.jpg" alt="image">
-                  <span class="availability-status online"></span>
-                </div>
-                <div class="nav-profile-text">
-                  <p class="mb-1 text-black"><?= htmlspecialchars($_SESSION["nom"] ?? 'Administrateur') ?></p>
-                </div>
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+              <div class="nav-profile-img">
+                <img src="assets/images/faces/face1.jpg" alt="image">
+                <span class="availability-status online"></span>
+              </div>
+              <div class="nav-profile-text">
+                <p class="mb-1 text-black"><?= htmlspecialchars($_SESSION["nom"] ?? 'Administrateur') ?></p>
+              </div>
+            </a>
+
+            <div class="dropdown-menu navbar-dropdown">
+              
+              <a class="dropdown-item" href="profil.php">
+                <i class="mdi mdi-account me-2"></i> Mon Profil
               </a>
-              <div class="dropdown-menu navbar-dropdown">
-<a class="dropdown-item" href="profil.php">               
-     <i class="mdi mdi-account me-2"></i> Mon Profil
-                </a>
-               
-            </li>
-          </ul>
+
+              <div class="dropdown-divider"></div>
+
+              <a class="dropdown-item" href="../../travel-agency-website-template-143/logout.php">
+                <i class="mdi mdi-logout me-2"></i> Déconnexion
+              </a>
+
+            </div>
+          </li>
+        </ul>
         </div>
       </nav>
 
@@ -257,15 +308,23 @@ $res = $pdo->query($sql);
 
     <input type="hidden" name="id" value="<?= $editCat['categorie_id']; ?>">
 
-    <input type="text" name="nom" value="<?= $editCat['nom']; ?>" required>
+    <input class="form-control mb-2" 
+           type="text" 
+           name="nom" 
+           value="<?= htmlspecialchars($editCat['nom']); ?>" 
+           required>
 
-    <button type="submit" name="update" class="btn btn-success">
-        Enregistrer
-    </button>
+    <div class="btn-group-custom">
 
-    <a href="liste_categorie.php" class="btn btn-secondary">
-        Annuler
-    </a>
+        <a href="liste_categorie.php" class="btn-annuler">
+            ANNULER
+        </a>
+
+        <button type="submit" name="update" class="btn-enregistrer">
+            ENREGISTRER
+        </button>
+
+    </div>
 
 </form>
 
@@ -275,6 +334,10 @@ $res = $pdo->query($sql);
 </div>
 </div>
 </div>
-
+<!-- Scripts -->
+    <script src="assets/vendors/js/vendor.bundle.base.js"></script>
+    <script src="assets/js/off-canvas.js"></script>
+    <script src="assets/js/misc.js"></script>
+    <script src="assets/js/dashboard.js"></script>
 </body>
 </html>
