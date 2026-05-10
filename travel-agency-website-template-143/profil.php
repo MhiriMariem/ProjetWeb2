@@ -51,32 +51,47 @@ if (!$user) {
         .info-value { flex: 1; color: #1a2e22; }
         .btn-edit { background: none; border: none; color: #2c7a47; cursor: pointer; font-size: 1.1rem; }
         .btn-edit:hover { color: #1e5c32; }
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5);
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-        }
-        .modal.active { display: flex; }
-        .modal-content {
-            background: white;
-            border-radius: 28px;
-            max-width: 450px;
-            width: 90%;
-            padding: 2rem;
-        }
-        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
-        .close-modal { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #888; }
-        .form-group-modal { margin-bottom: 1.2rem; }
-        .form-group-modal label { display: block; font-weight: 500; margin-bottom: 0.4rem; }
-        .form-group-modal input { width: 100%; padding: 0.75rem 1rem; border: 1.5px solid #e2e8e0; border-radius: 16px; font-family: 'Inter', sans-serif; }
         .btn-save { background: #1f5e34; color: white; border: none; padding: 0.75rem; border-radius: 40px; font-weight: 600; width: 100%; cursor: pointer; }
         .btn-save:hover { background: #154a28; }
         .message { background: #dff0e1; color: #1f5e34; padding: 0.75rem; border-radius: 20px; text-align: center; margin-bottom: 1.5rem; }
+        .profile-actions .btn{
+    padding: 10px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: 0.3s;
+    display: inline-block;
+}
+
+/* 🔴 ANNULER */
+.profile-actions .btn--secondary:first-child{
+    background-color: #ffc1cc;
+    color: red;
+}
+
+.profile-actions .btn--secondary:first-child:hover{
+    background-color: #ff9fb0;
+}
+
+/* 🟢 MODIFIER */
+.profile-actions .btn--secondary:last-of-type{
+    background-color: #d6d6d6;
+    color: #333;
+}
+
+.profile-actions .btn--secondary:last-of-type:hover{
+    background-color: #bfbfbf;
+}
+
+/* ⚫ DECONNEXION */
+.profile-actions .btn--danger{
+    background-color: #4b5320;
+    color: white;
+}
+
+.profile-actions .btn--danger:hover{
+    background-color: #3d4419;
+}
     </style>
 </head>
 <body>
@@ -133,8 +148,9 @@ if (!$user) {
             </div>
 
             <div class="profile-actions" style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem;">
-                <a href="index.php" class="btn btn--secondary" style="background:#e9ecef; color:#2c5a36; padding: 0.7rem 1.5rem; border-radius:40px; text-decoration:none; font-weight:500;">Retour à l'accueil</a>
-                <a href="logout.php" class="btn btn--danger" style="background:#d9534f; color:white; padding: 0.7rem 1.5rem; border-radius:40px; text-decoration:none; font-weight:500;">Déconnexion</a>
+                <a href="index.php" class="btn btn--secondary" >ANNULER</a>
+                <a href="index.php" class="btn btn--secondary" >MODIFIER MES INFORMATIONS</a>
+                <a href="logout.php" class="btn btn--danger" >DECONNEXION</a>
             </div>
         </div>
     </div>
