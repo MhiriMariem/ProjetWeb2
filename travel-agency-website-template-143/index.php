@@ -19,9 +19,6 @@ $pdo = $cnx->CNXbase();
 $sql = "SELECT * FROM categorie LIMIT 6";
 $categorie = $pdo->query($sql);
 
-/* Récupération des avis clients */
-$sqlAvis = "SELECT * FROM avis ORDER BY date_avis DESC LIMIT 4";
-$avis = $pdo->query($sqlAvis);
 ?>
 
 <!DOCTYPE html>
@@ -265,23 +262,7 @@ $avis = $pdo->query($sqlAvis);
         </div>
       </div>
 
-      <div class="col-md-12">
-        <div class="owl-testimonials owl-carousel">
-
-         <?php while ($a = $avis->fetch(PDO::FETCH_ASSOC)) { ?>
-  <div class="testimonial-item">
-    <div class="inner-content">
-      <h4><?php echo htmlspecialchars($a['nom']); ?></h4>
-      <span><?php echo htmlspecialchars($a['role']); ?></span>
-      <p>
-        "<?php echo htmlspecialchars($a['message']); ?>"
-      </p>
-    </div>
-  </div>
-<?php } ?>
-
-        </div>
-      </div>
+      
 
     </div>
   </div>

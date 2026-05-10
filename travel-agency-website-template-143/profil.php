@@ -149,7 +149,7 @@ if (!$user) {
 
             <div class="profile-actions" style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem;">
                 <a href="index.php" class="btn btn--secondary" >ANNULER</a>
-                <a href="index.php" class="btn btn--secondary" >MODIFIER MES INFORMATIONS</a>
+                <a href="profil.php" class="btn btn--secondary" >MODIFIER MES INFORMATIONS</a>
                 <a href="logout.php" class="btn btn--danger" >DECONNEXION</a>
             </div>
         </div>
