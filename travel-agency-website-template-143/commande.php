@@ -25,7 +25,7 @@ if (isset($_POST['valider'])) {
     // vider panier
     $_SESSION['panier'] = [];
 
-    echo "<h2>✅ Commande confirmée avec succès !</h2>";
+    echo "<h2>Commande confirmée avec succès !</h2>";
     echo "<p>Total payé : " . $total . " DT</p>";
     echo "<a href='categorie.php'>Continuer shopping</a>";
     exit;
@@ -52,22 +52,40 @@ if (isset($_POST['valider'])) {
 <body>
 
 <div class="box">
-    <h2>🧾 Résumé de la commande</h2>
+    
+
+    <form method="post">
+
+    <h3>Informations client</h3>
+    
+    <input type="text" name="nom" placeholder="Nom" required><br><br>
+
+    <input type="text" name="prenom" placeholder="Prénom" required><br><br>
+
+    <input type="text" name="telephone" placeholder="Téléphone" required><br><br>
+
+    <input type="text" name="adresse" placeholder="Adresse" required><br><br>
+
+    <input type="text" name="ville" placeholder="Ville" required><br><br>
+
+    <hr>
+
+    <h3>Résumé commande</h3>
 
     <?php foreach ($panier as $p): ?>
         <p>
-            <?= $p['nom'] ?> - 
+            <?= $p['nom'] ?> -
             <?= $p['quantite'] ?> x <?= $p['prix'] ?> DT
         </p>
     <?php endforeach; ?>
 
-    <hr>
-
     <h3>Total : <?= $total ?> DT</h3>
 
-    <form method="post">
-        <button type="submit" name="valider">Valider la commande</button>
-    </form>
+    <button type="submit" name="valider">
+        Valider la commande
+    </button>
+
+</form>
 </div>
 
 </body>

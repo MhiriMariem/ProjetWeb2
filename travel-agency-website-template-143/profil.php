@@ -92,6 +92,16 @@ if (!$user) {
 .profile-actions .btn--danger:hover{
     background-color: #3d4419;
 }
+.profile-actions button{
+    border: none;
+    cursor: pointer;
+    background-color: #d6d6d6;
+    color: #333;
+}
+
+.profile-actions button:hover{
+    background-color: #bfbfbf;
+}
     </style>
 </head>
 <body>
@@ -115,43 +125,77 @@ if (!$user) {
                 <div class="message"><i class="fas fa-check-circle"></i> <?= htmlspecialchars($_SESSION['message']); unset($_SESSION['message']); ?></div>
             <?php endif; ?>
 
-            <div class="profile-info">
-                <div class="info-row">
-                    <span class="info-label">Nom :</span>
-                    <span id="displayNom" class="info-value"><?= htmlspecialchars($user["nom"] ?: 'Non renseigné') ?></span>
-                    <button class="btn-edit" type="button" ><i class="fas fa-pen"></i></button>
-                </div>
-                <div class="info-row">
-                    <span class="info-label">Prénom :</span>
-                    <span id="displayPrenom" class="info-value">
-                        <?= htmlspecialchars($user["prenom"] ?: 'Non renseigné') ?>
-                    </span>
-                    <button class="btn-edit" type="button" >
-                        <i class="fas fa-pen"></i>
-                    </button>
-                </div>
-                <div class="info-row">
-                    <span class="info-label">Email :</span>
-                    <span class="info-value"><?= htmlspecialchars($user["email"]) ?></span>
-                    <span style="width: 32px;"></span>
-                </div>
-                <div class="info-row">
-                    <span class="info-label">Téléphone :</span>
-                    <span id="displayTel" class="info-value"><?= htmlspecialchars($user["telephone"] ?: 'Non renseigné') ?></span>
-                    <button class="btn-edit" type="button"><i class="fas fa-pen"></i></button>
-                </div>
-                <div class="info-row">
-                    <span class="info-label">Rôle :</span>
-                    <span class="info-value"><?= htmlspecialchars($user["role"]) ?></span>
-                    <span style="width: 32px;"></span>
-                </div>
-            </div>
+            <form method="POST">
 
-            <div class="profile-actions" style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem;">
-                <a href="index.php" class="btn btn--secondary" >ANNULER</a>
-                <a href="profil.php" class="btn btn--secondary" >MODIFIER MES INFORMATIONS</a>
-                <a href="logout.php" class="btn btn--danger" >DECONNEXION</a>
-            </div>
+    <input type="hidden" name="action" value="update">
+
+    <div class="profile-info">
+
+        <div class="info-row">
+            <span class="info-label">Nom :</span>
+
+            <input type="text"
+                   name="nom"
+                   class="form-control"
+                   value="<?= htmlspecialchars($user["nom"]) ?>">
+        </div>
+
+        <div class="info-row">
+            <span class="info-label">Prénom :</span>
+
+            <input type="text"
+                   name="prenom"
+                   class="form-control"
+                   value="<?= htmlspecialchars($user["prenom"]) ?>">
+        </div>
+
+        <div class="info-row">
+            <span class="info-label">Email :</span>
+
+            <input type="email"
+                   class="form-control"
+                   value="<?= htmlspecialchars($user["email"]) ?>"
+                   readonly>
+        </div>
+
+        <div class="info-row">
+            <span class="info-label">Téléphone :</span>
+
+            <input type="text"
+                   name="telephone"
+                   class="form-control"
+                   value="<?= htmlspecialchars($user["telephone"]) ?>">
+        </div>
+
+        <div class="info-row">
+            <span class="info-label">Rôle :</span>
+
+            <input type="text"
+                   class="form-control"
+                   value="<?= htmlspecialchars($user["role"]) ?>"
+                   readonly>
+        </div>
+
+    </div>
+
+    <div class="profile-actions"
+         style="display:flex; gap:1rem; justify-content:center; margin-top:2rem;">
+
+        <a href="index.php" class="btn btn--secondary">
+            ANNULER
+        </a>
+
+        <button type="submit" class="btn btn--secondary">
+            ENREGISTRER
+        </button>
+
+        <a href="logout.php" class="btn btn--danger">
+            DECONNEXION
+        </a>
+
+    </div>
+
+</form>
         </div>
     </div>
 </main>
