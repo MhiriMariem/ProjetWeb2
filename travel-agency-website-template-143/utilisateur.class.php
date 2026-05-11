@@ -6,16 +6,21 @@ class Utilisateur
 
     function getUser()
     {
-require_once('pdo.php');
-$cnx=new connexion();
-$pdo=$cnx->CNXbase();
-        $sql = "SELECT * FROM utilisateur 
-                WHERE email='$this->email' 
-                AND mot_de_passe='$this->mot_de_passe'";
+    require_once('pdo.php');
+    $cnx = new connexion();
+    $pdo = $cnx->CNXbase();
 
-$res=$pdo->query($sql) or print_r($pdo->errorInfo()); 	
+    $sql = "SELECT id_utilisateur, nom,prenom, email, role, mot_de_passe
+            FROM utilisateur
+            WHERE email = ? AND mot_de_passe = ?";
 
-        return $res;
-    }
-}
+    $stmt = $pdo->prepare($sql);
+
+    $stmt->execute([
+        $this->email,
+        $this->mot_de_passe
+    ]);
+
+    return $stmt;
+    }}
 ?>

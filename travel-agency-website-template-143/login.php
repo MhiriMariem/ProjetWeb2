@@ -15,10 +15,13 @@ if (isset($_POST['login'])) {
         $data = $res->fetchAll(PDO::FETCH_ASSOC);            
 
         if ($data) {
+            var_dump($data[0]); 
+            exit;  
             $_SESSION["connecte"] = "1";
             $_SESSION["email"] = $data[0]["email"];
             $_SESSION["role"] = $data[0]["role"];
             $_SESSION["nom"] = $data[0]["nom"];
+            $_SESSION["id_utilisateur"] = $data[0]["id_utilisateur"];
 
             if ($data[0]["role"] == "admin") {
                 header("Location: ../dashboard/src/index.php");
