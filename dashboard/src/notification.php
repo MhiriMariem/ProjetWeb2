@@ -67,7 +67,9 @@ $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
               <a class="dropdown-item" href="profil.php">
                 <i class="mdi mdi-account me-2"></i> Mon Profil
               </a>
-
+  <a class="dropdown-item" href="notification.php">
+    <i class="mdi mdi-bell me-2"></i> Notifications
+</a>
               <div class="dropdown-divider"></div>
 
               <a class="dropdown-item" href="../../travel-agency-website-template-143/logout.php">
@@ -124,21 +126,16 @@ $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
  <li class="nav-item">
               <a class="nav-link" href="liste_categorie.php">
                 <span class="menu-title">Gestion des Catégories</span>
-                <i class="mdi mdi-plus-circle menu-icon"></i>
-              </a>
-            </li>
-               <li class="nav-item">
-              <a class="nav-link" href="gestion_utilisateur.php">
-                <span class="menu-title">Gestion des Utilisateurs</span>
                 <i class="mdi mdi-package-variant menu-icon"></i>
               </a>
             </li>
               <li class="nav-item">
-              <a class="nav-link" href="notification.php">
-                <span class="menu-title">Notifications</span>
-                <i class="mdi mdi-package-variant menu-icon"></i>
-              </a>
-            </li>
+                 <a class="nav-link" href="gestion_utilisateur.php">
+                   <span class="menu-title">Gestion des Utilisateurs</span>
+                   <i class="mdi mdi-account-group menu-icon"></i>
+                 </a>
+              </li>
+           
             <li class="nav-item">
 
               <a class="nav-link" href="../../travel-agency-website-template-143/logout.php">
@@ -169,7 +166,6 @@ $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <div class="card-body">
 
 <h4 class="card-title">Boîte de réception</h4>
-<p class="text-muted">Messages envoyés depuis le site client</p>
 
 <div class="table-responsive">
 <table class="table table-striped">

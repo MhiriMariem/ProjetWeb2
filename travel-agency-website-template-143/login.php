@@ -14,25 +14,24 @@ if (isset($_POST['login'])) {
         $res = $us->getUser();         
         $data = $res->fetchAll(PDO::FETCH_ASSOC);            
 
-        if ($data) {
-            var_dump($data[0]); 
-            exit;  
-            $_SESSION["connecte"] = "1";
-            $_SESSION["email"] = $data[0]["email"];
-            $_SESSION["role"] = $data[0]["role"];
-            $_SESSION["nom"] = $data[0]["nom"];
-            $_SESSION["id_utilisateur"] = $data[0]["id_utilisateur"];
+       if ($data) {
 
-            if ($data[0]["role"] == "admin") {
-                header("Location: ../dashboard/src/index.php");
-            } else {
-                header("Location: index.php");
-            }
-            exit();
+    $_SESSION["connecte"] = "1";
+    $_SESSION["email"] = $data[0]["email"];
+    $_SESSION["role"] = $data[0]["role"];
+    $_SESSION["nom"] = $data[0]["nom"];
+    $_SESSION["id_utilisateur"] = $data[0]["id_utilisateur"];
 
-        } else {
-            echo "Aucun utilisateur trouvé";
-        }
+    if ($data[0]["role"] == "admin") {
+        header("Location: ../dashboard/src/index.php");
+    } else {
+        header("Location: index.php");
+    }
+
+    exit();
+}
+
+      
 
     } catch (PDOException $e) {
         echo "ERREUR : " . $e->getMessage();

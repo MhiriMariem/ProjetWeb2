@@ -116,13 +116,23 @@ if ($check->rowCount() > 0) {
                   <p class="mb-1 text-black"><?= htmlspecialchars($_SESSION["nom"] ?? 'Administrateur') ?></p>
                 </div>
               </a>
-              <div class="dropdown-menu navbar-dropdown">
-<a class="dropdown-item" href="profil.php">               
-     <i class="mdi mdi-account me-2"></i> Mon Profil
-                </a>
-               
-            </li>
-          </ul>
+             <div class="dropdown-menu navbar-dropdown">
+              
+              <a class="dropdown-item" href="profil.php">
+                <i class="mdi mdi-account me-2"></i> Mon Profil
+              </a>
+  <a class="dropdown-item" href="notification.php">
+    <i class="mdi mdi-bell me-2"></i> Notifications
+</a>
+              <div class="dropdown-divider"></div>
+
+              <a class="dropdown-item" href="../../travel-agency-website-template-143/logout.php">
+                <i class="mdi mdi-logout me-2"></i> Déconnexion
+              </a>
+
+            </div>
+          </li>
+        </ul>
         </div>
       </nav>
 
@@ -170,21 +180,16 @@ if ($check->rowCount() > 0) {
  <li class="nav-item">
               <a class="nav-link" href="liste_categorie.php">
                 <span class="menu-title">Gestion des Catégories</span>
-                <i class="mdi mdi-plus-circle menu-icon"></i>
-              </a>
-            </li>
-               <li class="nav-item">
-              <a class="nav-link" href="gestion_utilisateur.php">
-                <span class="menu-title">Gestion des Utilisateurs</span>
                 <i class="mdi mdi-package-variant menu-icon"></i>
               </a>
             </li>
               <li class="nav-item">
-              <a class="nav-link" href="notification.php">
-                <span class="menu-title">Notifications</span>
-                <i class="mdi mdi-package-variant menu-icon"></i>
-              </a>
-            </li>
+                 <a class="nav-link" href="gestion_utilisateur.php">
+                   <span class="menu-title">Gestion des Utilisateurs</span>
+                   <i class="mdi mdi-account-group menu-icon"></i>
+                 </a>
+              </li>
+            
             <li class="nav-item">
 
               <a class="nav-link" href="../../travel-agency-website-template-143/logout.php">

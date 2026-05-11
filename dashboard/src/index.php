@@ -74,7 +74,9 @@ $totalClients = $stmt2->fetch(PDO::FETCH_ASSOC)['total_clients'];
               <a class="dropdown-item" href="profil.php">
                 <i class="mdi mdi-account me-2"></i> Mon Profil
               </a>
-
+     <a class="dropdown-item" href="notification.php">
+    <i class="mdi mdi-bell me-2"></i> Notifications
+</a>
               <div class="dropdown-divider"></div>
 
               <a class="dropdown-item" href="../../travel-agency-website-template-143/logout.php">
@@ -131,21 +133,16 @@ $totalClients = $stmt2->fetch(PDO::FETCH_ASSOC)['total_clients'];
  <li class="nav-item">
               <a class="nav-link" href="liste_categorie.php">
                 <span class="menu-title">Gestion des Catégories</span>
-                <i class="mdi mdi-plus-circle menu-icon"></i>
+                <i class="mdi mdi-package-variant menu-icon"></i>
               </a>
             </li>
                <li class="nav-item">
-              <a class="nav-link" href="gestion_utilisateur.php">
-                <span class="menu-title">Gestion des Utilisateurs</span>
-                <i class="mdi mdi-package-variant menu-icon"></i>
-              </a>
-            </li>
-              <li class="nav-item">
-              <a class="nav-link" href="notification.php">
-                <span class="menu-title">Notifications</span>
-                <i class="mdi mdi-package-variant menu-icon"></i>
-              </a>
-            </li>
+                 <a class="nav-link" href="gestion_utilisateur.php">
+                   <span class="menu-title">Gestion des Utilisateurs</span>
+                   <i class="mdi mdi-account-group menu-icon"></i>
+                 </a>
+              </li>
+           
             <li class="nav-item">
 
               <a class="nav-link" href="../../travel-agency-website-template-143/logout.php">

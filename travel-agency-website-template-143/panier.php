@@ -1,30 +1,33 @@
 <?php
 session_start();
 
-$panier = $_SESSION['panier'] ?? [];
+// initialiser panier
+if (!isset($_SESSION['panier'])) {
+    $_SESSION['panier'] = [];
+}
 
-// Supprimer un produit
+/* SUPPRESSION PRODUIT */
 if (isset($_GET['remove'])) {
     $id = $_GET['remove'];
 
-    foreach ($panier as $index => $produit) {
-        if ($produit['id'] == $id) {
-            unset($panier[$index]);
+    foreach ($_SESSION['panier'] as $index => $item) {
+        if ($item['id_produit'] == $id) {
+            unset($_SESSION['panier'][$index]);
             break;
         }
     }
 
-    $_SESSION['panier'] = array_values($panier);
+    $_SESSION['panier'] = array_values($_SESSION['panier']);
     header("Location: panier.php");
     exit();
 }
 
-// Calcul total
+/* CALCUL TOTAL */
 $total = 0;
-foreach ($panier as $p) {
+foreach ($_SESSION['panier'] as $p) {
     $total += $p['prix'] * $p['quantite'];
 }
-?>
+?>  
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -95,8 +98,8 @@ foreach ($panier as $p) {
 <div class="container">
     <h2>Mon panier</h2>
 
-    <?php if (empty($panier)): ?>
-        <p class="empty">Votre panier est vide</p>
+<?php if (empty($_SESSION['panier'])): ?>
+                <p class="empty">Votre panier est vide</p>
     <?php else: ?>
 
         <table>
@@ -108,15 +111,15 @@ foreach ($panier as $p) {
                 <th>Action</th>
             </tr>
 
-            <?php foreach ($panier as $p): ?>
-                <tr>
+<?php foreach ($_SESSION['panier'] as $p): ?>                <tr>
                     <td><?= htmlspecialchars($p['nom']) ?></td>
                     <td><?= $p['prix'] ?> DT</td>
                     <td><?= $p['quantite'] ?></td>
                     <td><?= $p['prix'] * $p['quantite'] ?> DT</td>
                     <td>
-                        <a class="btn" href="?remove=<?= $p['id'] ?>">Supprimer</a>
-                    </td>
+<a class="btn" href="?remove=<?= $p['id_produit'] ?>">
+    Supprimer
+</a>                    </td>
                 </tr>
             <?php endforeach; ?>
         </table>

@@ -33,7 +33,7 @@ if (isset($_GET['add'])) {
         $found = false;
 
         foreach ($_SESSION['panier'] as &$item) {
-            if ($item['id'] == $idProduit) {
+            if ($item['id_produit'] == $idProduit) {
                 $item['quantite']++;
                 $found = true;
                 break;
@@ -43,7 +43,7 @@ if (isset($_GET['add'])) {
         // sinon ajouter
         if (!$found) {
             $_SESSION['panier'][] = [
-                'id' => $produit['id'],
+                'id_produit' => $produit['id_produit'],
                 'nom' => $produit['nom'],
                 'prix' => $produit['prix'],
                 'quantite' => 1

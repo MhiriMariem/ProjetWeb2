@@ -1,136 +1,146 @@
-
 <?php
 session_start();
 require_once("pdo.php");
 
-$cnx = new connexion();
-$pdo = $cnx->CNXbase();
 
-$sql = "SELECT * FROM avis ORDER BY date_avis DESC";
-$avis = $pdo->query($sql);
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
+<head>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
 
-    <title>PHPJabbers.com | Free Travel Agency Website Template</title>
+  <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 
-    <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <title>Camp&Co | Avis clients</title>
 
-    <!-- Additional CSS Files -->
-    <link rel="stylesheet" href="assets/css/fontawesome.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/owl.css">
-  </head>
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-  <body>
+  <link rel="stylesheet" href="assets/css/fontawesome.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/owl.css">
 
-    <!-- ***** Preloader Start ***** -->
-    <div id="preloader">
-        <div class="jumper">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    </div>  
-    <!-- ***** Preloader End ***** -->
+</head>
 
-    <!-- Header -->
-    
-    <header class="">
-      <nav class="navbar navbar-expand-lg">
-        <div class="container">
-          <a class="navbar-brand" href="index.php"><h2>Camp&Co</h2></a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="index.php">Acceuil
-                  <span class="sr-only">(current)</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="categorie.php">Produits</a>
-              </li>
-    
-              <li class="nav-item dropdown active">
-                <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">À propos</a>
-              
-                <div class="dropdown-menu">
-                    <a class="dropdown-item active" href="about.php">À propos</a>
-                    <a class="dropdown-item" href="testimonials.php">Avis clients</a>
-                </div>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="contact.php">Contactez-nous</a>
-              </li>
-              <li class="nav-item">
+<body>
+
+<!-- Header -->
+<header class="">
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+
+      <a class="navbar-brand" href="index.php"><h2>Camp&Co</h2></a>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+
+          <li class="nav-item">
+            <a class="nav-link" href="index.php">Accueil</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="categorie.php">Produits</a>
+          </li>
+
+          <li class="nav-item dropdown active">
+            <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#">À propos</a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="about.php">À propos</a>
+              <a class="dropdown-item active" href="testimonials.php">Avis clients</a>
+            </div>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="contact.php">Contactez-nous</a>
+          </li>
+ <li class="nav-item">
               <a href="panier.php" class="nav-link nav-profile-icon">
-                <i class="fa fa-shopping-cart"></i>
+<i class="fa fa-shopping-cart" style="color:white;"></i>
                 <span class="badge">
                   <?= count($_SESSION['panier'] ?? []) ?>
                 </span>
               </a>
             </li>
+
               <li class="nav-item">
               <a href="profil.php" class="nav-link nav-profile-icon">
-                <i class="fa fa-user"></i>
-              </a>
+<i class="fa fa-user" style="color:white;"></i>              </a>
             </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </header>
+        </ul>
+      </div>
 
-    <!-- Page Content -->
-    <div class="page-heading header-text">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-           
-          <h1>Avis de nos clients</h1>
-          <span>Découvrez les témoignages de nos clients</span>
+    </div>
+  </nav>
+</header>
 
-          </div>
-        </div>
+<!-- Page Heading -->
+<div class="page-heading header-text">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+
+        <h1>Avis de nos clients</h1>
+        <span>Expériences réelles de nos clients en Tunisie</span>
+
       </div>
     </div>
+  </div>
+</div>
 
-    <div class="testimonials" style="margin:0">
+<!-- Testimonials -->
+<div class="services">
   <div class="container">
     <div class="row">
 
-      <?php while ($a = $avis->fetch(PDO::FETCH_ASSOC)) { ?>
+
+     
+
         <div class="col-md-4">
-          <div class="testimonial-item">
-            <div class="inner-content">
-              <h4><?= htmlspecialchars($a['nom']); ?></h4>
-              <span><?= htmlspecialchars($a['role']); ?></span>
-              <p>
-                "<?= htmlspecialchars($a['message']); ?>"
-              </p>
+          <div class="service-item">
+            <div class="down-content text-center">
+              <h4>Amine Ben Ali</h4>
+              <span>Tunis</span>
+              <p>"Tente très solide, parfaite pour le camping à Aïn Draham."</p>
             </div>
           </div>
         </div>
-      <?php } ?>
+
+        <div class="col-md-4">
+          <div class="service-item">
+            <div class="down-content text-center">
+              <h4>Yasmine Trabelsi</h4>
+              <span>Sousse</span>
+              <p>"Très bonne qualité et livraison rapide."</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="service-item">
+            <div class="down-content text-center">
+              <h4>Mohamed Ali Jaziri</h4>
+              <span>Hammamet</span>
+              <p>"Excellent matériel pour camping en famille."</p>
+            </div>
+          </div>
+        </div>
+
 
     </div>
   </div>
 </div>
-    <!-- Footer Starts Here -->
-    <footer>
+
+<!-- Footer -->
+ <footer>
       <div class="container">
         <div class="row">
           <div class="col-md-3 footer-item">
@@ -191,7 +201,8 @@ $avis = $pdo->query($sql);
       </div>
     </footer>
     
-   
+  
+
     <!-- Bootstrap core JavaScript -->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

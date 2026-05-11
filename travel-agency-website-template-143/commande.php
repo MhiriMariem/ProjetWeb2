@@ -47,7 +47,7 @@ if (isset($_POST['valider'])) {
 
         $stmt->execute([
             $id_commande,
-            $p['id'],
+            $p['id_produit'],
             $p['quantite'],
             $p['prix']
         ]);
@@ -216,7 +216,11 @@ h2,h3{
                 class="btn-valider">
             Valider la commande
         </button>
-
+  <button type="reset" 
+                name="annuler"
+                class="btn-reset">
+            Annuler
+        </button>
     </form>
 
 </div>

@@ -76,44 +76,51 @@ $res = $pdo->query($sql);
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="shortcut icon" href="assets/images/favicon.png" />
     <style>
-/* Conteneur des boutons */
+/* Conteneur boutons */
 .btn-group-custom{
-    display: flex;
-    gap: 12px;
-    margin-top: 15px;
+    display:flex;
+    gap:12px;
+    margin-top:15px;
 }
 
 /* 🔴 ANNULER */
 .btn-annuler{
-    background-color: #ffc1cc;   /* rose clair */
-    color: red;                 /* texte rouge */
-    padding: 10px 18px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 600;
-    border: none;
-    display: inline-block;
-    transition: 0.3s;
+    background-color:#e36613;
+    color:white;
+    padding:10px 18px;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:700;
+    border:none;
+    display:inline-block;
+    transition:0.3s;
 }
 
 .btn-annuler:hover{
-    background-color: #ff9fb0;
+    background-color:#c95509;
+    color:white;
 }
 
 /* 🟢 ENREGISTRER */
 .btn-enregistrer{
-    background-color: #b7e4c7;   /* vert clair */
-    color: #0b3d0b;             /* vert foncé */
-    padding: 10px 18px;
-    border-radius: 8px;
-    border: none;
-    font-weight: 700;
-    cursor: pointer;
-    transition: 0.3s;
+    background-color:#2d8b52;
+    color:white;
+    padding:10px 18px;
+    border-radius:10px;
+    border:none;
+    font-weight:700;
+    cursor:pointer;
+    transition:0.3s;
 }
 
 .btn-enregistrer:hover{
-    background-color: #95d5b2;
+    background-color:#246f42;
+}
+
+/* OMBRE */
+.btn-annuler,
+.btn-enregistrer{
+    box-shadow:0 4px 10px rgba(0,0,0,0.08);
 }
 
 </style>
@@ -150,7 +157,9 @@ $res = $pdo->query($sql);
               <a class="dropdown-item" href="profil.php">
                 <i class="mdi mdi-account me-2"></i> Mon Profil
               </a>
-
+  <a class="dropdown-item" href="notification.php">
+    <i class="mdi mdi-bell me-2"></i> Notifications
+</a>
               <div class="dropdown-divider"></div>
 
               <a class="dropdown-item" href="../../travel-agency-website-template-143/logout.php">
@@ -207,21 +216,16 @@ $res = $pdo->query($sql);
  <li class="nav-item">
               <a class="nav-link" href="liste_categorie.php">
                 <span class="menu-title">Gestion des Catégories</span>
-                <i class="mdi mdi-plus-circle menu-icon"></i>
+                <i class="mdi mdi-package-variant menu-icon"></i>
               </a>
             </li>
                <li class="nav-item">
-              <a class="nav-link" href="gestion_utilisateur.php">
-                <span class="menu-title">Gestion des Utilisateurs</span>
-                <i class="mdi mdi-package-variant menu-icon"></i>
-              </a>
-            </li>
-              <li class="nav-item">
-              <a class="nav-link" href="notification.php">
-                <span class="menu-title">Notifications</span>
-                <i class="mdi mdi-package-variant menu-icon"></i>
-              </a>
-            </li>
+                 <a class="nav-link" href="gestion_utilisateur.php">
+                   <span class="menu-title">Gestion des Utilisateurs</span>
+                   <i class="mdi mdi-account-group menu-icon"></i>
+                 </a>
+              </li>
+             
             <li class="nav-item">
 
               <a class="nav-link" href="../../travel-agency-website-template-143/logout.php">

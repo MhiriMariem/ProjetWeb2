@@ -16,7 +16,7 @@ $cnx = new connexion();
 $pdo = $cnx->CNXbase();
 
 /* Récupération des catégories */
-$sql = "SELECT * FROM categorie LIMIT 6";
+$sql = "SELECT * FROM categorie LIMIT 3";
 $categorie = $pdo->query($sql);
 
 ?>
@@ -52,28 +52,7 @@ $categorie = $pdo->query($sql);
             <div></div>
         </div>
     </div>  
-    <!-- ***** Preloader End ***** -->
-
-    <!-- Header -->
-    <!-- <div class="sub-header">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-8 col-xs-12">
-            <ul class="left-info">
-              <li><a href="#"><i class="fa fa-envelope"></i>contact@company.com</a></li>
-              <li><a href="#"><i class="fa fa-phone"></i>123-456-7890</a></li>
-            </ul>
-          </div>
-          <div class="col-md-4">
-            <ul class="right-icons">
-              <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-              <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-              <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div> -->
+   
 
     <header class="">
       <nav class="navbar navbar-expand-lg">
@@ -93,9 +72,7 @@ $categorie = $pdo->query($sql);
               <li class="nav-item">
                 <a class="nav-link" href="categorie.php">Produits</a>
               </li>
-             <!-- <li class="nav-item">
-                <a class="nav-link" href="login.html">login</a>
-              </li> -->
+             
              <li class="nav-item dropdown active">
                 <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">À propos</a>
 
@@ -255,16 +232,39 @@ $categorie = $pdo->query($sql);
   <div class="container">
     <div class="row">
 
-      <div class="col-md-12">
-        <div class="section-heading">
-          <h2>Avis de nos <em>clients</em></h2>
-          <span>Ce que nos aventuriers disent de Camp&Co</span>
-        </div>
-      </div>
-
-      
-
+  <!-- AVIS 1 -->
+  <div class="col-md-4">
+    <div class="testimonial-card">
+      <p>
+        "Une expérience incroyable avec Camp&Co ! La tente était très confortable et facile à installer.
+        J’ai passé un week-end parfait à Aïn Draham."
+      </p>
+      <h4>- Yassine Ben Ali, Tunis</h4>
     </div>
+  </div>
+
+  <!-- AVIS 2 -->
+  <div class="col-md-4">
+    <div class="testimonial-card">
+      <p>
+        "Service excellent et matériel de qualité. Nous avons adoré notre séjour en camping à Tabarka,
+        tout était bien organisé et sécurisé."
+      </p>
+      <h4>- Amira Trabelsi, Sfax</h4>
+    </div>
+  </div>
+
+  <!-- AVIS 3 -->
+  <div class="col-md-4">
+    <div class="testimonial-card">
+      <p>
+        "Camp&Co nous a permis de découvrir la nature autrement. La tente était propre, résistante et très pratique."
+      </p>
+      <h4>- Mohamed Amine, Sousse</h4>
+    </div>
+  </div>
+
+</div>
   </div>
 </div>
    
