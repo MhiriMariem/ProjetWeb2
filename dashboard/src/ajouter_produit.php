@@ -37,8 +37,7 @@ $reference = $_POST['reference'];
 
     // Insertion sécurisée
 // Vérifier si la référence existe déjà
-$check = $pdo->prepare("SELECT * FROM produit WHERE reference = ?");
-$check->execute([$reference]);
+$check = $pdo->query("SELECT * FROM produit WHERE reference = '$reference'");
 
 if ($check->rowCount() > 0) {
 
@@ -52,21 +51,11 @@ if ($check->rowCount() > 0) {
 
     // Insertion produit
     $sql = "INSERT INTO produit 
-    (nom, description, prix, stock, categorie_id, reference, image)
-    VALUES 
-    (:nom, :description, :prix, :stock, :categorie_id, :reference, :image)";
+        (nom, description, prix, stock, categorie_id, reference, image)
+        VALUES 
+        ('$nom', '$description', '$prix', '$stock', '$categorie_id', '$reference', '$image')";
 
-    $stmt = $pdo->prepare($sql);
-
-    $stmt->execute([
-        ':nom' => $nom,
-        ':description' => $description,
-        ':prix' => $prix,
-        ':stock' => $stock,
-        ':categorie_id' => $categorie_id,
-        ':reference' => $reference,
-        ':image' => $image
-    ]);
+        $pdo->exec($sql);
 
     header("Location: liste_produits.php?success=1");
     exit();

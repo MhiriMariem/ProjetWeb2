@@ -23,13 +23,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'
     $nom = trim($_POST['nom']);
     $telephone = trim($_POST['telephone']);
 
-    $stmtUpdate = $conn->prepare("
-        UPDATE utilisateur
-        SET nom = ?, telephone = ?
-        WHERE email = ?
-    ");
+    $req = "UPDATE utilisateur
+            SET nom='$nom',
+                telephone='$telephone'
+            WHERE email='$email'";
 
-    $stmtUpdate->execute([$nom, $telephone, $email]);
+    $conn->exec($req);
+
 
     $_SESSION["nom"] = $nom;
     $_SESSION["message"] = "Profil mis à jour avec succès ✔";
@@ -41,15 +41,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'
 /* =========================
    GET USER
 ========================= */
-$stmt = $conn->prepare("
-    SELECT nom, email, telephone, role
-    FROM utilisateur
-    WHERE email = ?
-");
+$req = "SELECT nom, email, telephone, role
+        FROM utilisateur
+        WHERE email='$email'";
 
-$stmt->execute([$email]);
+$res = $conn->query($req);
 
-$user = $stmt->fetch(PDO::FETCH_ASSOC);
+$user = $res->fetch(PDO::FETCH_ASSOC);
 
 if (!$user) {
     $user = [

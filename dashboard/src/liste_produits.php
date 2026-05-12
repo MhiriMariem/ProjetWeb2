@@ -15,8 +15,10 @@ $pdo = $cnx->CNXbase();
 if (isset($_GET['delete'])) {
     $id = $_GET['delete'];
 
-    $stmt = $pdo->prepare("DELETE FROM produit WHERE id_produit=?");
-    $stmt->execute([$id]);
+    $req = "DELETE FROM produit 
+            WHERE id_produit = '$id'";
+
+    $pdo->exec($req);
 
     header("Location: liste_produits.php");
     exit();
@@ -29,13 +31,15 @@ if (isset($_POST['update'])) {
     $prix = $_POST['prix'];
     $stock = $_POST['stock'];
 
-    $stmt = $pdo->prepare("
-        UPDATE produit 
-        SET nom=?, description=?, prix=?, stock=? 
-        WHERE id_produit=?
-    ");
+    $req = "UPDATE produit 
+            SET 
+            nom='$nom',
+            description='$description',
+            prix='$prix',
+            stock='$stock'
+            WHERE id_produit='$id'";
 
-    $stmt->execute([$nom, $description, $prix, $stock, $id]);
+    $pdo->exec($req);
 
     header("Location: liste_produits.php");
     exit();
@@ -46,9 +50,12 @@ $editProd = null;
 if (isset($_GET['edit'])) {
     $id = $_GET['edit'];
 
-    $stmt = $pdo->prepare("SELECT * FROM produit WHERE id_produit=?");
-    $stmt->execute([$id]);
-    $editProd = $stmt->fetch();
+    $req = "SELECT * FROM produit 
+            WHERE id_produit = '$id'";
+
+    $resEdit = $pdo->query($req);
+
+    $editProd = $resEdit->fetch();
 }
 $sql = "SELECT p.*, c.nom AS categorie_nom
         FROM produit p

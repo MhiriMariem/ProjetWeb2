@@ -14,13 +14,11 @@ $pdo = $cnx->CNXbase();
 if (isset($_GET['delete'])) {
     $id = $_GET['delete'];
 
-    $check = $pdo->prepare("SELECT role FROM utilisateur WHERE id_utilisateur = ?");
-    $check->execute([$id]);
+    $check = $pdo->query("SELECT role FROM utilisateur WHERE id_utilisateur = $id");
     $user = $check->fetch();
 
     if ($user && $user['role'] !== 'admin') {
-        $stmt = $pdo->prepare("DELETE FROM utilisateur WHERE id_utilisateur = ?");
-        $stmt->execute([$id]);
+        $pdo->exec("DELETE FROM utilisateur WHERE id_utilisateur = $id");
     }
 
     header("Location: gestion_utilisateur.php");

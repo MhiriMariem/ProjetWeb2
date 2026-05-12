@@ -16,15 +16,14 @@ if (isset($_GET['delete'])) {
     $id = $_GET['delete'];
 
     // Vérifier si des produits existent
-    $stmt = $pdo->prepare("SELECT COUNT(*) FROM produit WHERE categorie_id=?");
-    $stmt->execute([$id]);
-    $count = $stmt->fetchColumn();
+    $stmt = $pdo->query("SELECT COUNT(*) AS total FROM produit WHERE categorie_id = $id");
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $count = $row['total'];
 
     if ($count > 0) {
     $_SESSION['error'] = "Impossible de supprimer cette catégorie";
 } else {
-    $stmt = $pdo->prepare("DELETE FROM categorie WHERE categorie_id=?");
-    $stmt->execute([$id]);
+    $pdo->exec("DELETE FROM categorie WHERE categorie_id = $id");
     $_SESSION['success'] = "Catégorie supprimée avec succès";
 }
 
@@ -37,8 +36,11 @@ if (isset($_POST['update'])) {
     $id = $_POST['id'];
     $nom = $_POST['nom'];
 
-    $stmt = $pdo->prepare("UPDATE categorie SET nom=? WHERE categorie_id=?");
-    $stmt->execute([$nom, $id]);
+    $sql = "UPDATE categorie 
+            SET nom = '$nom'
+            WHERE categorie_id = $id";
+
+    $pdo->exec($sql);
 
     header("Location: liste_categorie.php");
     exit();
@@ -50,8 +52,8 @@ $editCat = null;
 if (isset($_GET['edit'])) {
     $id = $_GET['edit'];
 
-    $stmt = $pdo->prepare("SELECT * FROM categorie WHERE categorie_id=?");
-    $stmt->execute([$id]);
+    $stmt = $pdo->query("SELECT * FROM categorie WHERE categorie_id = $id");
+
     $editCat = $stmt->fetch();
 }
 

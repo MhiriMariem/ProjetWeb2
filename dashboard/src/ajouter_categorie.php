@@ -36,13 +36,9 @@ if (isset($_POST['ajouter'])) {
 
     // INSERT
     $sql = "INSERT INTO categorie (nom, image)
-            VALUES (:nom, :image)";
+            VALUES ('$nom', '$image')";
 
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([
-        ':nom' => $nom,
-        ':image' => $image
-    ]);
+    $pdo->exec($sql);
 
     header("Location: liste_categorie.php?success=1");
     exit();
