@@ -148,7 +148,7 @@ $res = $pdo->query($sql);
                 <span class="availability-status online"></span>
               </div>
               <div class="nav-profile-text">
-                <p class="mb-1 text-black"><?= htmlspecialchars($_SESSION["nom"] ?? 'Administrateur') ?></p>
+                <p class="mb-1 text-black"><?= ($_SESSION["nom"] ?? 'Administrateur') ?></p>
               </div>
             </a>
 
@@ -183,7 +183,7 @@ $res = $pdo->query($sql);
                   <span class="login-status online"></span>
                 </div>
                 <div class="welcome-box">
-                  <h3>Bonjour, <?= htmlspecialchars($_SESSION["nom"] ?? 'Admin') ?></h3>
+                  <h3>Bonjour, <?= ($_SESSION["nom"] ?? 'Admin') ?></h3>
                 </div>
               </a>
             </li>
@@ -315,7 +315,7 @@ $res = $pdo->query($sql);
     <input class="form-control mb-2" 
            type="text" 
            name="nom" 
-           value="<?= htmlspecialchars($editCat['nom']); ?>" 
+           value="<?= ($editCat['nom']); ?>" 
            required>
 
     <div class="btn-group-custom">

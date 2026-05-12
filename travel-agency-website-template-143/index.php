@@ -90,7 +90,7 @@ $categorie = $pdo->query($sql);
               <a href="panier.php" class="nav-link nav-profile-icon">
 <i class="fa fa-shopping-cart" style="color:white;"></i>
                 <span class="badge">
-                  <?= count($_SESSION['panier'] ?? []) ?>
+                    <?php echo count($_SESSION['panier'] ?? []); ?>
                 </span>
               </a>
             </li>
@@ -186,9 +186,9 @@ $categorie = $pdo->query($sql);
 <?php while ($p = $categorie->fetch(PDO::FETCH_ASSOC)) { ?>
   <div class="col-md-4">
     <div class="service-item">
-      <img src="assets/images/<?php echo htmlspecialchars($p['image']); ?>" alt="">
+      <img src="assets/images/<?php echo ($p['image']); ?>" alt="">
       <div class="down-content">
-        <h4><?php echo htmlspecialchars($p['nom']); ?></h4>
+        <h4><?php echo ($p['nom']); ?></h4>
 
         <!-- ✅ lien corrigé -->
         <a href="produits.php?categorie_id=<?php echo $p['categorie_id']; ?>" class="filled-button">

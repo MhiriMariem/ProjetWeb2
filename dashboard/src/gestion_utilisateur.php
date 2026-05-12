@@ -70,7 +70,7 @@ $users = $pdo->query("SELECT * FROM utilisateur ORDER BY id_utilisateur DESC");
                   <span class="availability-status online"></span>
                 </div>
                 <div class="nav-profile-text">
-                  <p class="mb-1 text-black"><?= htmlspecialchars($_SESSION["nom"] ?? 'Administrateur') ?></p>
+                  <p class="mb-1 text-black"><?= ($_SESSION["nom"] ?? 'Administrateur') ?></p>
                 </div>
               </a>
             <div class="dropdown-menu navbar-dropdown">
@@ -104,7 +104,7 @@ $users = $pdo->query("SELECT * FROM utilisateur ORDER BY id_utilisateur DESC");
                   <span class="login-status online"></span>
                 </div>
                 <div class="welcome-box">
-                  <h3>Bonjour, <?= htmlspecialchars($_SESSION["nom"] ?? 'Admin') ?></h3>
+                  <h3>Bonjour, <?= ($_SESSION["nom"] ?? 'Admin') ?></h3>
                 </div>
               </a>
             </li>
@@ -185,9 +185,9 @@ $users = $pdo->query("SELECT * FROM utilisateur ORDER BY id_utilisateur DESC");
                 <tbody>
                 <?php while ($u = $users->fetch(PDO::FETCH_ASSOC)) { ?>
                   <tr>
-                    <td><?= htmlspecialchars($u['nom']); ?></td>
-                    <td><?= htmlspecialchars($u['email']); ?></td>
-                    <td><?= htmlspecialchars($u['telephone']); ?></td>
+                    <td><?= ($u['nom']); ?></td>
+                    <td><?= ($u['email']); ?></td>
+                    <td><?= ($u['telephone']); ?></td>
                     <td>
                       <?php if ($u['role'] === 'admin') { ?>
                         <span class="badge bg-gradient-danger">Admin</span>

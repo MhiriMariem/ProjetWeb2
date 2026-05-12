@@ -2,38 +2,41 @@
 session_start();
 require_once "pdo.php";
 
+/* connexion */
+$cnx = new connexion();
+$conn = $cnx->CNXbase();
+
+/* sécurité */
 if (!isset($_SESSION["connecte"]) || $_SESSION["role"] != "client") {
     header("Location: ../template/login.php");
     exit();
 }
 
+/* email utilisateur */
 $email = $_SESSION["email"];
-$cnx = new connexion();
-$conn = $cnx->CNXbase();
 
-// Mise à jour du profil
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'update') {
-    $new_nom = trim($_POST['nom']);
-    $new_prenom = trim($_POST['prenom']);
-    $new_telephone = trim($_POST['telephone']);
-    $user_email = $_SESSION['email'];
+/* UPDATE profil */
+if (isset($_POST['action']) && $_POST['action'] == "update") {
 
-    if (!empty($new_nom)) {
-        $stmtUpdate = $conn->prepare("UPDATE utilisateur SET nom = ?, prenom = ?, telephone = ? WHERE email = ?");
-        $stmtUpdate->execute([$new_nom, $new_prenom,$new_telephone, $user_email]);
-        $_SESSION['message'] = "Profil mis à jour avec succès.";
-        header("Location: profil.php");
-        exit();
-    }
+    $nom = $_POST['nom'];
+    $prenom = $_POST['prenom'];
+    $telephone = $_POST['telephone'];
+
+    $sql = "UPDATE utilisateur 
+            SET nom='$nom', prenom='$prenom', telephone='$telephone'
+            WHERE email='$email'";
+
+    $conn->exec($sql);
+
+    $_SESSION['message'] = "Profil mis à jour";
+    header("Location: profil.php");
+    exit();
 }
 
-// Récupération des données
-$stmt = $conn->prepare("SELECT nom, prenom,email, telephone, role FROM utilisateur WHERE email = ?");
-$stmt->execute([$email]);
-$user = $stmt->fetch(PDO::FETCH_ASSOC);
-if (!$user) {
-    $user = ["nom" => "","prenom" => "", "email" => "", "telephone" => "", "role" => ""];
-}
+/* SELECT utilisateur */
+$sql = "SELECT * FROM utilisateur WHERE email='$email'";
+$res = $conn->query($sql);
+$user = $res->fetch();
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -122,7 +125,7 @@ if (!$user) {
             </div>
 
             <?php if (isset($_SESSION['message'])): ?>
-                <div class="message"><i class="fas fa-check-circle"></i> <?= htmlspecialchars($_SESSION['message']); unset($_SESSION['message']); ?></div>
+                <div class="message"><i class="fas fa-check-circle"></i> <?= ($_SESSION['message']); unset($_SESSION['message']); ?></div>
             <?php endif; ?>
 
             <form method="POST">
@@ -137,7 +140,7 @@ if (!$user) {
             <input type="text"
                    name="nom"
                    class="form-control"
-                   value="<?= htmlspecialchars($user["nom"]) ?>">
+                   value="<?= ($user["nom"]) ?>">
         </div>
 
         <div class="info-row">
@@ -146,7 +149,7 @@ if (!$user) {
             <input type="text"
                    name="prenom"
                    class="form-control"
-                   value="<?= htmlspecialchars($user["prenom"]) ?>">
+                   value="<?= ($user["prenom"]) ?>">
         </div>
 
         <div class="info-row">
@@ -154,7 +157,7 @@ if (!$user) {
 
             <input type="email"
                    class="form-control"
-                   value="<?= htmlspecialchars($user["email"]) ?>"
+                   value="<?= ($user["email"]) ?>"
                    readonly>
         </div>
 
@@ -164,7 +167,7 @@ if (!$user) {
             <input type="text"
                    name="telephone"
                    class="form-control"
-                   value="<?= htmlspecialchars($user["telephone"]) ?>">
+                   value="<?= ($user["telephone"]) ?>">
         </div>
 
         <div class="info-row">
@@ -172,7 +175,7 @@ if (!$user) {
 
             <input type="text"
                    class="form-control"
-                   value="<?= htmlspecialchars($user["role"]) ?>"
+                   value="<?= ($user["role"]) ?>"
                    readonly>
         </div>
 

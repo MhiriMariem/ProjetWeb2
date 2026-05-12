@@ -58,7 +58,7 @@ $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <span class="availability-status online"></span>
               </div>
               <div class="nav-profile-text">
-                <p class="mb-1 text-black"><?= htmlspecialchars($_SESSION["nom"] ?? 'Administrateur') ?></p>
+                <p class="mb-1 text-black"><?= ($_SESSION["nom"] ?? 'Administrateur') ?></p>
               </div>
             </a>
 
@@ -93,7 +93,7 @@ $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
                   <span class="login-status online"></span>
                 </div>
                 <div class="welcome-box">
-                  <h3>Bonjour, <?= htmlspecialchars($_SESSION["nom"] ?? 'Admin') ?></h3>
+                  <h3>Bonjour, <?= ($_SESSION["nom"] ?? 'Admin') ?></h3>
                 </div>
               </a>
             </li>
@@ -185,22 +185,22 @@ $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <?php foreach ($messages as $m): ?>
 <tr>
 
-  <td><?= htmlspecialchars($m['nom']) ?></td>
+  <td><?= ($m['nom']) ?></td>
 
-  <td><?= htmlspecialchars($m['email']) ?></td>
+  <td><?= ($m['email']) ?></td>
 
   <td>
     <span class="badge badge-info">
-      <?= htmlspecialchars($m['sujet']) ?>
+      <?= ($m['sujet']) ?>
     </span>
   </td>
 
   <td style="max-width:300px;">
-    <?= nl2br(htmlspecialchars($m['message'])) ?>
+    <?= nl2br(($m['message'])) ?>
   </td>
 
   <td>
-    <?= htmlspecialchars($m['date_envoi']) ?>
+    <?= ($m['date_envoi']) ?>
   </td>
 
 </tr>

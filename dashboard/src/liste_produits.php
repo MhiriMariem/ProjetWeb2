@@ -144,7 +144,7 @@ $sql = "SELECT p.*, c.nom AS categorie_nom
                 <span class="availability-status online"></span>
               </div>
               <div class="nav-profile-text">
-                <p class="mb-1 text-black"><?= htmlspecialchars($_SESSION["nom"] ?? 'Administrateur') ?></p>
+                <p class="mb-1 text-black"><?= ($_SESSION["nom"] ?? 'Administrateur') ?></p>
               </div>
             </a>
 
@@ -179,7 +179,7 @@ $sql = "SELECT p.*, c.nom AS categorie_nom
                   <span class="login-status online"></span>
                 </div>
                 <div class="welcome-box">
-                  <h3>Bonjour, <?= htmlspecialchars($_SESSION["nom"] ?? 'Admin') ?></h3>
+                  <h3>Bonjour, <?= ($_SESSION["nom"] ?? 'Admin') ?></h3>
                 </div>
               </a>
             </li>
@@ -261,14 +261,14 @@ $sql = "SELECT p.*, c.nom AS categorie_nom
 
 <td>
 <img class="prod-img"
-     src="../../travel-agency-website-template-143/assets/images/<?= htmlspecialchars($row['image']) ?>">
+     src="../../travel-agency-website-template-143/assets/images/<?= ($row['image']) ?>">
   </td>
 
-<td><?= htmlspecialchars($row['nom']) ?></td>
-<td><?= htmlspecialchars($row['description']) ?></td>
-<td><?= htmlspecialchars($row['prix']) ?> TND</td>
-<td><?= htmlspecialchars($row['stock']) ?></td>
-<td><?= htmlspecialchars($row['categorie_nom'] ?? 'Sans catégorie') ?></td>
+<td><?= ($row['nom']) ?></td>
+<td><?= ($row['description']) ?></td>
+<td><?= ($row['prix']) ?> TND</td>
+<td><?= ($row['stock']) ?></td>
+<td><?= ($row['categorie_nom'] ?? 'Sans catégorie') ?></td>
 <td class="btns">
 
     <a href="?edit=<?= $row['id_produit'] ?>"
@@ -303,16 +303,16 @@ $sql = "SELECT p.*, c.nom AS categorie_nom
 <input type="hidden" name="id_produit" value="<?= $editProd['id_produit'] ?>">
 
 <input class="form-control mb-2" type="text" name="nom"
-       value="<?= htmlspecialchars($editProd['nom']) ?>" required>
+       value="<?= ($editProd['nom']) ?>" required>
 
 <textarea class="form-control mb-2"
-          name="description" required><?= htmlspecialchars($editProd['description']) ?></textarea>
+          name="description" required><?= ($editProd['description']) ?></textarea>
 
 <input class="form-control mb-2" type="number" step="0.01" name="prix"
-       value="<?= htmlspecialchars($editProd['prix']) ?>" required>
+       value="<?= ($editProd['prix']) ?>" required>
 
 <input class="form-control mb-2" type="number" name="stock"
-       value="<?= htmlspecialchars($editProd['stock']) ?>" required>
+       value="<?= ($editProd['stock']) ?>" required>
 
 <div class="btn-group-custom">
 

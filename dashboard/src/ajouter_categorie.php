@@ -21,7 +21,7 @@ $pdo = $cnx->CNXbase();
 // =====================
 if (isset($_POST['ajouter'])) {
 
-    $nom = htmlspecialchars($_POST['nom']);
+    $nom = $_POST['nom'];
 
     // image
     $image = $_FILES['image']['name'];
@@ -89,7 +89,7 @@ if (isset($_POST['ajouter'])) {
                   <span class="availability-status online"></span>
                 </div>
                 <div class="nav-profile-text">
-                  <p class="mb-1 text-black"><?= htmlspecialchars($_SESSION["nom"] ?? 'Administrateur') ?></p>
+                  <p class="mb-1 text-black"><?= ($_SESSION["nom"] ?? 'Administrateur') ?></p>
                 </div>
               </a>
              <div class="dropdown-menu navbar-dropdown">
@@ -125,7 +125,7 @@ if (isset($_POST['ajouter'])) {
                   <span class="login-status online"></span>
                 </div>
                 <div class="welcome-box">
-                  <h3>Bonjour, <?= htmlspecialchars($_SESSION["nom"] ?? 'Admin') ?></h3>
+                  <h3>Bonjour, <?= ($_SESSION["nom"] ?? 'Admin') ?></h3>
                 </div>
               </a>
             </li>

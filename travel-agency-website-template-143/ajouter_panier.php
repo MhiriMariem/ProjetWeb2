@@ -1,35 +1,45 @@
 <?php
 session_start();
+
 require_once "pdo.php";
 
 $cnx = new connexion();
 $conn = $cnx->CNXbase();
 
+ //recuperer l'id de la produit dans l'url cad prend la valeur dans l'url et le met dans l'id 
 $id = $_GET['id'];
 
+/* initialiser panier */
 if (!isset($_SESSION['panier'])) {
     $_SESSION['panier'] = [];
 }
 
 /* récupérer produit */
-$stmt = $conn->prepare("SELECT * FROM produit WHERE id_produit = ?");
-$stmt->execute([$id]);
-$produit = $stmt->fetch(PDO::FETCH_ASSOC);
+$sql = "SELECT * FROM produit WHERE id_produit = $id";
+$res = $conn->query($sql);
+$produit = $res->fetch();
 
+/* ajouter au panier */
 if ($produit) {
 
-    $found = false;
+    $exist = false;
 
-    foreach ($_SESSION['panier'] as $index => $item) {
+    /*on parcourt tous les produits du panier un par un*/
+    for ($i = 0; $i < count($_SESSION['panier']); $i++) {
 
-        if ($item['id'] == $id) {
-            $_SESSION['panier'][$index]['quantite'] += 1;
-            $found = true;
+        if ($_SESSION['panier'][$i]['id'] == $id) {
+
+            $_SESSION['panier'][$i]['quantite']++;
+
+            $exist = true;
+
             break;
         }
     }
 
-    if (!$found) {
+    /* sinon ajouter nouveau produit */
+    if (!$exist) {
+
         $_SESSION['panier'][] = [
             'id' => $produit['id_produit'],
             'nom' => $produit['nom'],
@@ -39,6 +49,7 @@ if ($produit) {
     }
 }
 
+/* retour page produits */
 header("Location: produits.php");
-exit;
+exit();
 ?>

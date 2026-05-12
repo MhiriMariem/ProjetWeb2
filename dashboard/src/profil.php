@@ -289,7 +289,7 @@ if (!$user) {
 
                         <div class="nav-profile-text">
                             <p class="mb-1 text-black">
-                                <?= htmlspecialchars($_SESSION["nom"] ?? 'Administrateur') ?>
+                                <?= ($_SESSION["nom"] ?? 'Administrateur') ?>
                             </p>
                         </div>
 
@@ -335,7 +335,7 @@ if (!$user) {
                         <div class="welcome-box">
                             <h3>
                                 Bonjour,
-                                <?= htmlspecialchars($_SESSION["nom"] ?? 'Admin') ?>
+                                <?= ($_SESSION["nom"] ?? 'Admin') ?>
                             </h3>
                         </div>
 
@@ -423,7 +423,7 @@ if (!$user) {
 
                             <i class="fa fa-check-circle"></i>
 
-                            <?= htmlspecialchars($_SESSION['message']); ?>
+                            <?= ($_SESSION['message']); ?>
 
                         </div>
 
@@ -448,7 +448,7 @@ if (!$user) {
                             <input type="text"
                                    name="nom"
                                    class="form-control"
-                                   value="<?= htmlspecialchars($user['nom']) ?>"
+                                   value="<?= ($user['nom']) ?>"
                                    required>
 
                         </div>
@@ -462,7 +462,7 @@ if (!$user) {
 
                             <input type="email"
                                    class="form-control"
-                                   value="<?= htmlspecialchars($user['email']) ?>"
+                                   value="<?= ($user['email']) ?>"
                                    readonly>
 
                         </div>
@@ -477,7 +477,7 @@ if (!$user) {
                             <input type="text"
                                    name="telephone"
                                    class="form-control"
-                                   value="<?= htmlspecialchars($user['telephone']) ?>">
+                                   value="<?= ($user['telephone']) ?>">
 
                         </div>
 
@@ -490,7 +490,7 @@ if (!$user) {
 
                             <input type="text"
                                    class="form-control"
-                                   value="<?= htmlspecialchars($user['role']) ?>"
+                                   value="<?= ($user['role']) ?>"
                                    readonly>
 
                         </div>

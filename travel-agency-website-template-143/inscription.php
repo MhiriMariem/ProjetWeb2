@@ -23,11 +23,15 @@ if (isset($_POST["register"])) {
     $hashedPassword = md5($mot_de_passe);
 
     try {
-        $sql = "INSERT INTO utilisateur(nom,prenom, email, telephone, mot_de_passe, role)
-                VALUES (?, ?, ?, ?,?, ?)";
+       $req = "INSERT INTO utilisateur(nom,prenom, email, telephone, mot_de_passe, role)
+                VALUES ('$nom', '$prenom', '$email', '$telephone', '$hashedPassword', '$role')";
 
-        $stmt = $conn->prepare($sql);
-        $stmt->execute([$nom,$prenom, $email, $telephone, $hashedPassword, $role]);
+         $conn->query($req);
+
+        $_SESSION["connecte"] = "1";
+        $_SESSION["email"] = $email;
+        $_SESSION["nom"] = $nom;
+        $_SESSION["role"] = $role;
 
         header("Location: index.php?success=1");
         exit();

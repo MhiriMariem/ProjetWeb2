@@ -3,54 +3,44 @@ session_start();
 require_once "pdo.php";
 
 $panier = $_SESSION['panier'] ?? [];
-$message = $_SESSION['message'] ?? null;
-$total_confirm = $_SESSION['total'] ?? null;
 
-unset($_SESSION['message'], $_SESSION['total']);
-
-if (empty($panier) && !$message) {
+if (empty($panier)) {
     echo "Panier vide";
     exit;
 }
 
+/* calcul total */
 $total = 0;
 foreach ($panier as $p) {
     $total += $p['prix'] * $p['quantite'];
 }
 
-/* ✅ EXECUTION UNIQUEMENT AU CLICK */
+/* clic valider */
 if (isset($_POST['valider'])) {
 
     $cnx = new connexion();
     $conn = $cnx->CNXbase();
 
     /* 1. commande */
-    $stmt = $conn->prepare("
-    INSERT INTO commande (id_utilisateur, date_commande, total)
-    VALUES (?, NOW(), ?)
-    ");
+    $sql = "INSERT INTO commande (id_utilisateur, date_commande, total)
+            VALUES ({$_SESSION['id_utilisateur']}, NOW(), $total)";
 
-    $stmt->execute([
-    $_SESSION["id_utilisateur"],
-    $total
-    ]);
+    $conn->query($sql);
 
     $id_commande = $conn->lastInsertId();
 
-    /* 2. détails */
+    /* 2. détails commande */
     foreach ($panier as $p) {
 
-        $stmt = $conn->prepare("
-            INSERT INTO commande_details (id_commande, id_produit, quantite, prix)
-            VALUES (?, ?, ?, ?)
-        ");
+        $id_produit = $p['id_produit'];
+        $quantite = $p['quantite'];
+        $prix = $p['prix'];
 
-        $stmt->execute([
-            $id_commande,
-            $p['id_produit'],
-            $p['quantite'],
-            $p['prix']
-        ]);
+        $sql = "INSERT INTO details_commande
+                (id_commande, id_produit, quantite, prix_unitaire)
+                VALUES ($id_commande, $id_produit, $quantite, $prix)";
+
+        $conn->query($sql);
     }
 
     /* 3. vider panier */
@@ -153,7 +143,7 @@ h2,h3{
     <?php if ($message): ?>
     <div class="message">
         <i class="fas fa-check-circle"></i>
-        <?= htmlspecialchars($message) ?>
+        <?= ($message) ?>
         <br>
         Total payé : <?= $total_confirm ?> DT
     </div>
@@ -216,11 +206,7 @@ h2,h3{
                 class="btn-valider">
             Valider la commande
         </button>
-  <button type="reset" 
-                name="annuler"
-                class="btn-reset">
-            Annuler
-        </button>
+ 
     </form>
 
 </div>

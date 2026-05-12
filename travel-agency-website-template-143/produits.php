@@ -7,48 +7,45 @@ $pdo = $cnx->CNXbase();
 
 $id = $_GET['categorie_id'] ?? 0;
 
-$stmt = $pdo->prepare("SELECT * FROM categorie WHERE categorie_id=?");
-$stmt->execute([$id]);
-$categorie = $stmt->fetch();
+$sql = "SELECT * FROM categorie WHERE categorie_id = $id";
+$res = $pdo->query($sql);
+$categorie = $res->fetch();
 
-$stmt = $pdo->prepare("SELECT * FROM produit WHERE categorie_id=?");
-$stmt->execute([$id]);
-$produits = $stmt->fetchAll();
+/* récupérer produits */
+$sql = "SELECT * FROM produit WHERE categorie_id = $id";
+$res = $pdo->query($sql);
+$produits = $res->fetchAll();
 
+//panier
 if (isset($_GET['add'])) {
     $idProduit = $_GET['add'];
 
     // chercher le produit en base
-    $stmt = $pdo->prepare("SELECT * FROM produit WHERE id_produit=?");
-    $stmt->execute([$idProduit]);
-    $produit = $stmt->fetch();
+   $sql = "SELECT * FROM produit WHERE id_produit = $idProduit";
+    $res = $pdo->query($sql);
+    $produit = $res->fetch();
 
     if ($produit) {
         // initialiser panier
-        if (!isset($_SESSION['panier'])) {
-            $_SESSION['panier'] = [];
-        }
+       $exist = false;
 
-        // vérifier si produit existe déjà
-        $found = false;
+for ($i = 0; $i < count($_SESSION['panier']); $i++) {
+    if ($_SESSION['panier'][$i]['id_produit'] == $idProduit) {
+        $_SESSION['panier'][$i]['quantite']++;
+        $exist = true;
+        break;
+    }
+}
 
-        foreach ($_SESSION['panier'] as &$item) {
-            if ($item['id_produit'] == $idProduit) {
-                $item['quantite']++;
-                $found = true;
-                break;
-            }
-        }
+if (!$exist) {
 
-        // sinon ajouter
-        if (!$found) {
-            $_SESSION['panier'][] = [
-                'id_produit' => $produit['id_produit'],
-                'nom' => $produit['nom'],
-                'prix' => $produit['prix'],
-                'quantite' => 1
-            ];
-        }
+    $_SESSION['panier'][] = [
+        'id_produit' => $produit['id_produit'],
+        'nom' => $produit['nom'],
+        'prix' => $produit['prix'],
+        'quantite' => 1
+    ];
+}
     }
 
     // éviter rechargement double
@@ -128,7 +125,7 @@ if (isset($_GET['add'])) {
               <a href="panier.php" class="nav-link nav-profile-icon">
                 <i class="fa fa-shopping-cart"></i>
                 <span class="badge">
-                  <?= count($_SESSION['panier'] ?? []) ?>
+                  <?php echo count($_SESSION['panier'] ?? []); ?>
                 </span>
               </a>
             </li>
@@ -150,7 +147,7 @@ if (isset($_GET['add'])) {
           <div class="col-md-12">
             <h1><?= $categorie['nom']; ?></h1>
             <span>
-                Découvrez les produits de la catégorie <?= $categorie['nom']; ?> et équipez-vous pour vos aventures en plein air.
+                Découvrez les produits de la catégorie <?php echo $categorie['nom']; ?> et équipez-vous pour vos aventures en plein air.
             </span>
             
           </div>
@@ -203,26 +200,7 @@ if (isset($_GET['add'])) {
         <br>
         <br>
 
-        <!-- <nav>
-          <ul class="pagination pagination-lg justify-content-center">
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">«</span>
-                <span class="sr-only">Previous</span>
-              </a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">»</span>
-                <span class="sr-only">Next</span>
-              </a>
-            </li>
-          </ul>
-        </nav> -->
-
+     
         <br>
         <br>
         <br>

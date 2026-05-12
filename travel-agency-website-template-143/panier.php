@@ -8,16 +8,18 @@ if (!isset($_SESSION['panier'])) {
 
 /* SUPPRESSION PRODUIT */
 if (isset($_GET['remove'])) {
+
     $id = $_GET['remove'];
 
     foreach ($_SESSION['panier'] as $index => $item) {
+
         if ($item['id_produit'] == $id) {
+
             unset($_SESSION['panier'][$index]);
             break;
         }
     }
 
-    $_SESSION['panier'] = array_values($_SESSION['panier']);
     header("Location: panier.php");
     exit();
 }
@@ -112,7 +114,7 @@ foreach ($_SESSION['panier'] as $p) {
             </tr>
 
 <?php foreach ($_SESSION['panier'] as $p): ?>                <tr>
-                    <td><?= htmlspecialchars($p['nom']) ?></td>
+                    <td><?= ($p['nom']) ?></td>
                     <td><?= $p['prix'] ?> DT</td>
                     <td><?= $p['quantite'] ?></td>
                     <td><?= $p['prix'] * $p['quantite'] ?> DT</td>

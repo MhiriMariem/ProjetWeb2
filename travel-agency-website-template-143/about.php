@@ -69,7 +69,7 @@ session_start();
               <a href="panier.php" class="nav-link nav-profile-icon">
                 <i class="fa fa-shopping-cart"></i>
                 <span class="badge">
-                  <?= count($_SESSION['panier'] ?? []) ?>
+                 <?php echo count($_SESSION['panier'] ?? []); ?>
                 </span>
               </a>
             </li>

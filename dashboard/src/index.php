@@ -65,7 +65,7 @@ $totalClients = $stmt2->fetch(PDO::FETCH_ASSOC)['total_clients'];
                 <span class="availability-status online"></span>
               </div>
               <div class="nav-profile-text">
-                <p class="mb-1 text-black"><?= htmlspecialchars($_SESSION["nom"] ?? 'Administrateur') ?></p>
+                <p class="mb-1 text-black"><?= ($_SESSION["nom"] ?? 'Administrateur') ?></p>
               </div>
             </a>
 
@@ -100,7 +100,7 @@ $totalClients = $stmt2->fetch(PDO::FETCH_ASSOC)['total_clients'];
                   <span class="login-status online"></span>
                 </div>
                 <div class="welcome-box">
-                  <h3>Bonjour, <?= htmlspecialchars($_SESSION["nom"] ?? 'Admin') ?></h3>
+                  <h3>Bonjour, <?= ($_SESSION["nom"] ?? 'Admin') ?></h3>
                 </div>
               </a>
             </li>
@@ -262,7 +262,7 @@ $totalClients = $stmt2->fetch(PDO::FETCH_ASSOC)['total_clients'];
               <tr>
 
                 <td>
-                  <?= htmlspecialchars($row['nom']) ?>
+                  <?= ($row['nom']) ?>
                 </td>
 
                 <td>

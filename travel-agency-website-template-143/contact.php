@@ -7,17 +7,18 @@ $pdo = $cnx->CNXbase();
 
 $success = false;
 
+//est ce que formulaire a ete envoye
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $stmt = $pdo->prepare(
-        "INSERT INTO contact (nom, email, sujet, message, date_envoi)
-         VALUES (?, ?, ?, ?, NOW())"
-    );
-    $stmt->execute([
-        $_POST['name'],
-        $_POST['email'],
-        $_POST['sujet'],
-        $_POST['message']
-    ]);
+
+    $nom = $_POST['nom'];
+    $email = $_POST['email'];
+    $sujet = $_POST['sujet'];
+    $message = $_POST['message'];
+
+    $sql = "INSERT INTO contact (nom, email, sujet, message, date_envoi)
+            VALUES ('$nom', '$email', '$sujet', '$message', NOW())";
+
+    $pdo->exec($sql);
 
     $success = true;
 }
@@ -92,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
               <a href="panier.php" class="nav-link nav-profile-icon">
                 <i class="fa fa-shopping-cart"></i>
                 <span class="badge">
-                  <?= count($_SESSION['panier'] ?? []) ?>
+                  <?php echo count($_SESSION['panier'] ?? []); ?>
                 </span>
               </a>
             </li>
